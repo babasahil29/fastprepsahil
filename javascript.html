@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastPrepSahil - JavaScript</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&display=swap');
+
+:root {
+--primary-color: #3b82f6;
+--secondary-color: #38bdf8;
+--background-color: #f9f9f9;
+--text-color: #333;
+}
+
+* {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+}
+
+body {
+font-family: 'Manrope', sans-serif;
+line-height: 1.6;
+color: var(--text-color);
+}
+
+.hero-section {
+background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/java.jpg');
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+height: 400px;
+position: relative;
+padding: 2rem 1rem;
+}
+
+.hero-section::before {
+content: "";
+position: absolute;
+inset: 0;
+background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 2px, transparent 2px, transparent 4px);
+pointer-events: none;
+}
+
+.fade-in {
+opacity: 0;
+transform: translateY(20px);
+transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.fade-in.visible {
+opacity: 1;
+transform: translateY(0);
+}
+
+.btn-animated {
+transition: all 0.3s ease;
+}
+
+.btn-animated:hover, .btn-animated:focus {
+transform: translateY(-3px) scale(1.05);
+box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.btn-animated:active {
+transform: translateY(-1px) scale(1.02);
+box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.dropdown-content {
+display: none;
+position: absolute;
+background-color: var(--background-color);
+min-width: 160px;
+box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+z-index: 1;
+}
+
+.dropdown-content a {
+color: var(--text-color);
+padding: 12px 16px;
+text-decoration: none;
+display: block;
+transition: all 0.2s ease;
+}
+
+.dropdown-content a:hover, .dropdown-content a:focus {
+background-color: #f1f1f1;
+transform: translateX(5px);
+}
+
+.show {
+display: block;
+animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+from { opacity: 0; }
+to { opacity: 1; }
+}
+
+.code-block {
+background-color: #f8f8f8;
+border-left: 4px solid var(--primary-color);
+padding: 1rem;
+margin: 1rem 0;
+font-family: 'Courier New', Courier, monospace;
+overflow-x: auto;
+}
+
+.interview-sheet-container {
+background-color: var(--background-color);
+padding: 20px;
+border: 1px solid #ddd;
+border-radius: 10px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+background-image: linear-gradient(to right, #1e293b, #0f172a);
+position: relative;
+overflow: hidden;
+padding: 2rem 1rem;
+}
+
+footer::before {
+content: '';
+position: absolute;
+inset: 0;
+background: url('path/to/subtle-pattern.png') repeat;
+opacity: 0.05;
+z-index: 0;
+}
+
+footer > div {
+position: relative;
+z-index: 1;
+}
+
+footer h3 {
+font-size: 1.25rem;
+margin-bottom: 1rem;
+position: relative;
+display: inline-block;
+}
+
+footer h3::after {
+content: '';
+position: absolute;
+left: 0;
+bottom: -5px;
+width: 50px;
+height: 2px;
+background: linear-gradient(to right, var(--secondary-color), var(--primary-color));
+}
+
+footer p {
+font-size: 0.9rem;
+line-height: 1.6;
+}
+
+footer a:not(.inline-block) {
+transition: all 0.3s ease;
+}
+
+footer a:not(.inline-block):hover, footer a:not(.inline-block):focus {
+color: var(--secondary-color);
+transform: translateX(5px);
+}
+
+footer .inline-block {
+transition: all 0.3s ease;
+}
+
+footer .inline-block:hover, footer .inline-block:focus {
+transform: translateY(-3px);
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.social-icon {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+width: 40px;
+height: 40px;
+border-radius: 50%;
+background: rgba(255, 255, 255, 0.1);
+transition: all 0.3s ease;
+}
+
+.social-icon:hover, .social-icon:focus {
+background: rgba(255, 255, 255, 0.2);
+transform: translateY(-3px);
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  
+.hero-section {
+  height: 350px;
+}
+
+footer .grid {
+  gap: 1.5rem;
+}
+
+footer .md\:px-12 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.tab-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tab-btn {
+  flex: 1 1 calc(30% - 0.5rem);
+  font-size: 0.9rem;
+  padding: 0.5rem;
+}
+
+}@media only screen and (max-width: 768px) {
+.text-2xl.font-bold.text-blue-600 {
+  display: none;
+}
+
+}</style>
+</head>
+<body class="bg-gray-100">
+<header class="bg-white shadow-md fixed w-full z-10">
+  <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+    <div class="flex items-center">
+      <img src="images/logo2.jpeg" alt="FastPrepSahil Logo" class="h-12 w-auto mr-3">
+      <h1 class="text-2xl font-bold text-blue-600">FastPrepSahil</h1>
+  </div>
+      <div class="flex items-center space-x-2">
+      
+        <button onclick="window.location.href='index.html'" id="searchBtn" class="btn-animated bg-blue-500 text-white px-4 py-2 rounded">Home</button>
+          <div class="relative inline-block">
+              <button id="dropdownBtn" class="btn-animated bg-gray-200 text-gray-700 px-4 py-2 rounded">
+                  Select Language <i class="fas fa-caret-down ml-1"></i>
+              </button>
+              <div id="languageDropdown" class="dropdown-content">
+                  <a href="python.html">Python</a>
+                  <a href="c.html">C</a>
+                  <a href="java.html">Java</a>
+                  <a href="cpp.html">C++</a>
+                  <a href="html.html">HTML</a>
+                  <a href="css.html">CSS</a>
+                  <a href="javascript.html">JavaScript</a>
+                  <a href="sql.html">SQL</a>
+                  <a href="php.html">PHP</a>
+                  <a href="mern.html">MERN</a>
+              </div>
+          </div>
+      </div>
+  </div>
+</header>
+
+    <div class="hero-section flex items-center justify-center pt-16">
+        <h2 id="language-title" class="text-4xl font-bold text-white text-center">JavaScript Resources</h2>
+    </div>
+
+    <main class="container mx-auto mt-8 p-4">
+      <div class="tab-buttons flex flex-wrap gap-2 mb-6">
+        <button onclick="showTab('snapshot')" class="tab-btn btn-animated bg-blue-500 text-white px-3 py-2 rounded text-sm flex-grow">Language Snapshot</button>
+        <button onclick="showTab('cheatsheet')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Cheat Sheet</button>
+        <button onclick="showTab('cheatsheetpdfs')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Cheat Sheet PDFs</button>
+        <button onclick="showTab('cheatsheetlibrary')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Cheat Sheet Library</button>
+        <button onclick="showTab('interviewsheet')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Interview Sheet</button>
+        <button onclick="showTab('interviewlibrary')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Interview Library</button>
+        <button onclick="showTab('standardcodesnippets')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Standard Code Snippets</button>
+    </div>
+    
+        <div id="tab-content" class="bg-white p-6 rounded-lg shadow-md fade-in">
+            <div id="snapshot" class="tab-content">
+                <h3 class="text-2xl font-bold mb-8 text-blue-600">Language Snapshot</h3>
+                <div id="snapshot-content" class="space-y-8">
+                  <section>
+                    <h4 class="text-xl font-semibold mb-4">Overview</h4>
+                    <ul class="list-disc pl-6 space-y-2">
+                      <li>
+                        <span class="font-medium">Definition:</span> JavaScript is a versatile, high-level programming language primarily used for enhancing interactivity on web pages.
+                      </li>
+                      <li>
+                        <span class="font-medium">Creator:</span> Brendan Eich
+                      </li>
+                      <li>
+                        <span class="font-medium">Year Created:</span> 1995
+                      </li>
+                      <li>
+                        <span class="font-medium">Purpose:</span> JavaScript enables developers to implement complex features on web pages, making it an essential part of web development alongside HTML and CSS.
+                      </li>
+                    </ul>
+                  </section>
+              
+                  <section>
+                    <h4 class="text-xl font-semibold mb-4">Key Features</h4>
+                    <ul class="list-disc pl-6 space-y-2">
+                      <li>
+                        <span class="font-medium">Dynamic Typing:</span> JavaScript is dynamically typed, meaning variable types are determined at runtime, allowing for more flexibility in coding.
+                      </li>
+                      <li>
+                        <span class="font-medium">Prototype-Based Object Orientation:</span> Instead of traditional class-based inheritance, JavaScript uses prototypes, enabling objects to inherit directly from other objects.
+                      </li>
+                      <li>
+                        <span class="font-medium">First-Class Functions:</span> Functions in JavaScript are treated as first-class citizens, meaning they can be assigned to variables, passed as arguments, and returned from other functions.
+                      </li>
+                      <li>
+                        <span class="font-medium">Event-Driven:</span> JavaScript is primarily event-driven, allowing developers to create interactive user interfaces that respond to user actions.
+                      </li>
+                      <li>
+                        <span class="font-medium">Asynchronous Programming:</span> With features like callbacks, promises, and async/await, JavaScript supports non-blocking code execution, making it ideal for handling I/O operations.
+                      </li>
+                    </ul>
+                  </section>
+              
+                  <section>
+                    <h4 class="text-xl font-semibold mb-4">Common Use Cases</h4>
+                    <ul class="list-disc pl-6 space-y-2">
+                      <li>
+                        <span class="font-medium">Web Development:</span> Enhancing the user experience on websites through interactivity and dynamic content.
+                      </li>
+                      <li>
+                        <span class="font-medium">Server-Side Development:</span> With Node.js, JavaScript can also be used for server-side programming.
+                      </li>
+                      <li>
+                        <span class="font-medium">Mobile App Development:</span> Frameworks like React Native allow developers to build mobile applications using JavaScript.
+                      </li>
+                      <li>
+                        <span class="font-medium">Game Development:</span> JavaScript can be used to create browser-based games.
+                      </li>
+                    </ul>
+                  </section>
+              
+                  <section>
+                    <h4 class="text-xl font-semibold mb-4">JavaScript Syntax Basics</h4>
+                    <h5 class="text-lg font-semibold mb-2">Variables</h5>
+                    <pre class="bg-gray-100 p-4 rounded-md"><code>
+          let name = 'Sahil';
+          const age = 21;
+                    </code></pre>
+              
+                    <h5 class="text-lg font-semibold mb-2">Data Types</h5>
+                    <p>Includes primitive types (string, number, boolean, null, undefined, symbol) and reference types (objects, arrays).</p>
+              
+                    <h5 class="text-lg font-semibold mb-2">Functions</h5>
+                    <pre class="bg-gray-100 p-4 rounded-md"><code>
+          function greet() {
+          return 'Hello, world!';
+                      }
+                    </code></pre>
+              
+                    <h5 class="text-lg font-semibold mb-2">Conditional Statements</h5>
+                    <pre class="bg-gray-100 p-4 rounded-md"><code>
+          if (age > 18) {
+              console.log('Adult');
+          } else {
+              console.log('Minor');
+                 }
+                    </code></pre>
+              
+                    <h5 class="text-lg font-semibold mb-2">Loops</h5>
+                    <pre class="bg-gray-100 p-4 rounded-md"><code>
+       for (let i = 0; i < 5; i++) {
+        console.log(i);
+       }
+               </code></pre>
+                  </section>
+              
+                  <section>
+                    <h4 class="text-xl font-semibold mb-4">Ecosystem and Frameworks</h4>
+                    <h5 class="text-lg font-semibold mb-2">Front-End Libraries/Frameworks</h5>
+                    <ul class="list-disc pl-6 space-y-2">
+                      <li>React</li>
+                      <li>Angular</li>
+                      <li>Vue.js</li>
+                    </ul>
+              
+                    <h5 class="text-lg font-semibold mb-2">Back-End Frameworks</h5>
+                    <ul class="list-disc pl-6 space-y-2">
+                      <li>Express.js</li>
+                      <li>Koa.js</li>
+                    </ul>
+              
+                    <h5 class="text-lg font-semibold mb-2">Build Tools</h5>
+                    <ul class="list-disc pl-6 space-y-2">
+                      <li>Webpack</li>
+                      <li>Babel</li>
+                    </ul>
+              
+                    <h5 class="text-lg font-semibold mb-2">Package Managers</h5>
+                    <ul class="list-disc pl-6 space-y-2">
+                      <li>npm</li>
+                      <li>Yarn</li>
+                    </ul>
+                  </section>
+              
+                  <section>
+                    <h4 class="text-xl font-semibold mb-4">Conclusion</h4>
+                    <p>JavaScript is a powerful language that plays a crucial role in web development. Its flexibility, ease of use, and extensive ecosystem make it a popular choice among developers for creating dynamic and interactive applications.</p>
+                  </section>
+                </div>
+              </div>
+              <div id="cheatsheet" class="tab-content hidden">
+                <h3 class="text-2xl font-bold mb-8 text-blue-600">Cheat Sheet</h3>
+                <section class="cheatsheet-section mb-12">
+                    <h3 class="text-2xl font-semibold mb-4 text-blue-500">Basic Level</h3>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">1. Variables:</h4>
+                        <p class="mb-2">Used to store data values.</p>
+                        <div class="code-block">
+                            <pre>
+            let variableName = value; // let is block-scoped
+            const constantName = value; // const is for constants
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">2. Data Types:</h4>
+                        <p class="mb-2">Different types of data that can be stored in variables.</p>
+                        <div class="code-block">
+                            <pre>
+            String: "Sahil"
+            Number: 09
+            Boolean: true or false
+            Null: null
+            Undefined: undefined
+            Symbol: Symbol('description')
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">3. Functions:</h4>
+                        <p class="mb-2">A block of code designed to perform a particular task.</p>
+                        <div class="code-block">
+                            <pre>
+            function functionName(parameters) {
+                // code to be executed
+            }
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">4. If Statement:</h4>
+                        <p class="mb-2">Executes a block of code if a specified condition is true.</p>
+                        <div class="code-block">
+                            <pre>
+            if (condition) {
+                // code to be executed
+            }
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">5. Loops:</h4>
+                        <p class="mb-2">Executes a block of code a number of times.</p>
+                        <div class="code-block">
+                            <pre>
+            for (let i = 0; i < 5; i++) {
+                // code to be executed
+            }
+                            </pre>
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="cheatsheet-section mb-12">
+                    <h3 class="text-2xl font-semibold mb-4 text-blue-500">Intermediate Level</h3>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">1. Arrays:</h4>
+                        <p class="mb-2">A collection of elements.</p>
+                        <div class="code-block">
+                            <pre>
+            let arrayName = [element1, element2, element3];
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">2. Objects:</h4>
+                        <p class="mb-2">A collection of key-value pairs.</p>
+                        <div class="code-block">
+                            <pre>
+            let objectName = {
+                key1: value1,
+                key2: value2
+            };
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">3. Arrow Functions:</h4>
+                        <p class="mb-2">A concise way to write functions.</p>
+                        <div class="code-block">
+                            <pre>
+            const functionName = (parameters) => {
+                // code to be executed
+            };
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">4. Promise:</h4>
+                        <p class="mb-2">An object that represents the eventual completion (or failure) of an asynchronous operation.</p>
+                        <div class="code-block">
+                            <pre>
+            const myPromise = new Promise((resolve, reject) => {
+                // asynchronous code
+            });
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">5. Try /Catch:</h4>
+                        <p class="mb-2">Used to handle exceptions.</p>
+                        <div class="code-block">
+                            <pre>
+            try {
+                // code that may throw an error
+            } catch (error) {
+                // code to handle the error
+            }
+                            </pre>
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="cheatsheet-section mb-12">
+                    <h3 class="text-2xl font-semibold mb-4 text-blue-500">Expert Level</h3>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">1. Closures:</h4>
+                        <p class="mb-2">A function that retains access to its lexical scope, even when the function is executed outside that scope.</p>
+                        <div class="code-block">
+                            <pre>
+            function outerFunction() {
+                let outerVariable = 'I am outside!';
+                function innerFunction() {
+                    console.log(outerVariable);
+                }
+                return innerFunction;
+            }
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">2. IIFE (Immediately Invoked Function Expression):</h4>
+                        <p class="mb-2">A function that runs as soon as it is defined.</p>
+                        <div class="code-block">
+                            <pre>
+            (function() {
+                // code to be executed
+            })();
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">3. Async/Await:</h4>
+                        <p class="mb-2">A syntactic sugar for working with Promises, making asynchronous code look synchronous.</p>
+                        <div class="code-block">
+                            <pre>
+            async function myFunction() {
+                const result = await myPromise;
+            }
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">4. Spread Operator:</h4>
+                        <p class="mb-2">Allows an iterable such as an array or string to be expanded in places where zero or more arguments are expected.</p>
+                        <div class="code-block">
+                            <pre>
+            let newArray = [...array1, ...array2];
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">5. Destructuring Assignment:</h4>
+                        <p class="mb-2">A syntax that makes it possible to unpack values from arrays or properties from objects into distinct variables.</p>
+                        <div class="code-block">
+                            <pre>
+            const { key1, key2 } = objectName;
+                            </pre>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div id="cheatsheetpdfs" class="tab-content hidden">
+                <h3 class="text-2xl font-bold mb-8 text-blue-600">Cheat Sheet PDFs</h3>
+                <p class="mb-8">In this section, you'll find downloadable PDF versions of JavaScript cheatsheets from different sources. Click on the links below to download the cheat sheets directly.</p>
+                <ul class="list-disc pl-5 space-y-4">
+                  <li>
+                    <a href="https://websitesetup.org/wp-content/uploads/2020/09/Javascript-Cheat-Sheet.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                      1. JavaScript Cheat Sheet (PDF) - Website Setup
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/iLoveCodingOrg/javascript-cheatsheet/raw/master/js-cheatsheet.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                      2. JavaScript Cheat Sheet (PDF) - iLoveCoding.org (GitHub)
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://static.semrush.com/blog/uploads/files/ed/16/ed16dcde31055dcbe662137fd04f09f7/javascript-cheat-sheet.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                      3. JavaScript Cheat Sheet (PDF) - Semrush
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://duenaslerin.com/iaw/pdfs/javascript-cheat-sheet-v1.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                      4. JavaScript Cheat Sheet (PDF) - Duenas Lerin
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://htmlcheatsheet.com/js/JavaScript-JS-Cheat-Sheet.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                      5. JavaScript Cheat Sheet (PDF) - HTML Cheat Sheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://abcjapan.com.vn/uploads/files/2023/03/1679036172-1656298724javascriptcheatsheet.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                      6. JavaScript Cheat Sheet (PDF) - ABC Japan
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div id="cheatsheetlibrary" class="tab-content hidden">
+                <h3 class="text-2xl font-bold mb-8 text-blue-600">Cheat Sheet Library</h3>
+                <p class="mb-8">In this section, you'll find various links to JavaScript cheatsheets available on different websites. Click on the links below to explore the resources.</p>
+                <ul class="list-disc pl-5 space-y-4">
+                  <li>
+                    <a href="https://www.codewithharry.com/blogpost/javascript-cheatsheet/" target="_blank" class="text-blue-600 hover:underline">
+                      1. Code with Harry JavaScript Cheatsheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://htmlcheatsheet.com/js/" target="_blank" class="text-blue-600 hover:underline">
+                      2. HTML Cheat Sheet - Interactive JavaScript Cheatsheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://quickref.me/javascript.html" target="_blank" class="text-blue-600 hover:underline">
+                      3. QuickRef.me JavaScript Cheatsheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.geeksforgeeks.org/javascript-cheat-sheet-a-basic-guide-to-javascript/" target="_blank" class="text-blue-600 hover:underline">
+                      4. GeeksforGeeks JavaScript Cheat Sheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.interviewbit.com/javascript-cheat-sheet/" target="_blank" class="text-blue-600 hover:underline">
+                      5. InterviewBit JavaScript Cheat Sheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="http://cheatsheets.shecodes.io/javascript" target="_blank" class="text-blue-600 hover:underline">
+                      6. SheCodes JavaScript Cheatsheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.codecademy.com/learn/introduction-to-javascript/modules/learn-javascript-introduction/cheatsheet" target="_blank" class="text-blue-600 hover:underline">
+                      7. Codecademy JavaScript Cheatsheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/mbeaudru/modern-js-cheatsheet" target="_blank" class="text-blue-600 hover:underline">
+                      8. Modern JavaScript Cheatsheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://zerotomastery.io/cheatsheets/javascript-cheatsheet-the-advanced-concepts/" target="_blank" class="text-blue-600 hover:underline">
+                      9. Zero To Mastery JavaScript Cheatsheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/krishnr/JavaScript-cheat-sheet" target="_blank" class="text-blue-600 hover:underline">
+                      10. krishnr JavaScript Cheat Sheet
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div id="interviewsheet" class="tab-content hidden">
+                <h3 class="text-2xl font-bold mb-8 text-blue-600">Interview Sheet</h3>
+                
+                  <div id="interview-sheet-root"></div>
+              </div>
+              <div id="standardcodesnippets" class="tab-content hidden">
+                <h3 class="text-2xl font-bold mb-4 text-blue-600">Standard Code Snippets</h3>
+            
+                <section class="cheatsheet-section mb-12">
+                    <h4 class="text-2xl font-semibold mb-4 text-blue-500">Basic Level</h4>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Variable Declaration</h5>
+                        <p class="mb-2">Declaring variables using let, const, and var.</p>
+                        <div class="code-block">
+                            <pre>
+                                let name = "Sahil"; // Block-scoped variable
+                                const age = 22; // Block-scoped constant
+                                var country = "India"; // Function-scoped variable
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Function Declaration</h5>
+                        <p class="mb-2">Declaring a function using the function keyword.</p>
+                        <div class="code-block">
+                            <pre>
+                                function greet(name) {
+                                    return `Hello, ${name}!`;
+                                }
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Array Creation and Methods</h5>
+                        <p class="mb-2">Creating an array and using array methods.</p>
+                        <div class="code-block">
+                            <pre>
+                                const fruits = ["Apple", "Banana", "Cherry"];
+                                fruits.push("Date"); // Add an element
+                                fruits.pop(); // Remove the last element
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Object Creation</h5>
+                        <p class="mb-2">Creating an object using object literal syntax.</p>
+                        <div class="code-block">
+                            <pre>
+                                const person = {
+                                    name: "Sahil",
+                                    age: 22,
+                                    greet() {
+                                        return `Hello, ${this.name}!`;
+                                    }
+                                };
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Conditional Statements</h5>
+                        <p class="mb-2">Using if-else statements for conditional logic.</p>
+                        <div class="code-block">
+                            <pre>
+                                const age = 18;
+                                if (age >= 18) {
+                                    console.log("Adult");
+                                } else {
+                                    console.log("Minor");
+                                }
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Looping Through Arrays</h5>
+                        <p class="mb-2">Looping through an array using the forEach method.</p>
+                        <div class="code-block">
+                            <pre>
+                                const numbers = [1, 2, 3, 4, 5];
+                                numbers.forEach((number) => {
+                                    console.log(number);
+                                });
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Event Handling</h5>
+                        <p class="mb-2">Adding an event listener to an HTML element.</p>
+                        <div class="code-block">
+                            <pre>
+                                document.getElementById("myButton").addEventListener("click", () => {
+                                    alert("Button clicked!");
+                                });
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">JSON Parsing</h5>
+                        <p class="mb-2">Parsing a JSON string into a JavaScript object.</p>
+                        <div class="code-block">
+                            <pre>
+                                const jsonString = '{"name": "Sahil", "age": 22}';
+                                const jsonObject = JSON.parse(jsonString);
+                            </pre>
+                        </div>
+                    </div>
+                </section>
+            
+                <section class="cheatsheet-section mb-12">
+                    <h4 class="text-2xl font-semibold mb-4 text-blue-500">Intermediate Level</h4>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Arrow Function</h5>
+                        <p class="mb-2">Declaring a function using arrow function syntax.</p>
+                        <div class="code-block">
+             <pre>
+                                const greetArrow = (name) => `Hello, ${name}!`;
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Switch Statement</h5>
+                        <p class="mb-2">Using a switch statement for conditional logic.</p>
+                        <div class="code-block">
+                            <pre>
+                                switch (age) {
+                                    case 18:
+                                        console.log("Just turned adult!");
+                                        break;
+                                    default:
+                                        console.log("Not 18 yet.");
+                                }
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Using Promises</h5>
+                        <p class="mb-2">Using promises for asynchronous programming.</p>
+                        <div class="code-block">
+                            <pre>
+                                const fetchData = () => {
+                                    return new Promise((resolve, reject) => {
+                                        const success = true; 
+                                        if (success) {
+                                            resolve("Data fetched successfully!");
+                                        } else {
+                                            reject("Error fetching data.");
+                                        }
+                                    });
+                                };
+            
+                                fetchData()
+                                    .then((message) => console.log(message))
+                                    .catch((error) => console.error(error));
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Async/Await Syntax</h5>
+                        <p class="mb-2">Using async/await syntax for asynchronous programming.</p>
+                        <div class="code-block">
+                            <pre>
+                                const fetchDataAsync = async () => {
+                                    try {
+                                        const data = await fetchData();
+                                        console.log(data);
+                                    } catch (error) {
+                                        console.error(error);
+                                    }
+                                };
+            
+                                fetchDataAsync();
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Creating a Simple Class</h5>
+                        <p class="mb-2">Defining a class using the class keyword.</p>
+                        <div class="code-block">
+                            <pre>
+                                class Animal {
+                                    constructor(name) {
+                                        this.name = name;
+                                    }
+            
+                                    speak() {
+                                        return `${this.name} makes a noise.`;
+                                    }
+                                }
+            
+                                const dog = new Animal("Dog");
+                                console.log(dog.speak());
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Using the Spread Operator</h5>
+                        <p class="mb-2">Using the spread operator for array and object manipulation.</p>
+                        <div class="code-block">
+                            <pre>
+                                const arr1 = [1, 2, 3];
+                                const arr2 = [4, 5, 6];
+                                const mergedArr = [...arr1, ...arr2];
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Destructuring Assignment</h5>
+                        <p class="mb-2">Using destructuring assignment for object and array manipulation.</p>
+                        <div class="code-block">
+                            <pre>
+                                const user = { id: 1, name: "Emma", age: 28 };
+                                const { name, age } = user;
+                            </pre>
+                        </div>
+                    </div>
+                </section>
+            
+                <section class="cheatsheet-section mb-12">
+                    <h4 class="text-2xl font-semibold mb-4 text-blue-500">Expert Level</h4>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Throttling a Function</h5>
+                        <p class="mb-2">Throttling a function to prevent excessive calls.</p>
+                        <div class="code-block">
+                            <pre>
+                                function throttle(func, limit) {
+                                    let lastFunc;
+                                    let lastRan;
+            
+                                    return function() {
+                                        const context = this;
+                                        const args = arguments;
+            
+                                        if (!lastRan) {
+                                            func.apply(context, args);
+                                            lastRan = Date.now();
+                                        } else {
+                                            clearTimeout(lastFunc);
+                                            lastFunc = setTimeout(function() {
+                                                if ((Date.now() - lastRan) >= limit) {
+                                                    func.apply(context, args);
+                                                    lastRan = Date.now();
+                                                }
+                                            }, limit - (Date.now() - lastRan));
+                                        }
+                                    };
+                                }
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class=" text-xl font-medium mb-2">Using the Fetch API</h5>
+                        <p class="mb-2">Using the Fetch API for making HTTP requests.</p>
+                        <div class="code-block">
+                            <pre>
+                                fetch("https://api.example.com/data")
+                                    .then((response) => response.json())
+                                    .then((data) => console.log(data))
+                                    .catch((error) => console.error("Error:", error));
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Event Delegation</h5>
+                        <p class="mb-2">Using event delegation for efficient event handling.</p>
+                        <div class="code-block">
+                            <pre>
+                                document.getElementById("parent").addEventListener("click", (event) => {
+                                    if (event.target.matches(".child")) {
+                                        console.log("Child clicked:", event.target);
+                                    }
+                                });
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Creating a Debounce Function</h5>
+                        <p class="mb-2">Creating a debounce function to prevent excessive calls.</p>
+                        <div class="code-block">
+                            <pre>
+                                function debounce(func, wait) {
+                                    let timeout;
+                                    return function(...args) {
+                                        const context = this;
+                                        clearTimeout(timeout);
+                                        timeout = setTimeout(() => func.apply(context, args), wait);
+                                    };
+                                }
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Memoization</h5>
+                        <p class="mb-2">Using memoization to optimize function calls.</p>
+                        <div class="code-block">
+                            <pre>
+                                function memoize(fn) {
+                                    const cache = {};
+                                    return function(...args) {
+                                        const key = JSON.stringify(args);
+                                        if (cache[key]) {
+                                            return cache[key];
+                                        }
+                                        const result = fn(...args);
+                                        cache[key] = result;
+                                        return result;
+                                    };
+                                }
+                            </pre>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div id="interviewlibrary" class="tab-content hidden">
+                <h3 class="text-2xl font-bold mb-8 text-blue-600">Interview Library</h3>
+                <p class="mb-8">In this section, you'll find links to interview question sheets for JavaScript from various sources. Click the links below to access these resources and prepare for your interviews.</p>
+                <ul class="list-disc pl-5 space-y-4">
+                  <li>
+                    <a href="https://www.interviewbit.com/javascript-interview-questions/" target="_blank" class="text-blue-600 hover:underline">1. JavaScript Interview Questions - InterviewBit</a>
+                  </li>
+                  <li>
+                    <a href="https://www.geeksforgeeks.org/javascript-interview-questions-and-answers/" target="_blank" class="text-blue-600 hover:underline">2. JavaScript Interview Questions and Answers - GeeksforGeeks</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/sudheerj/javascript-interview-questions" target="_blank" class="text-blue-600 hover:underline">3. JavaScript Interview Questions - Sudheer</a>
+                  </li>
+                  <li>
+                    <a href="https://www.simplilearn.com/tutorials/javascript-tutorial/javascript-interview-questions" target="_blank" class="text-blue-600 hover:underline">4. JavaScript Interview Questions - Simplilearn</a>
+                  </li>
+                  <li>
+                    <a href="https://www.javatpoint.com/javascript-interview-questions" target="_blank" class="text-blue-600 hover:underline">5. JavaScript Interview Questions - JavaTpoint</a>
+                  </li>
+                  <li>
+                    <a href="https://builtin.com/software-engineering-perspectives/javascript-interview-questions" target="_blank" class="text-blue-600 hover:underline">6. JavaScript Interview Questions - Builtin</a>
+                  </li>
+                  <li>
+                    <a href="https://www.turing.com/interview-questions/javascript" target="_blank" class="text-blue-600 hover:underline">7. JavaScript Interview Questions - Turing</a>
+                  </li>
+                  <li>
+                    <a href="https://www.naukri.com/code360/library/javascript-interview-questions" target="_blank" class="text-blue-600 hover:underline">8. JavaScript Interview Questions - Naukri</a>
+                  </li>
+                  <li>
+                    <a href="https://javascriptcentric.medium.com/top-30-javascript-interview-questions-and-answers-for-2024-7f1e2d1d0638" target="_blank" class="text-blue-600 hover:underline">9. Top 30 JavaScript Interview Questions and Answers - Medium</a>
+                  </li>
+                  <li>
+                    <a href="https://www.scholarhat.com/tutorial/javascript/javascript-interview-questions-answers" target="_blank" class="text-blue-600 hover:underline">10. JavaScript Interview Questions and Answers - ScholarHat</a>
+                  </li>
+                  <li>
+                    <a href="https://www.keka.com/javascript-coding-interview-questions-and-answers" target="_blank" class="text-blue-600 hover:underline">11. JavaScript Coding Interview Questions and Answers - Keka</a>
+                  </li>
+                  <li>
+                    <a href="https://www.frontendinterviewhandbook.com/javascript-questions" target="_blank" class="text-blue-600 hover:underline">12. JavaScript Interview Questions - Frontend Interview Handbook</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/lydiahallie/javascript-questions" target="_blank" class="text-blue-600 hover:underline">13. JavaScript Interview Questions - Lydia Hallie</a>
+                  </li>
+                  <li>
+                    <a href="https://arc.dev/talent-blog/javascript-interview-questions/" target="_blank" class="text-blue-600 hover:underline">14. JavaScript Interview Questions - Arc</a>
+                  </li>
+                </ul>
+              </div>
+          </div>
+      </main>
+  
+      <footer class="bg-gradient-to-r from-slate-800 to-slate-900 text-white py-16">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-24">
+                <div class="space-y-6 md:px-12">
+                    <h3 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-500">
+                        LastMinutePrep
+                    </h3>
+                    <p class="text-slate-300 leading-relaxed">
+                        Your go-to platform for last-minute coding interview preparation. Ace your interviews with confidence!
+                    </p>
+                    <a href="index.html" class="inline-block px-6 py-3 rounded-full bg-gradient-to-r from-sky-400 to-blue-500 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                        Get Started
+                    </a>
+                </div>
+                <div class="space-y-6 md:px-12">
+                    <h3 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-500">
+                        About Me
+                    </h3>
+                    <div class="space-y-4">
+                        <p class="text-2xl font-bold">Baba Sahil</p>
+                        <p class="text-slate-300">Aspirant Software Engineer</p>
+                        <p class="text-slate-300">
+                            <a href="mailto:babasahil2628@gmail.com" class="text-sky-400 hover:text-sky-300 transition-colors duration-300">
+                                babasahil2628@gmail.com
+                            </a>
+                        </p>
+                    </div>
+                </div>
+                <div class="space-y-6 md:px-12">
+                    <h3 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-500">
+                       Connect with Me
+                    </h3>
+                    <div class="space-y-4">
+                        <a href="https://www.linkedin.com/profile/in/baba-sahil-153721321/" target="_blank" class="flex items-center text-slate-300 hover:text-white transition-colors duration-300">
+                            <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                            LinkedIn Profile
+                        </a>
+                        <a href="https://github.com/babasahil29" target="_blank" class="flex items-center text-slate-300 hover:text-white transition-colors duration-300">
+                            <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
+                            </svg>
+                            GitHub
+                        </a>
+                        <a href="https://babasahil.my.canva.site/" target="_blank" class="flex items-center text-slate-300 hover:text-white transition-colors duration-300">
+                            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                            Portfolio
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 pt-8 border-t border-slate-700 text-center">
+                <p class="text-slate-400">&copy; 2024 <span class="text-sky-400 font-semibold">BabaSahil</span>. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+      
+    <script type="text/babel">
+        // InterviewSheet component
+        const InterviewSheet = () => {
+          const questions = [
+            {
+              level: "Basic",
+              items: [
+                {
+                  question: "What is JavaScript?",
+                  answer: "JavaScript is a high-level, dynamic, untyped, and interpreted programming language, commonly used to create interactive effects within web browsers."
+                },
+                {
+                  question: "What are variables in JavaScript?",
+                  answer: "Variables are containers for storing data values. They can be declared using var, let, or const."
+                },
+                {
+                  question: "What is the difference between == and ===?",
+                  answer: "== checks for equality with type coercion, while === checks for equality without type coercion (strict equality)."
+                },
+                {
+                  question: "What are functions in JavaScript?",
+                  answer: "Functions are reusable blocks of code that perform a specific task. They can take inputs and return outputs."
+                },
+                {
+                  question: "What is an array?",
+                  answer: "An array is a data structure that can hold multiple values in a single variable, allowing for ordered storage of elements."
+                },
+                {
+                  question: "What is an object in JavaScript?",
+                  answer: "An object is a collection of key-value pairs, where keys are strings (or Symbols) and values can be any data type."
+                },
+                {
+                  question: "What is a loop?",
+                  answer: "A loop is a programming construct that repeats a block of code as long as a specified condition is true."
+                },
+                {
+                  question: "What is an event?",
+                  answer: "An event is an action or occurrence recognized by the program, such as user interactions or system-generated actions."
+                },
+                {
+                  question: "What is the purpose of the console.log() function?",
+                  answer: "console.log() is used to print messages to the console, useful for debugging purposes."
+                },
+                {
+                  question: "What is the difference between var, let, and const?",
+                  answer: "var is function-scoped, let is block-scoped and can be reassigned, while const is block-scoped and cannot be reassigned."
+                },
+                {
+                  question: "What is the purpose of the alert() function?",
+                  answer: "The alert() function displays a dialog box with a specified message and an OK button, used to convey information to the user."
+                },
+                {
+                  question: "What are template literals?",
+                  answer: "Template literals are string literals that allow embedded expressions, making it easier to create multi-line strings and string interpolation."
+                },
+                {
+                  question: "What is the typeof operator?",
+                  answer: "The typeof operator returns a string indicating the type of the unevaluated operand."
+                },
+                {
+                  question: "What is a conditional statement?",
+                  answer: "A conditional statement allows you to execute code based on whether a specified condition is true or false."
+                },
+                {
+                  question: "What is JSON?",
+                  answer: "JSON (JavaScript Object Notation) is a lightweight data interchange format that is easy for humans to read and write and easy for machines to parse and generate."
+                },
+                {
+                  question: "What are callback functions?",
+                  answer: "A callback function is a function passed into another function as an argument, which is then invoked inside that function."
+                },
+                {
+                  question: "What is an asynchronous operation?",
+                  answer: "An asynchronous operation allows a program to continue executing while waiting for a task (like an API call) to complete."
+                },
+                {
+                  question: "What are the different ways to create an object in JavaScript?",
+                  answer: "Objects can be created using object literals, the new Object() syntax, or constructor functions."
+                },
+                {
+                  question: "What is localStorage?",
+                  answer: "localStorage is a web storage feature that allows you to store data persistently in a web browser, accessible across sessions."
+                },
+                {
+                  question: "What is the difference between null and undefined?",
+                  answer: "null is an intentional absence of value, while undefined indicates that a variable has been declared but has not yet been assigned a value."
+                }
+              ]
+            },
+            {
+              level: "Intermediate",
+              items: [
+                {
+                  question: "What are Promises?",
+                  answer: "Promises are objects that represent the eventual completion or failure of an asynchronous operation and its resulting value."
+                },
+                {
+                  question: "Explain closures.",
+                  answer: "A closure is a function that captures the lexical scope in which it was declared, allowing access to variables from the outer function even after it has returned."
+                },
+                {
+                  question: "What is event delegation?",
+                  answer: "Event delegation is a technique that allows a single event listener to manage events for multiple elements, leveraging the event bubbling feature."
+                },
+                {
+                  question: "What is the purpose of the this keyword in JavaScript?",
+                  answer: "The this keyword refers to the context in which a function is executed, which can vary depending on how the function is called."
+                },
+                {
+                  question: "What is the difference between let, const, and var?",
+                  answer: "var is function-scoped, let is block-scoped and can be reassigned, while const is block-scoped and cannot be reassigned."
+                },
+                {
+                  question: "What is the spread operator?",
+                  answer: "The spread operator (...) allows iterable objects, such as arrays, to be expanded in places where multiple elements or variables are expected."
+                },
+                {
+                  question: "What is the rest parameter?",
+                  answer: "The rest parameter syntax allows a function to accept an indefinite number of arguments as an array."
+                },
+                {
+                  question: "Explain the concept of prototypal inheritance.",
+                  answer: "Prototypal inheritance allows objects to inherit properties and methods from other objects through the prototype chain."
+                },
+                {
+                  question: "What are async/await?",
+                  answer: "Async/await is a syntax that allows you to write asynchronous code that looks synchronous, simplifying the use of Promises."
+                },
+                {
+                  question: "What is a module in JavaScript?",
+                  answer: "A module is a self-contained block of code that encapsulates functionality and can be reused, helping to maintain organized code."
+                },
+                {
+                  question: "What is hoisting?",
+                  answer: "Hoisting is JavaScript's default behavior of moving declarations to the top of their containing scope during the compile phase."
+                },
+                {
+                  question: "What are arrow functions?",
+                  answer: "Arrow functions are a shorthand syntax for writing function expressions, with lexical scoping of the this keyword."
+                },
+                {
+                  question: "What is the purpose of the bind() method?",
+                  answer: "The bind() method creates a new function that, when called, has its this keyword set to the provided value."
+                },
+                {
+                  question: "What are modules in ES6?",
+                  answer: "ES6 introduced modules, allowing developers to split code into separate files that can export and import functionality between them."
+                },
+                {
+                  question: "Explain the concept of functional programming in JavaScript.",
+                  answer: "Functional programming is a programming paradigm that treats computation as the evaluation of mathematical functions, avoiding changing state and mutable data."
+                }
+              ]
+            },
+            {
+              level: "Expert",
+              items: [
+                {
+                  question: "What is the difference between synchronous and asynchronous programming?",
+                  answer: "Synchronous programming executes tasks one after another, while asynchronous programming allows tasks to be executed concurrently, improving performance."
+                },
+                {
+                  question: "What is memoization?",
+                  answer: "Memoization is an optimization technique that caches the results of expensive function calls and returns the cached result when the same inputs occur again."
+                },
+                {
+                  question: "What is the event loop in JavaScript?",
+                  answer: "The event loop is a programming construct that waits for and dispatches events or messages in a program, enabling non-blocking I/O."
+                },
+                {
+                  question: "What is a higher-order function?",
+                  answer: "A higher-order function is a function that takes another function as an argument or returns a function as a result."
+                },
+                {
+                  question: "Explain the concept of the apply() method.",
+                  answer: "The apply() method calls a function with a given this value and arguments provided as an array."
+                },
+                {
+                  question: "What is a closure scope chain?",
+                  answer: "A closure scope chain is the sequence of scopes that the JavaScript engine uses to resolve variable references, starting from the innermost function."
+                },
+                {
+                  question: "What are Service Workers?",
+                  answer: "Service Workers are scripts that run in the background, allowing for features like offline caching, background sync, and push notifications."
+                },
+                {
+                  question: "What is the difference between call() and apply()?",
+                  answer: "Both methods invoke a function with a specified this value; however, call() accepts individual arguments, while apply() accepts an array of arguments."
+                },
+                {
+                  question: "What is the purpose of the setTimeout() function?",
+                  answer: "The setTimeout() function is used to execute a function after a specified delay (in milliseconds)."
+                },
+                {
+                  question: "What are WebSockets?",
+                  answer: "WebSockets provide a way to open a persistent connection between the client and server, allowing for real-time data transfer."
+                },
+                {
+                  question: "Explain the concept of promises chaining.",
+                  answer: "Promise chaining allows multiple asynchronous operations to be executed in sequence, where the output of one operation is passed as input to the next."
+                },
+                {
+                  question: "What is a proxy in JavaScript?",
+                  answer: "A Proxy is an object that wraps another object and allows you to define custom behavior for fundamental operations (e.g., property lookup, assignment)."
+                },
+                {
+                  question: "What is the purpose of the debugger statement?",
+                  answer: "The debugger statement pauses the execution of JavaScript and invokes the debugger when it is available, useful for debugging purposes."
+                },
+                {
+                  question: "What is destructuring in JavaScript?",
+                  answer: "Destructuring is a syntax that allows unpacking values from arrays or properties from objects into distinct variables."
+                },
+                {
+                  question: "Explain the concept of the window object.",
+                  answer: "The window object is the global object in the browser environment that represents the browser window and provides access to the browser's API."
+                }
+              ]
+            }
+          ];
+      
+          return (
+            <div className="space-y-8">
+              {questions.map((level, index) => (
+                <div key={index}>
+                  <h4 class="text-2xl font-semibold mb-4 text-blue-500">{level.level} Level Questions</h4>
+                  <ol className="list-decimal list-inside space-y-4">
+                    {level.items.map((item, itemIndex) => (
+                      <li key={itemIndex}>
+                        <p className="font-medium">{item.question}</p>
+                        {item.answer && <p className="mt-1">{item.answer}</p>}
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              ))}
+            </div>
+          );
+        };
+      
+        ReactDOM.render(<InterviewSheet />, document.getElementById("interview-sheet-root"));
+      </script>
+  
+  <script>
+    const debounce = (func, delay) => {
+  let inDebounce;
+  return function() {
+    const context = this;
+    const args = arguments;
+    clearTimeout(inDebounce);
+    inDebounce = setTimeout(() => func.apply(context, args), delay);
+  };
+  };
+  
+  // Function to show tab
+  function showTab(tabName) {
+  const allTabs = document.querySelectorAll('.tab-content');
+  const allButtons = document.querySelectorAll('.tab-btn');
+  const selectedTab = document.getElementById(tabName);
+  const clickedButton = document.querySelector(`.tab-btn[onclick*="${tabName}"]`);
+  
+  allTabs.forEach(tab => tab.classList.add('hidden'));
+  allButtons.forEach(btn => {
+    btn.classList.remove('bg-blue-500', 'text-white');
+    btn.classList.add('bg-gray-200', 'text-gray-700');
+  });
+  
+  if (selectedTab) selectedTab.classList.remove('hidden');
+  if (clickedButton) {
+    clickedButton.classList.remove('bg-gray-200', 'text-gray-700');
+    clickedButton.classList.add('bg-blue-500', 'text-white');
+  }
+  
+  const languageDropdown = document.getElementById('languageDropdown');
+  if (languageDropdown && languageDropdown.classList.contains('show')) {
+    languageDropdown.classList.remove('show');
+  }
+  }
+  
+  // Function to download cheat sheet
+  function downloadCheatSheet() {
+  alert('Downloading Python Cheat Sheet...');
+  }
+  
+  // Function to check if element is in viewport
+  function isElementInViewport(el) {
+  const rect = el.getBoundingClientRect();
+  return (
+    rect.top >= 0 &&
+    rect.left >= 0 &&
+    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+  );
+  }
+  
+  // Function to handle scroll and reveal sections
+  const handleScroll = debounce(() => {
+  const sections = document.querySelectorAll('.cheatsheet-section');
+  sections.forEach(section => {
+    if (isElementInViewport(section) && !section.classList.contains('visible')) {
+        section.classList.add('visible');
+    }
+  });
+  }, 100);
+  
+  // Event listeners
+  document.addEventListener('DOMContentLoaded', () => {
+  const dropdownBtn = document.getElementById('dropdownBtn');
+  const languageDropdown = document.getElementById('languageDropdown');
+  
+  dropdownBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    languageDropdown.classList.toggle('show');
+  });
+  
+  document.addEventListener('click', (e) => {
+    if (!dropdownBtn.contains(e.target) && !languageDropdown.contains(e.target)) {
+        languageDropdown.classList.remove('show');
+    }
+  });
+  
+  const fadeElements = document.querySelectorAll('.fade-in');
+  fadeElements.forEach(element => element.classList.add('visible'));
+  
+  const easySection = document.querySelector('.cheatsheet-section');
+  if (easySection) easySection.classList.add('visible');
+  
+  handleScroll();
+  });
+  
+  window.addEventListener('scroll', handleScroll);
+  window.addEventListener('resize', handleScroll);
+  </script>
+  </body>
+  </html>
+      

@@ -1,0 +1,2015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastPrepSahil - Python</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&display=swap');
+
+:root {
+--primary-color: #3b82f6;
+--secondary-color: #38bdf8;
+--background-color: #f9f9f9;
+--text-color: #333;
+}
+
+* {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+}
+
+body {
+font-family: 'Manrope', sans-serif;
+line-height: 1.6;
+color: var(--text-color);
+}
+
+.hero-section {
+background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/python.jpg');
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+height: 400px;
+position: relative;
+padding: 2rem 1rem;
+}
+
+.hero-section::before {
+content: "";
+position: absolute;
+inset: 0;
+background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 2px, transparent 2px, transparent 4px);
+pointer-events: none;
+}
+
+.fade-in {
+opacity: 0;
+transform: translateY(20px);
+transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.fade-in.visible {
+opacity: 1;
+transform: translateY(0);
+}
+
+.btn-animated {
+transition: all 0.3s ease;
+}
+
+.btn-animated:hover, .btn-animated:focus {
+transform: translateY(-3px) scale(1.05);
+box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.btn-animated:active {
+transform: translateY(-1px) scale(1.02);
+box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.dropdown-content {
+display: none;
+position: absolute;
+background-color: var(--background-color);
+min-width: 160px;
+box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+z-index: 1;
+}
+
+.dropdown-content a {
+color: var(--text-color);
+padding: 12px 16px;
+text-decoration: none;
+display: block;
+transition: all 0.2s ease;
+}
+
+.dropdown-content a:hover, .dropdown-content a:focus {
+background-color: #f1f1f1;
+transform: translateX(5px);
+}
+
+.show {
+display: block;
+animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+from { opacity: 0; }
+to { opacity: 1; }
+}
+
+.code-block {
+background-color: #f8f8f8;
+border-left: 4px solid var(--primary-color);
+padding: 1rem;
+margin: 1rem 0;
+font-family: 'Courier New', Courier, monospace;
+overflow-x: auto;
+}
+
+.interview-sheet-container {
+background-color: var(--background-color);
+padding: 20px;
+border: 1px solid #ddd;
+border-radius: 10px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+background-image: linear-gradient(to right, #1e293b, #0f172a);
+position: relative;
+overflow: hidden;
+padding: 2rem 1rem;
+}
+
+footer::before {
+content: '';
+position: absolute;
+inset: 0;
+background: url('path/to/subtle-pattern.png') repeat;
+opacity: 0.05;
+z-index: 0;
+}
+
+footer > div {
+position: relative;
+z-index: 1;
+}
+
+footer h3 {
+font-size: 1.25rem;
+margin-bottom: 1rem;
+position: relative;
+display: inline-block;
+}
+
+footer h3::after {
+content: '';
+position: absolute;
+left: 0;
+bottom: -5px;
+width: 50px;
+height: 2px;
+background: linear-gradient(to right, var(--secondary-color), var(--primary-color));
+}
+
+footer p {
+font-size: 0.9rem;
+line-height: 1.6;
+}
+
+footer a:not(.inline-block) {
+transition: all 0.3s ease;
+}
+
+footer a:not(.inline-block):hover, footer a:not(.inline-block):focus {
+color: var(--secondary-color);
+transform: translateX(5px);
+}
+
+footer .inline-block {
+transition: all 0.3s ease;
+}
+
+footer .inline-block:hover, footer .inline-block:focus {
+transform: translateY(-3px);
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.social-icon {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+width: 40px;
+height: 40px;
+border-radius: 50%;
+background: rgba(255, 255, 255, 0.1);
+transition: all 0.3s ease;
+}
+
+.social-icon:hover, .social-icon:focus {
+background: rgba(255, 255, 255, 0.2);
+transform: translateY(-3px);
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+.hero-section {
+  height: 350px;
+}
+
+footer .grid {
+  gap: 1.5rem;
+}
+
+footer .md\:px-12 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.tab-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tab-btn {
+  flex: 1 1 calc(30% - 0.25rem);
+  font-size: 0.9rem;
+  padding: 0.5rem;
+}
+
+}@media only screen and (max-width: 768px) {
+.text-2xl.font-bold.text-blue-600 {
+  display: none;
+}
+
+}</style>
+</head>
+<body class="bg-gray-100">
+    <header class="bg-white shadow-md fixed w-full z-10">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+          <div class="flex items-center">
+            <img src="images/logo2.jpeg" alt="FastPrepSahil Logo" class="h-12 w-auto mr-3">
+            <h1 class="text-2xl font-bold text-blue-600">FastPrepSahil</h1>
+        </div>
+            <div class="flex items-center space-x-2">
+            
+              <button onclick="window.location.href='index.html'" id="searchBtn" class="btn-animated bg-blue-500 text-white px-4 py-2 rounded">Home</button>
+                <div class="relative inline-block">
+                    <button id="dropdownBtn" class="btn-animated bg-gray-200 text-gray-700 px-4 py-2 rounded">
+                        Select Language <i class="fas fa-caret-down ml-1"></i>
+                    </button>
+                    <div id="languageDropdown" class="dropdown-content">
+                        <a href="python.html">Python</a>
+                        <a href="c.html">C</a>
+                        <a href="java.html">Java</a>
+                        <a href="cpp.html">C++</a>
+                        <a href="html.html">HTML</a>
+                        <a href="css.html">CSS</a>
+                        <a href="javascript.html">JavaScript</a>
+                        <a href="sql.html">SQL</a>
+                        <a href="php.html">PHP</a>
+                        <a href="mern.html">MERN</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="hero-section flex items-center justify-center pt-16">
+        <h2 id="language-title" class="text-4xl font-bold text-white text-center">Python Resources</h2>
+    </div>
+
+    <main class="container mx-auto mt-8 p-4">
+      <div class="tab-buttons flex flex-wrap gap-2 mb-6">
+        <button onclick="showTab('snapshot')" class="tab-btn btn-animated bg-blue-500 text-white px-3 py-2 rounded text-sm flex-grow">Language Snapshot</button>
+        <button onclick="showTab('cheatsheet')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Cheat Sheet</button>
+        <button onclick="showTab('cheatsheetpdfs')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Cheat Sheet PDFs</button>
+        <button onclick="showTab('cheatsheetlibrary')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Cheat Sheet Library</button>
+        <button onclick="showTab('interviewsheet')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Interview Sheet</button>
+        <button onclick="showTab('interviewlibrary')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Interview Library</button>
+        <button onclick="showTab('standardcodesnippets')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Standard Code Snippets</button>
+    </div>
+    
+        <div id="tab-content" class="bg-white p-6 rounded-lg shadow-md fade-in">
+            <div id="snapshot" class="tab-content">
+              <h3 class="text-2xl font-bold mb-8 text-blue-600">Language Snapshot</h3>
+                <div id="snapshot-content" class="space-y-8">
+                    <section>
+                        <h4 class="text-xl font-semibold mb-4">Overview</h4>
+                        <ul class="list-disc pl-6 space-y-2">
+                            <li>
+                                <span class="font-medium">Language Type:</span> High-level, interpreted, general-purpose
+                            </li>
+                            <li>
+                                <span class="font-medium">Key Features:</span>
+                                <ul class="list-circle pl-6 mt-2 space-y-2">
+                                    <li><span class="font-medium">Readability:</span> Clean syntax that emphasizes readability</li>
+                                    <li><span class="font-medium">Versatility:</span> Used in various domains like web development, data science, automation, and more</li>
+                                    <li><span class="font-medium">Extensive Libraries:</span> Includes a comprehensive standard library and a wide range of third-party modules</li>
+                                    <li><span class="font-medium">Community Support:</span> Large and active community contributing to a vast ecosystem of tools and libraries</li>
+                                    <li><span class="font-medium">Cross-Platform:</span> Runs on multiple operating systems including Windows, macOS, and Linux</li>
+                                    <li><span class="font-medium">Dynamic Typing:</span> Type checking is done at runtime</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </section>
+            
+                    <section>
+                        <h4 class="text-xl font-semibold mb-4">Invention</h4>
+                        <ul class="list-disc pl-6 space-y-2">
+                            <li><span class="font-medium">Creator:</span> Guido van Rossum</li>
+                            <li><span class="font-medium">Year Created:</span> 1991</li>
+                            <li>
+                                <span class="font-medium">Major Versions:</span>
+                                <ul class="list-circle pl-6 mt-2 space-y-2">
+                                    <li><span class="font-medium">Python 1.0:</span> Released in January 1994</li>
+                                    <li><span class="font-medium">Python 2.x:</span> Introduced in October 2000. End of life was on January 1, 2020</li>
+                                    <li><span class="font-medium">Python 3.x:</span> Introduced in December 2008. Actively maintained with new features and improvements</li>
+                                </ul>
+                            </li>
+                            <li><span class="font-medium">Influences:</span> Inspired by ABC programming language, emphasizing ease of use and flexibility</li>
+                        </ul>
+                    </section>
+            
+                    <section>
+                        <h4 class="text-xl font-semibold mb-4">Notable Frameworks and Libraries</h4>
+                        <ul class="list-disc pl-6 space-y-2">
+                            <li><span class="font-medium">Web Development:</span> Django, Flask</li>
+                            <li><span class="font-medium">Data Science:</span> NumPy, Pandas, Matplotlib</li>
+                            <li><span class="font-medium">Automation:</span> Selenium, PyAutoGUI</li>
+                        </ul>
+                    </section>
+            
+                    <section>
+                        <h4 class="text-xl font-semibold mb-4">Common Use Cases</h4>
+                        <ul class="list-disc pl-6 space-y-2">
+                            <li><span class="font-medium">Web Development:</span> Creating dynamic websites and web applications</li>
+                            <li><span class="font-medium">Data Science and Analytics:</span> Analyzing and visualizing data</li>
+                            <li><span class="font-medium">Machine Learning:</span> Building and training models</li>
+                            <li><span class="font-medium">Scripting and Automation:</span> Writing scripts to automate repetitive tasks</li>
+                        </ul>
+                    </section>
+                </div>
+            </div>
+            <div id="cheatsheet" class="tab-content hidden">
+              <h3 class="text-2xl font-bold mb-8 text-blue-600">Cheat Sheet</h3>
+<section class="cheatsheet-section mb-12">
+    <h3 class="text-2xl font-semibold mb-4 text-blue-500">Basic Level</h3>
+
+    <div class="mb-6">
+        <h4 class="text-xl font-medium mb-2">1. Basic Syntax</h4>
+        <p class="mb-2">Print Statement: Outputs text to the console.</p>
+        <div class="code-block">
+            print("Hello, World!")
+        </div>
+        <p class="mb-2">Comments: Used to explain code; not executed.</p>
+        <div class="code-block">
+            # Single line comment
+            """
+            Multi-line comment
+            """
+        </div>
+        <p class="mb-2">Variables: Store data values.</p>
+        <div class="code-block">
+            x = 09
+            name = "Sahil"
+        </div>
+    </div>
+
+    <div class="mb-6">
+        <h4 class="text-xl font-medium mb-2">2. Data Types</h4>
+        <ul class="list-disc pl-5 space-y-2">
+            <li><strong>Integers:</strong> Whole numbers. <code class="bg-gray-200 px-1 rounded">num = 9</code></li>
+            <li><strong>Floats:</strong> Decimal numbers. <code class="bg-gray-200 px-1 rounded">pi = 3.14</code></li>
+            <li><strong>Strings:</strong> Sequence of characters. <code class="bg-gray-200 px-1 rounded">text = "Hello"</code></li>
+            <li><strong>Lists:</strong> Ordered, mutable collection of items. <code class="bg-gray-200 px-1 rounded">fruits = ["apple", "banana", "cherry"]</code></li>
+            <li><strong>Dictionaries:</strong> Collection of key-value pairs. <code class="bg-gray-200 px-1 rounded">person = {"name": "Sahil", "age": 22}</code></li>
+        </ul>
+    </div>
+
+    <div class="mb-6">
+        <h4 class="text-xl font-medium mb-2">3. Basic Operators</h4>
+        <p class="mb-2">Arithmetic Operators: Perform mathematical operations.</p>
+        <div class="code-block">
+            <pre>
+            +  # Addition
+            -  # Subtraction
+            *  # Multiplication
+            /  # Division
+            %  # Modulus
+            </pre>
+        </div>
+        <p class="mb-2">Comparison Operators: Compare values.</p>
+        <div class="code-block">
+            <pre>
+            ==  # Equals
+            !=  # Not equals
+            >   # Greater than
+            <   # Less than
+            </pre>
+        </div>
+    </div>
+
+    <div class="mb-6">
+        <h4 class="text-xl font-medium mb-2">4. Control Structures</h4>
+        <p class="mb-2">If Statements: Execute code based on conditions.</p>
+        <div class="code-block">
+            <pre>
+        if x > 10:
+            print("x is greater than 10")
+        elif x == 10:
+            print("x is 10")
+        else:
+            print("x is less than 10")
+            </pre>
+        </div>
+        
+        <p class="mb-2">For Loops: Iterate over a sequence.</p>
+        <div class="code-block">
+            <pre>
+            for i in range(5):
+                print(i)
+
+            </pre>
+        </div>
+        <p class="mb-2">While Loops: Repeat code as long as a condition is true.</p>
+        <div class="code-block">
+            <pre>
+            count = 0
+            while count < 5:
+                print(count)
+                count += 1
+            </pre>
+        </div>
+    </div>
+
+    <div class="mb-6">
+        <h4 class="text-xl font-medium mb-2">5. Functions</h4>
+        <p class="mb-2">Defining a Function: Create reusable code blocks.</p>
+        <div class="code-block">
+            <pre>
+            def greet(name):
+                return f"Hello, {name}!"
+            </pre>
+        </div>
+        <p class="mb-2">Calling a Function: Execute a function with arguments.</p>
+        <div class="code-block">
+            <pre>
+            message = greet("Sahil")
+            print(message)
+            </pre>
+        </div>
+    </div>
+
+    <div class="mb-6">
+        <h4 class="text-xl font-medium mb-2">6. Input and Output</h4>
+        <p class="mb-2">Getting User Input: Read input from the user.</p>
+        <div class="code-block">
+            name = input("Enter your name: ")
+        </div>
+        <p class="mb-2">Formatted Output: Display formatted text.</p>
+        <div class="code-block">
+            print(f"Hello, {name}!")
+        </div>
+    </div>
+</section>
+
+<!-- Intermediate Level -->
+<section class="cheatsheet-section mb-12">
+    <h3 class="text-2xl font-semibold mb-4 text-blue-500">Intermediate Level</h3>
+
+    <div class="mb-6">
+        <h4 class="text-xl font-medium mb-2">1. String Manipulation</h4>
+        <p class="mb-2">Concatenation: Combine strings.</p>
+        <div class="code-block">
+            full_name = "John" + " " + "Doe"
+        </div>
+        <p class="mb-2">String Formatting: Insert variables into strings.</p>
+        <div class="code-block">
+            <pre>
+            name = "Sahil"
+            message = f"Hello, {name}!"
+            </pre>
+        </div>
+        <p class="mb-2">String Methods: Common methods for strings.</p>
+        <div class="code-block">
+            <pre>
+            text = "hello"
+            text_upper = text.upper()  # "HELLO"
+            text_length = len(text)    # 5
+            </pre>
+        </div>
+    </div>
+
+    <div class="mb-6">
+        <h4 class="text-xl font-medium mb-2">2. List Operations</h4>
+        <p class="mb-2">Accessing Elements: Get elements by index.</p>
+        <div class="code-block">
+            first_fruit = fruits[0]  # "apple"
+        </div>
+        <p class="mb-2">Slicing: Extract a part of the list.</p>
+        <div class="code-block">
+            some_fruits = fruits[1:3]  # ["banana", "cherry"]
+        </div>
+        <p class="mb-2">Appending and Removing:</p>
+        <div class="code-block">
+            <pre>
+            fruits.append("orange")  # Add "orange" to the list
+            fruits.remove("banana")  # Remove "banana" from the list
+            </pre>
+        </div>
+    </div>
+
+    <div class="mb-6">
+        <h4 class="text-xl font-medium mb-2"> 3. Dictionary Operations</h4>
+        <p class="mb-2">Accessing Values: Get values by key.</p>
+        <div class="code-block">
+            name = person["name"]  # "Sahil"
+        </div>
+        <p class="mb-2">Adding and Updating Items:</p>
+        <div class="code-block">
+            <pre>
+            person["age"] = 22  # Update age
+            person["city"] = "Puttaparthi"  # Add new key-value pair
+            </pre>
+        </div>
+        <p class="mb-2">Iterating Through Dictionary:</p>
+        <div class="code-block">
+            <pre>
+            for key, value in person.items():
+                print(key, value)
+                </pre>
+        </div>
+    </div>
+
+    <div class="mb-6">
+        <h4 class="text-xl font-medium mb-2">4. File Handling</h4>
+        <p class="mb-2">Reading a File:</p>
+        <div class="code-block">
+            <pre>
+            with open('file.txt', 'r') as file:
+                content = file.read()
+                </pre>
+        </div>
+        <p class="mb-2">Writing to a File:</p>
+        <div class="code-block">
+            <pre>
+            with open('file.txt', 'w') as file:
+                file.write("Hello, World!")
+                </pre>
+        </div>
+    </div>
+
+    <div class="mb-6">
+        <h4 class="text-xl font-medium mb-2">5. Error Handling</h4>
+        <p class="mb-2">Try-Except Block:</p>
+        <div class="code-block">
+            <pre>
+            try:
+                result = 10 / 0
+            except ZeroDivisionError:
+                print("Cannot divide by zero!")
+            finally:
+                print("Execution completed.")
+                </pre>
+        </div>
+    </div>
+
+    <div class="mb-6">
+        <h4 class="text-xl font-medium mb-2">6. Classes and Objects</h4>
+        <p class="mb-2">Defining a Class:</p>
+        <div class="code-block">
+            <pre>
+            class Dog:
+                def __init__(self, name):
+                    self.name = name
+
+                def bark(self):
+                    return f"{self.name} says woof!"
+                    </pre>
+        </div>
+        <p class="mb-2">Creating an Object:</p>
+        <div class="code-block">
+            <pre>
+            my_dog = Dog("Rex")
+            print(my_dog.bark())  # "Rex says woof!"
+            </pre>
+        </div>
+    </div>
+</section>
+
+<!-- Expert Level -->
+<section class="cheatsheet-section mb-12">
+    <h3 class="text-2xl font-semibold mb-4 text-blue-500">Expert Level</h3>
+
+    <div class="mb-6">
+        <h4 class="text-xl font-medium mb-2">1. Advanced Data Structures</h4>
+        <p class="mb-2">Sets: Unordered collections of unique items.</p>
+        <div class="code-block">
+            unique_numbers = {1, 2, 3, 4}
+        </div>
+        <p class="mb-2">Tuples: Immutable sequences.</p>
+        <div class="code-block">
+            coordinates = (10, 20)
+        </div>
+        <p class="mb-2">Comprehensions:</p>
+        <div class="code-block">
+            <pre>
+            squares = [x**2 for x in range(10)]
+            square_dict = {x: x**2 for x in range(10)}
+            </pre>
+        </div>
+    </div>
+
+    <div class="mb-6">
+        <h4 class="text-xl font-medium mb-2">2. Decorators</h4>
+        <p class="mb-2">Function Decorators: Modify or enhance functions.</p>
+        <div class="code-block">
+            <pre>
+            def my_decorator(func):
+                def wrapper():
+                    print("Something is happening before the function.")
+                    func()
+                    print("Something is happening after the function.")
+                return wrapper
+
+            @my_decorator
+            def say_hello():
+                print("Hello!")
+
+            say_hello()
+            </pre>
+        </div>
+    </div>
+
+    <div class="mb-6">
+        <h4 class="text-xl font-medium mb-2">3. Generators and Iterators</h4>
+        <p class="mb-2">Generators: Functions that return an iterable set of items, one at a time.</p>
+        <div class="code-block">
+            <pre>
+            def countdown(n):
+                while n > 0:
+                    yield n
+                    n -= 1
+                    </pre>
+        </div>
+        <p class="mb-2">Iterators: Objects that implement __iter__() and __next__() methods.</p>
+        <div class="code-block">
+            <pre>
+            class Counter:
+                def __init__(self, low, high):
+                    self.current = low
+                    self.high = high
+
+                def __iter__(self):
+                    return self
+
+                def __next__(self):
+                    if self.current > self.high:
+                        raise StopIteration
+                    else:
+                        self.current += 1
+                        return self.current - 1
+            </pre>
+        </div>
+    </div>
+
+    <div class="mb-6">
+        <h4 class="text-xl font-medium mb-2">4. Context Managers</h4>
+        <p class="mb-2">Using Context Managers: Automatically manage resources.</p>
+        <div class="code-block">
+            <pre>
+            with open('file.txt', 'r') as file:
+                content = file.read()
+                </pre>
+        </div>
+        <p class="mb-2">Creating a Custom Context Manager:</p>
+        <div class="code-block">
+        <pre>
+            class MyContextManager:
+                def __enter__(self):
+                    print("Entering the context")
+                    return self
+
+                def __exit__(self, exc_type, exc_val, exc_tb):
+                    print("Exiting the context")
+
+            with MyContextManager():
+                print("Inside the context")
+            </pre>
+        </div>
+    </div>
+
+    <div class="mb-6">
+        <h4 class="text-xl font-medium mb-2">5. Metaclasses</h4>
+        <p class="mb-2">Metaclass Basics: Define how classes behave.</p>
+        <div class="code-block">
+            <pre>
+            class Meta(type):
+                def __new__(cls, name, bases, dct):
+                    print("Creating class:", name)
+                    return super().__new__(cls, name, bases, dct)
+
+            class MyClass(metaclass=Meta):
+                pass
+                </pre>
+        </div>
+    </div>
+
+    <div class="mb-6">
+        <h4 class="text-xl font-medium mb-2">6. Multi-threading and Multi-processing</h4>
+        <p class="mb-2">Multi-threading: Run multiple threads within a single process.</p>
+        <div class="code-block">
+            <pre>
+            import threading
+
+            def print_numbers():
+                for i in range(5):
+                    print(i)
+
+            thread = threading.Thread(target=print_numbers)
+            thread.start()
+            </pre>
+        </div>
+        <p class="mb-2">Multi-processing: Run multiple processes to bypass GIL (Global Interpreter Lock).</p >
+        <div class="code-block">
+            <pre>
+            from multiprocessing import Process
+
+            def print_numbers():
+                for i in range(5):
+                    print(i)
+
+            process = Process(target=print_numbers)
+            process.start()
+            </pre>
+        </div>
+        </div>
+            <!-- Add more sections for Expert Level -->
+        </section>
+    
+            </div>
+            <div id="cheatsheetpdfs" class="tab-content hidden">
+              <h3 class="text-2xl font-bold mb-8 text-blue-600">Cheat Sheet PDFs</h3>
+              <p class="mb-8">In this section, you'll find downloadable PDF versions of Python cheatsheets from different sources. Click on the links below to download the cheat sheets directly.</p>
+              <ul class="list-disc pl-5 space-y-4">
+                  <li>
+                      <a href="https://perso.limsi.fr/pointal/_media/python:cours:mementopython3-english.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                          1. Python Cheat Sheet (PDF) - 1
+                      </a>
+                  </li>
+                  <li>
+                      <a href="https://www.utc.fr/~jlaforet/Suppl/python-cheatsheets.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                          2. Python Cheat Sheet (PDF) - 2
+                      </a>
+                  </li>
+                  <li>
+                      <a href="https://nbisweden.github.io/workshop-python/img/cheat_sheet.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                          3. Python Cheat Sheet (PDF) - 3
+                      </a>
+                  </li>
+                  <li>
+                      <a href="https://github.com/FavioVazquez/ds-cheatsheets/blob/master/Python/Python_Crash_Course/Beginners-Python-Cheat-Sheet.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                          4. Python Cheat Sheet (PDF) - 4
+                      </a>
+                  </li>
+                  <li>
+                      <a href="https://drive.google.com/file/d/1EeV3EHWMqUliLq8Ub0hjMBzNCnW-oZLb/view" target="_blank" class="text-blue-600 hover:underline" download>
+                          5. Python Cheat Sheet (PDF) - 5
+                      </a>
+                  </li>
+                  <li>
+                      <a href="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-PY0101EN-SkillsNetwork/handouts/Python%20Cheat%20Sheet%20-%20The%20Basics%20Coursera.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                          6. Python Cheat Sheet (PDF) - 6
+                      </a>
+                  </li>
+              </ul>
+            </div>
+            <div id="cheatsheetlibrary" class="tab-content hidden">
+              <h3 class="text-2xl font-bold mb-8 text-blue-600">Cheat Sheet Library</h3>
+              <p class="mb-8">In this section, you'll find various links to Python cheatsheets available on different websites. Click on the links below to explore the resources.</p>
+              <ul class="list-disc pl-5 space-y-4">
+                  <li>
+                      <a href="https://www.codewithharry.com/blogpost/python-cheatsheet/" target="_blank" class="text-blue-600 hover:underline">
+                          1. Code with Harry
+                      </a>
+                  </li>
+                  <li>
+                      <a href="https://www.pythoncheatsheet.org/" target="_blank" class="text-blue-600 hover:underline">
+                          2. Python Cheatsheet
+                      </a>
+                  </li>
+                  <li>
+                      <a href="https://www.datacamp.com/cheat-sheet/getting-started-with-python-cheat-sheet" target="_blank" class="text-blue-600 hover:underline">
+                          3. DataCamp Python Cheat Sheet
+                      </a>
+                  </li>
+                  <li>
+                      <a href="https://www.geeksforgeeks.org/python-cheat-sheet/" target="_blank" class="text-blue-600 hover:underline">
+                          4. GeeksforGeeks Python Cheat Sheet
+                      </a>
+                  </li>
+                  <li>
+                      <a href="https://quickref.me/python.html" target="_blank" class="text-blue-600 hover:underline">
+                          5. QuickRef Python Cheat Sheet
+                      </a>
+                  </li>
+                  <li>
+                      <a href="https://zerotomastery.io/cheat-sheets/python-cheat-sheet/" target="_blank" class="text-blue-600 hover:underline">
+                          6. Zero To Mastery Python Cheat Sheet
+                      </a>
+                  </li>
+                  <li>
+                      <a href="https://www.codecademy.com/resources/cheatsheets/language/python" target="_blank" class="text-blue-600 hover:underline">
+                          7. Codecademy Python Cheat Sheet
+                      </a>
+                  </li>
+                  <li>
+                      <a href="https://github.com/gto76/python-cheatsheet" target="_blank" class="text-blue-600 hover:underline">
+                          8. GitHub Python Cheat Sheet
+                      </a>
+                  </li>
+              </ul>
+            </div>
+            <div id="interviewsheet" class="tab-content hidden">
+              <h3 class="text-2xl font-bold mb-8 text-blue-600">Interview Sheet</h3>
+              
+                <div id="interview-sheet-root"></div>
+            </div>
+            <div id="standardcodesnippets" class="tab-content hidden">
+                <h3 class="text-2xl font-bold mb-4 text-blue-600">Standard Code Snippets</h3>
+                
+                <section class="cheatsheet-section mb-12">
+                  <h4 class="text-2xl font-semibold mb-4 text-blue-500">Basic Level</h4>
+                  <div class="mb-6">
+                    <h5 class="text-xl font-medium mb-2">Reverse a String</h5>
+                    <p class="mb-2">Problem: Write a function to reverse a string.</p>
+                    <div class="code-block">
+                        <pre>
+                            def reverse_string(s): 
+                             return s[::-1]
+                        </pre>
+                    </div>
+                    <p class="mb-2">Example usage:</p>
+                    <div class="code-block">
+                        <pre>
+                            print(reverse_string("hello"))               # Output: "olleh"</pre>
+                      
+                    </div>
+                  </div>
+                  <div class="mb-6">
+                    <h5 class="text-xl font-medium mb-2">Check for Palindrome</h5>
+                    <p class="mb-2">Problem: Determine if a given string is a palindrome.</p>
+                    <div class="code-block"><pre>
+                            def is_palindrome(s):
+                             return s == s[::-1]</pre>
+                    </div>
+                    <p class="mb-2">Example usage:</p>
+                    <div class="code-block"><pre>
+                            print(is_palindrome("racecar"))              # Output: True
+                            print(is_palindrome("hello"))                # Output: False</pre>
+                    </div>
+                  </div>
+                  <div class="mb-6">
+                    <h5 class="text-xl font-medium mb-2">Find the Maximum Element in a List</h5>
+                    <p class="mb-2">Problem: Find the largest number in a list.</p>
+                    <div class="code-block"><pre>
+                            def find_maximum(lst):
+                             return max(lst)</pre>
+                    </div>
+                    <p class="mb-2">Example usage:</p>
+                    <div class="code-block"><pre>
+                            print(find_maximum([1, 2, 3, 4, 5]))         # Output: 5</pre>
+                    </div>
+                  </div>
+                  <div class="mb-6">
+                    <h5 class="text-xl font-medium mb-2">Sum of Elements in a List</h5>
+                    <p class="mb-2">Problem: Calculate the sum of all elements in a list.</p>
+                    <div class="code-block"><pre>
+                            def sum_list(lst):
+                             return sum(lst)
+                    </div>
+                    <p class="mb-2">Example usage:</p>
+                    <div class="code-block"><pre>
+                            print(sum_list([1, 2, 3, 4, 5]))             # Output: 15</pre>
+                    </div>
+                  </div>
+                  <div class="mb-6">
+                    <h5 class="text-xl font-medium mb-2">Count Occurrences of a Character in a String</h5>
+                    <p class="mb-2">Problem: Count how many times a character appears in a string.</p>
+                    <div class="code-block"><pre>
+                            def count_char(s, char):
+                             return s.count(char)</pre>
+                    </div>
+                    <p class="mb-2">Example usage:</p>
+                    <div class="code-block"><pre>
+      print(count_char("hello", "l")) 
+      # Output: 2</pre>
+                  </div>
+                  <div class="mb-6">
+                    <h5 class="text-xl font-medium mb-2">Calculate Factorial of a Number</h5>
+                    <p class="mb-2">Problem: Compute the factorial of a non-negative integer.</p>
+                    <div class="code-block"><pre>
+                             def factorial(n):
+                              if n == 0:
+                               return 1
+                              return n * factorial(n - 1)</pre>
+                    </div>
+                    <p class="mb-2">Example usage:</p>
+                    <div class="code-block"><pre>
+                             print(factorial(5))                         # Output: 120</pre>
+                    </div>
+                  </div>
+                  <div class="mb-6">
+                    <h5 class="text-xl font-medium mb-2">Check for Prime Number</h5>
+                    <p class="mb-2">Problem: Determine if a given number is prime.</p>
+                    <div class="code-block"><pre>
+                             def is_prime(n):
+                               if n <= 1:
+                                 return False
+                              for i in range(2, int(n**0.5) + 1):
+                                 if n % i == 0:
+                                  return False
+                              return True </pre>
+                    </div>
+                    <p class="mb-2">Example usage:</p>
+                    <div class="code-block"><pre>
+                             print(is_prime(11))          # Output: True
+                             print(is_prime(15))          # Output: False</pre>
+                    </div>
+                  </div>
+                  <div class="mb-6">
+                    <h5 class="text-xl font-medium mb-2">Generate a List of Fibonacci Numbers</h5>
+                    <p class="mb-2">Problem: Generate a list of Fibonacci numbers up to a given number.</p>
+                    <div class="code-block"><pre>
+                             def fibonacci_list(n):
+                              sequence = [0, 1]
+                              while sequence[-1] + sequence[-2] <= n:
+                               sequence.append(sequence[-1] + sequence[-2])
+                              return sequence</pre>
+                    </div>
+                    <p class="mb-2">Example usage:</p>
+                    <div class="code-block"><pre>
+                             print(fibonacci_list(10))    # Output: [0, 1, 1, 2, 3, 5, 8]</pre>
+                    </div>
+                  </div>
+                  <div class="mb-6">
+                    <h5 class="text-xl font-medium mb-2">Find the Sum of Digits in a Number</h5>
+                    <p class="mb-2">Problem: Calculate the sum of digits of a given number.</p>
+                    <div class="code-block"><pre>
+                             def sum_of_digits(n):
+                              return sum(int(digit) for digit in str(n))</pre>
+                    </div>
+                    <p class="mb-2">Example usage:</p>
+                    <div class="code-block"><pre>
+                             print(sum_of_digits(1234))   # Output: 10</pre>
+                    </div>
+                  </div>
+                  <div class="mb-6">
+                    <h5 class="text-xl font-medium mb-2">Print a Multiplication Table</h5>
+                    <p class="mb-2">Problem: Print the multiplication table for a given number.</p>
+                    <div class="code-block"><pre>
+                             def multiplication_table(n, upto=10):
+                              for i in range(1, upto + 1):
+                               print(f"{n} x {i} = {n * i}")</pre>
+                    </div>
+                    <p class="mb-2">Example usage:</p>
+                    <div class="code-block"><pre>
+                             multiplication_table(3)</pre>
+                    </div>
+                  </div>
+                  <div class="mb-6">
+                    <h5 class=" text-xl font-medium mb-2">Check if a Number is Even or Odd</h5>
+                    <p class="mb-2">Problem: Determine if a given number is even or odd.</p>
+                    <div class="code-block"><pre>
+                            def is_even(n):
+                             return n % 2 == 0</pre>
+                    </div>
+                    <p class="mb-2">Example usage:</p>
+                    <div class="code-block"><pre>
+                            print(is_even(10))  # Output: True
+                            print(is_even(11))  # Output: False</pre>
+                    </div>
+                  </div>
+                  <section class="cheatsheet-section mb-12">
+                  <h4 class="text-2xl font-semibold mb-4 text-blue-500">Intermediate Level</h4>
+                  <div class="mb-6">
+                    <h5 class="text-xl font-medium mb-2">Find the First Duplicate in a List</h5>
+                    <p class="mb-2">Problem: Find the first duplicate in a list.</p>
+                    <div class="code-block"><pre>
+                      def first_duplicate(lst):
+                        seen = set()
+                        for item in lst:
+                          if item in seen:
+                            return item
+                          seen.add(item)
+                        return None</pre>
+                    </div>
+                    <p class="mb-2">Example usage:</p>
+                    <div class="code-block"><pre>
+                      print(first_duplicate([1, 2, 3, 4, 4, 5, 6]))         # Output: 4</pre>
+                    </div>
+                  </div>
+                  <div class="mb-6">
+                    <h5 class="text-xl font-medium mb-2">Find the Maximum Element in a List of Lists</h5>
+                    <p class="mb-2">Problem: Find the largest number in a list of lists.</p>
+                    <div class="code-block"><pre>
+                      def max_in_lists(lists):
+                        return max(max(sublist) for sublist in lists)</pre>
+                    </div>
+                    <p class="mb-2">Example usage:</p>
+                    <div class="code-block"><pre>
+                      print(max_in_lists([[1, 2, 3], [4, 5, 6], [7, 8, 9]]))  # Output: 9</pre>
+                    </div>
+                  </div>
+                  <div class="mb-6">
+                    <h5 class="text-xl font-medium mb-2">Find the Minimum Element in a List of Lists</h5>
+                    <p class="mb-2">Problem: Find the smallest number in a list of lists.</p>
+                    <div class="code-block"><pre>
+                      def min_in_lists(lists):
+                        return min(min(sublist) for sublist in lists)</pre>
+                    </div>
+                    <p class="mb-2">Example usage:</p>
+                    <div class="code-block"><pre>
+                      print(min_in_lists([[1, 2, 3], [4, 5, 6], [7, 8, 9]]))  # Output: 1</pre>
+                    </div>
+                  </div>
+                  <div class="mb-6">
+                    <h5 class="text-xl font-medium mb-2">Find the Average of a List of Numbers</h5>
+                    <p class="mb-2">Problem: Calculate the average of a list of numbers.</p>
+                    <div class="code-block"><pre>
+                      def average(lst):
+                        return sum(lst) / len(lst)</pre>
+
+                    </div>
+                    <p class="mb-2">Example usage:</p>
+                    <div class="code-block"><pre>
+                      print(average([1, 2, 3, 4, 5]))      # Output: 3.0</pre>
+                    </div>
+                  </div>
+                  <div class="mb-6">
+                    <h5 class="text-xl font-medium mb-2">Find the Median of a List of Numbers</h5>
+                    <p class="mb-2">Problem: Calculate the median of a list of numbers.</p>
+                    <div class="code-block"><pre>
+                      def median(lst):
+                        sorted_lst = sorted(lst)
+                        n = len(lst)
+                        if n % 2 == 0:
+                          return (sorted_lst[n // 2 - 1] + sorted_lst[n // 2]) / 2
+                        return sorted_lst[n // 2]</pre>
+                    </div>
+                    <p class="mb-2">Example usage:</p>
+                    <div class="code-block"><pre>
+                      print(median([1, 2, 3, 4, 5]))      # Output: 3</pre>
+                    </div>
+                  </div>
+                  <div class="mb-6">
+                    <h5 class="text-xl font-medium mb-2">Find the Mode of a List of Numbers</h5>
+                    <p class="mb-2">Problem: Calculate the mode of a list of numbers.</p>
+                    <div class="code-block"><pre>
+                      def mode(lst):
+                        freq = {}
+                        for item in lst:
+                          if item in freq:
+                            freq[item] += 1
+                          else:
+                            freq[item] = 1
+                        max_freq = max(freq.values())
+                        modes = [k for k, v in freq.items() if v == max_freq]
+                        return modes</pre>
+                    </div>
+                    <p class="mb-2">Example usage:</p>
+                    <div class="code-block"><pre>
+                      print(mode([1, 2, 2, 3, 3, 3, 4, 4, 4, 4]))  # Output: [4]</pre>
+                    </div>
+                  </div>
+                  </section>
+                  <section class="cheatsheet-section mb-12">
+                    <h4 class="text-2xl font-semibold mb-4 text-blue-500">Intermediate Level</h4>
+                    <div class="mb-6">
+                      <h5 class="text-xl font-medium mb-2">Fibonacci Sequence</h5>
+                      <p class="mb-2">Problem: Generate the Fibonacci sequence up to a given number.</p>
+                      <div class="code-block"><pre>
+                        def fibonacci(n):
+                          a, b = 0, 1
+                          sequence = []
+                          while a < n:
+                            sequence.append(a)
+                            a, b = b, a + b
+                          return sequence</pre>
+                      </div>
+                      <p class="mb-2">Example usage:</p>
+                      <div class="code-block"><pre>
+                        print(fibonacci(10))  # Output: [0, 1, 1, 2, 3, 5, 8]</pre>
+                      </div>
+                    </div>
+                    <div class="mb-6">
+                      <h5 class="text-xl font-medium mb-2">Merge Two Sorted Lists</h5>
+                      <p class="mb-2">Problem: Merge two sorted lists into one sorted list.</p>
+                      <div class="code-block"><pre>
+                        def merge_sorted_lists(lst1, lst2):
+                          return sorted(lst1 + lst2)</pre>
+                      </div>
+                      <p class="mb-2">Example usage:</p>
+                      <div class="code-block"><pre>
+                        print(merge_sorted_lists([1, 3, 5], [2, 4, 6]))  # Output: [1, 2, 3, 4, 5, 6]</pre>
+                      </div>
+                    </div>
+                    <div class="mb-6">
+                      <h5 class="text-xl font-medium mb-2">Find the Common Elements in Two Lists</h5>
+                      <p class="mb-2">Problem: Find the common elements between two lists.</p>
+                      <div class="code-block"><pre>
+                        def common_elements(lst1, lst2):
+                          return list(set(lst1) & set(lst2))</pre>
+                      </div>
+                      <p class="mb-2">Example usage:</p>
+                      <div class="code-block"><pre>
+                        print(common_elements([1, 2, 3], [2, 3, 4]))  # Output: [2, 3]</pre>
+                      </div>
+                    </div>
+                    <div class="mb-6">
+                      <h5 class="text-xl font-medium mb-2">Count Words in a String</h5>
+                      <p class="mb-2">Problem: Count the number of words in a given string.</p>
+                      <div class="code-block"><pre>
+                        def count_words(s):
+                          return len(s.split())</pre>
+                      </div>
+                      <p class="mb-2">Example usage:</p>
+                      <div class="code-block"><pre>
+                        print(count_words("Hello world, how are you?"))  # Output: 5</pre>
+                      </div>
+                    </div>
+                    <div class="mb-6">
+                      <h5 class="text-xl font-medium mb-2">Check for Anagram</h5>
+                      <p class="mb-2">Problem: Determine if two strings are anagrams.</p>
+                      <div class="code-block"><pre>
+                        def are_anagrams(s1, s2):
+                          return sorted(s1) == sorted(s2)</pre>
+                      </div>
+                      <p class="mb-2">Example usage:</p>
+                      <div class="code-block"><pre>
+                        print(are_anagrams("listen", "silent"))  # Output: True
+                        print(are_anagrams("hello", "world"))    # Output: False</pre>
+                      </div>
+                    </div>
+                  </section>
+                  <section class="cheatsheet-section mb-12">
+                    <h4 class="text-2xl font-semibold mb-4 text-blue-500">Expert Level</h4>
+                    <div class="mb-6">
+                      <h5 class="text-xl font-medium mb-2">Find All Permutations of a String</h5>
+                      <p class="mb-2">Problem: Generate all permutations of a given string.</p>
+                      <div class="code-block"><pre>
+                        from itertools import permutations
+                        def string_permutations(s):
+                          return [''.join(p) for p in permutations(s)]</pre>
+                      </div>
+                      <p class="mb-2">Example usage:</p>
+                      <div class="code-block"><pre>
+                        print(string_permutations("abc"))    # Output: ['abc', 'acb', 'bac', 'bca', 'cab', 'cba']</pre>
+                      </div>
+                    </div>
+                    <div class="mb-6">
+                      <h5 class="text-xl font-medium mb-2">Solve the N-Queens Problem</h5>
+                      <p class="mb-2">Problem: Solve the N-Queens puzzle where N queens must be placed on an NxN chessboard so that no two queens threaten each other.</p>
+                      <div class="code-block"><pre>
+                        def solve_n_queens(n):
+                          def is_valid(board, row, col):
+                            for i in range(row):
+                              if board[i] == col or \
+                                 board[i] - i == col - row or \
+                                 board[i] + i == col + row:
+                                return False
+                            return True
+                          def solve(board, row):
+                            if row == n:
+                              result.append(board[:])
+                              return
+                            for col in range(n):
+                              if is_valid(board, row, col):
+                                board[row] = col
+                                solve(board, row + 1)
+                                board[row] = -1
+                          result = []
+                          solve([-1] * n, 0)
+                          return result</pre>
+                      </div>
+                      <p class="mb-2">Example usage:</p>
+                      <div class="code-block"><pre>
+                        print(solve_n_queens(4))    # Output: [[1, 3, 0, 2], [2, 0, 3, 1]]</pre>
+                      </div>
+                    </div>
+                    <div class="mb-6">
+                      <h5 class="text-xl font-medium mb-2">Find Longest Common Subsequence (LCS)</h5>
+                      <p class="mb-2">Problem: Find the longest common subsequence between two strings.</p>
+                      <div class="code-block"><pre>
+                        def longest_common_subsequence(s1, s2):
+                          m, n = len(s1), len(s2)
+                          dp = [[0] * (n + 1) for _ in range(m + 1)]
+                          for i in range(1, m + 1):
+                            for j in range(1, n + 1):
+                              if s1[i - 1] == s2[j - 1]:
+                                dp[i][j] = dp[i - 1][j - 1] + 1
+                              else:
+                                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
+                          lcs = []
+                          while m > 0 and n > 0:
+                            if s1[m - 1] == s2[n - 1]:
+                              lcs.append(s1[m - 1])
+                              m -= 1
+                              n -= 1
+                            elif dp[m - 1][n] > dp[m][n - 1]:
+                              m -= 1
+                            else:
+                              n -= 1
+                          return ''.join(reversed(lcs))</pre>
+                      </div>
+                      <p class="mb-2">Example usage:</p>
+                      <div class="code-block"><pre>
+                        print(longest_common_subsequence("ABCDGH", "AEDFHR"))  # Output: "ADH"<
+                      </div>
+                    </div>
+                  </section>
+                  <div class="mb-6">
+                    <h5 class="text-xl font-medium mb-2">Implement Dijkstra's Algorithm</h5>
+                    <p class="mb-2">Problem: Find the shortest path in a weighted graph using Dijkstra's algorithm.</p>
+                    <div class="code-block"><pre>
+                      import heapq
+                      def dijkstra(graph, start):
+                        pq = [(0, start)]
+                        distances = {vertex: float('infinity') for vertex in graph}
+                        distances[start] = 0
+                        while pq:
+                          current_distance, current_vertex = heapq.heappop(pq)
+                          if current_distance > distances[current_vertex]:
+                            continue
+                          for neighbor, weight in graph[current_vertex].items():
+                            distance = current_distance + weight
+                            if distance < distances[neighbor]:
+                              distances[neighbor] = distance
+                              heapq.heappush(pq, (distance, neighbor))
+                        return distances
+                    </div>
+                    <p class="mb-2">Example usage:</p>
+                    <div class="code-block"><pre>
+                      graph = {
+                        'A': {'B': 1, 'C': 4},
+                        'B': {'A': 1, 'C': 2, 'D': 5},
+                        'C': {'A': 4, 'B': 2, 'D': 1},
+                        'D': {'B': 5, 'C': 1}
+                      }
+                      print(dijkstra(graph, 'A'))  # Output: {'A': 0, 'B': 1, 'C': 3, 'D': 4}</pre>
+                    </div>
+                  </div>
+                  <div class="mb-6">
+                    <h5 class="text-xl font-medium mb-2">Implement the A* Algorithm</h5>
+                    <p class="mb-2">Problem: Find the shortest path in a grid using the A* algorithm.</p>
+                    <div class="code-block"><pre>
+                      from heapq import heappop, heappush
+                      def heuristic(a, b):
+                        return abs(a[0] - b[0]) + abs(a[1] - b[1])
+                      def a_star(grid, start, goal):
+                        rows, cols = len(grid), len(grid[0])
+                        open_set = []
+                        heappush(open_set, (0 + heuristic(start, goal), 0, start))
+                        came_from = {}
+                        g_score = {node: float('infinity') for row in grid for node in row}
+                        g_score[start] = 0
+                        f_score = {node: float('infinity') for row in grid for node in row}
+                        f_score[start] = heuristic(start, goal)
+                        while open_set:
+                          _, current_g, current = heappop(open_set)
+                          if current == goal:
+                            path = []
+                            while current in came_from:
+                              path.append(current)
+                              current = came_from[current]
+                            path.append(start)
+                            return path[::-1]
+                          for dx, dy in [(0, 1), (1, 0), (0, -1), (-1, 0)]:
+                            neighbor = (current[0] + dx, current[1] + dy)
+                            if 0 <= neighbor[0] < rows and 0 <= neighbor[1] < cols:
+                              tentative_g_score = g_score[current] + 1
+                              if tentative_g_score < g_score[neighbor]:
+                                came_from[neighbor] = current
+                                g_score[neighbor] = tentative_g_score
+                                f_score[neighbor] = g_score[neighbor] + heuristic(neighbor, goal)
+                                heappush(open_set, (f_score[neighbor], g_score[neighbor], neighbor))
+                        return []</pre>
+                    </div>
+                    <p class="mb-2">Example usage:</p>
+                    <div class="code-block"><pre>
+                      grid = [[0]*5 for _ in range(5)]
+                      start = (0, 0)
+                      goal = (4, 4)
+                      print(a_star(grid, start, goal))
+
+                      # Output: [(0, 0), (0, 1), (1, 1),
+                       (1, 2), (2, 2),  (2, 3),  (3, 4),
+                       (4, 4)], (3, 4), (4, 4)]</pre>
+                     
+                    </div>
+                  </div>
+                  <div class="mb-6">
+                    <h5 class="text-xl font-medium mb-2">Implement the Bellman-Ford Algorithm</h5>
+                    <p class="mb-2">Problem: Find the shortest path from a source vertex to all other vertices in a weighted graph using the Bellman-Ford algorithm.</p>
+                    <div class="code-block"><pre>
+                      def bellman_ford(graph, source):
+                        distance = {vertex: float('inf') for vertex in graph}
+                        distance[source] = 0
+                        for _ in range(len(graph) - 1):
+                          for vertex in graph:
+                            for neighbor, weight in graph[vertex].items():
+                              distance[neighbor] = min(distance[neighbor], distance[vertex] + weight)
+                        for vertex in graph:
+                          for neighbor, weight in graph[vertex].items():
+                            if distance[vertex] + weight < distance[neighbor]:
+                              raise ValueError("Graph contains a negative-weight cycle")
+                        return distance</pre>
+                    </div>
+                    <p class="mb-2">Example usage:</p>
+                    <div class="code-block"><pre>
+                      graph = {
+                        'A': {'B': -1, 'C':  4},
+                        'B': {'C':  3, 'D':  2, 'E':  2},
+                        'C': {},
+                        'D': {'B':  1, 'C':  5},
+                        'E': {'D': -3}
+                      }
+                      print(bellman_ford(graph, 'A'))    # Output: {'A': 0, 'B': -1, 'C': 2, 'D': -2, 'E': 1}</pre>
+                    </div>
+                  </div>
+                  <div class="mb-6">
+                    <h5 class="text-xl font-medium mb-2">Implement the Floyd-Warshall Algorithm</h5>
+                    <p class="mb-2">Problem: Find the shortest path between all pairs of vertices in a weighted graph using the Floyd-Warshall algorithm.</p>
+                    <div class="code-block"><pre>
+                      def floyd_warshall(graph):
+                        n = len(graph)
+                        distance = [[float('inf')] * n for _ in range(n)]
+                        for i in range(n):
+                          for j in range(n):
+                            if i == j:
+                              distance[i][j] = 0
+                            elif j in graph[i]:
+                              distance[i][j] = graph[i][j]
+                        for k in range(n):
+                          for i in range(n):
+                            for j in range(n):
+                              distance[i][j] = min(distance[i][j], distance[i][k] + distance[k][j])
+                        return distance</pre>
+                    </div>
+                    <p class="mb-2">Example usage:</p>
+                    <div class="code-block"><pre>
+                      graph = {
+                        0: {1: 3, 2: 8, 3: float('inf'), 4: -4},
+                        1: {0: float('inf'), 2: float('inf'), 3: 1, 4: 7},
+                        2: {0: float('inf'), 1: 4, 3: float('inf'), 4: float('inf')},
+                        3: {0: 2, 1: float('inf'), 2: -5, 4: float('inf')},
+                        4: {0: float('inf'), 1: float('inf'), 2: float('inf'), 3: 6}
+                      }
+                      print(floyd_warshall(graph))  
+                      # Output: [[0, 3, -1, 2, -4], [float('inf'), 0, 4, 1, 7],
+                       [float('inf'), 4, 0, -5, float('inf')],
+                       [2, float('inf'), -5, 0, float('inf')],
+                       [float('inf'), float('inf'), float('inf'), 6, 0]]
+                    </pre></div>
+                  </div>
+        
+              
+                   
+                  
+                </section>
+            </div>
+            <div id="interviewlibrary" class="tab-content hidden">
+              <h3 class="text-2xl font-bold mb-8 text-blue-600">Interview Library</h3>
+              <p class="mb-8">In this section, you'll find links to interview question sheets for Python from various sources. Click the links below to access these resources and prepare for your interviews.</p>
+              <ul class="list-disc pl-5 space-y-4">
+                <li>
+                  <a href="https://www.interviewbit.com/python-interview-questions/" target="_blank" class="text-blue-600 hover:underline">1. Python Interview Questions - InterviewBit</a>
+                </li>
+                <li>
+                  <a href="https://www.geeksforgeeks.org/python-interview-questions/" target="_blank" class="text-blue-600 hover:underline">2. Python Interview Questions - GeeksforGeeks</a>
+                </li>
+                <li>
+                  <a href="https://www.w3schools.com/python/python_interview_questions.asp" target="_blank" class="text-blue-600 hover:underline">3. Python Interview Questions - W3Schools</a>
+                </li>
+                <li>
+                  <a href="https://www.simplilearn.com/tutorials/python-tutorial/python-interview-questions" target="_blank" class="text-blue-600 hover:underline">4. Python Interview Questions - Simplilearn</a>
+                </li>
+                <li>
+                  <a href="https://www.javatpoint.com/python-interview-questions" target="_blank" class="text-blue-600 hover:underline">5. Python Interview Questions - JavaTpoint</a>
+                </li>
+                <li>
+                  <a href="https://www.datacamp.com/blog/top-python-interview-questions-and-answers" target="_blank" class="text-blue-600 hover:underline">6. Python Interview Questions - DataCamp</a>
+                </li>
+                <li>
+                  <a href="https://upesonline.ac.in/blog/python-interview-questions-basics-and-advanced" target="_blank" class="text-blue-600 hover:underline">7. Python Interview Questions - UPES Online</a>
+                </li>
+                <li>
+                  <a href="https://www.weekday.works/post/interview-questions-of-python" target="_blank" class="text-blue-600 hover:underline">8. Python Interview Questions - Weekday</a>
+                </li>
+                <li>
+                  <a href="https://blog.imocha.io/python-interview-questions-and-answers" target="_blank" class="text-blue-600 hover:underline">9. Python Interview Questions - iMocha</a>
+                </li>
+                <li>
+                  <a href="https://www.adaface.com/blog/python-oops-interview-questions/" target="_blank" class="text-blue-600 hover:underline">10. Python Interview Questions - Adaface</a>
+                </li>
+                <li>
+                  <a href="https://www.revelo.com/interview-questions/python" target="_blank" class="text-blue-600 hover:underline">11. Python Interview Questions - Revelo</a>
+                </li>
+                <li>
+                  <a href="https://bridgeteams.com/blog/25-python-developer-interview-questions-to-ask-junior-middle-and-senior-programmers/" target="_blank" class="text-blue-600 hover:underline">12. Python Interview Questions - Bridge Teams</a>
+                </li>
+                <li>
+                  <a href="https://www.tops-int.com/blog/top-python-interview-questions" target="_blank" class="text-blue-600 hover:underline">13. Python Interview Questions - Tops Int</a>
+                </li>
+                <li>
+                  <a href="https://aw.club/global/en/blog/python-interview-questions" target="_blank" class="text-blue-600 hover:underline">14. Python Interview Questions - AW Club</a>
+                </li>
+                <li>
+                  <a href="https://www.testgorilla.com/blog/python-interview-questions/" target="_blank" class="text-blue-600 hover:underline">15. Python Interview Questions - TestGorilla</a>
+                </li>
+                <li>
+                  <a href="https://nareshit.com/blogs/top-100-python-interview-questions-you-must-prepare" target="_blank" class="text-blue-600 hover:underline">16. Python Interview Questions - Naresh IT</a>
+                </li>
+                <li>
+                  <a href="https://www.mygreatlearning.com/blog/python-interview-questions/" target="_blank" class="text-blue-600 hover:underline">17. Python Interview Questions - My Great Learning</a>
+                </li>
+                <li>
+                  <a href="https://www.naukri.com/code360/library/python-interview-questions" target="_blank" class="text-blue-600 hover:underline">18. Python Interview Questions - Naukri</a>
+                </li>
+              </ul>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-gradient-to-r from-slate-800 to-slate-900 text-white py-16">
+      <div class="container mx-auto px-4">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-24">
+              <div class="space-y-6 md:px-12">
+                  <h3 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-500">
+                      LastMinutePrep
+                  </h3>
+                  <p class="text-slate-300 leading-relaxed">
+                      Your go-to platform for last-minute coding interview preparation. Ace your interviews with confidence!
+                  </p>
+                  <a href="index.html" class="inline-block px-6 py-3 rounded-full bg-gradient-to-r from-sky-400 to-blue-500 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                      Get Started
+                  </a>
+              </div>
+              <div class="space-y-6 md:px-12">
+                  <h3 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-500">
+                      About Me
+                  </h3>
+                  <div class="space-y-4">
+                      <p class="text-2xl font-bold">Baba Sahil</p>
+                      <p class="text-slate-300">Aspirant Software Engineer</p>
+                      <p class="text-slate-300">
+                          <a href="mailto:babasahil2628@gmail.com" class="text-sky-400 hover:text-sky-300 transition-colors duration-300">
+                              babasahil2628@gmail.com
+                          </a>
+                      </p>
+                  </div>
+              </div>
+              <div class="space-y-6 md:px-12">
+                  <h3 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-500">
+                     Connect with Me
+                  </h3>
+                  <div class="space-y-4">
+                      <a href="https://www.linkedin.com/profile/in/baba-sahil-153721321/" target="_blank" class="flex items-center text-slate-300 hover:text-white transition-colors duration-300">
+                          <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                          </svg>
+                          LinkedIn Profile
+                      </a>
+                      <a href="https://github.com/babasahil29" target="_blank" class="flex items-center text-slate-300 hover:text-white transition-colors duration-300">
+                          <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                              <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
+                          </svg>
+                          GitHub
+                      </a>
+                      <a href="https://babasahil.my.canva.site/" target="_blank" class="flex items-center text-slate-300 hover:text-white transition-colors duration-300">
+                          <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                          </svg>
+                          Portfolio
+                      </a>
+                  </div>
+              </div>
+          </div>
+          <div class="mt-12 pt-8 border-t border-slate-700 text-center">
+              <p class="text-slate-400">&copy; 2024 <span class="text-sky-400 font-semibold">BabaSahil</span>. All rights reserved.</p>
+          </div>
+      </div>
+  </footer>
+    
+    <script type="text/babel">
+        // InterviewSheet component
+        const InterviewSheet = () => {
+            const questions = [
+            {
+      level: "Basic",
+      items: [
+        {
+          question: "What are the basic data types in Python?",
+          answer: "int, float, str, bool, list, tuple, set, dict."
+        },
+        {
+          question: "How do you create a list in Python?",
+          answer: "my_list = [1, 2, 3, 4]"
+        },
+        {
+          question: "How do you handle errors in Python?",
+          answer: "Use try, except, finally blocks.",
+          code: `
+try:
+    # code
+except Exception as e:
+    # handle exception
+finally:
+    # cleanup code
+          `
+        },
+        {
+          question: "What is a Python dictionary?",
+          answer: "A collection of key-value pairs. Example: my_dict = {'key': 'value'}"
+        },
+        {
+          question: "How do you define a function in Python?",
+          answer: "",
+          code: `
+def my_function(param):
+    return param
+          `
+        },
+        {
+          question: "What is the purpose of the self keyword in Python?",
+          answer: "self refers to the instance of the class. It is used to access attributes and methods of the class."
+        },
+        {
+          question: "How do you concatenate strings in Python?",
+          answer: "Use the + operator. Example: 'Hello' + ' World'"
+        },
+        {
+          question: "What is list comprehension?",
+          answer: "A concise way to create lists. Example: [x**2 for x in range(5)]"
+        },
+        {
+          question: "How do you convert a string to an integer in Python?",
+          answer: "Use int(). Example: int('123')"
+        },
+        {
+          question: "How do you check if a key exists in a dictionary?",
+          answer: "Use the in operator. Example: 'key' in my_dict"
+        },
+        {
+          question: "How do you append an item to a list?",
+          answer: "Use the append() method. Example: my_list.append(5)"
+        },
+        {
+          question: "What is a tuple?",
+          answer: "An immutable sequence of items. Example: my_tuple = (1, 2, 3)"
+        },
+        {
+          question: "How do you read from a file in Python?",
+          answer: "Use open() with read(). Example:",
+          code: `
+with open('file.txt', 'r') as file:
+    content = file.read()
+          `
+        },
+        {
+          question: "What is a Python set?",
+          answer: "An unordered collection of unique items. Example: my_set = {1, 2, 3}"
+        },
+        {
+          question: "How do you remove duplicates from a list?",
+          answer: "Convert it to a set. Example: list(set(my_list))"
+        }
+      ]
+    },
+    {
+      level: "Intermediate",
+      items: [
+        {
+          question: "Write a function to reverse a string.",
+          answer: "",
+          code: `
+def reverse_string(s):
+    return s[::-1]
+          `
+        },
+        {
+          question: "How do you sort a list in Python?",
+          answer: "Use sort() for in-place sorting or sorted() for a new sorted list.",
+          code: `
+my_list.sort()
+sorted_list = sorted(my_list)
+          `
+        },
+        {
+          question: "Explain the difference between a list and a tuple.",
+          answer: "Lists are mutable; tuples are immutable."
+        },
+        {
+          question: "How do you remove an item from a list by value?",
+          answer: "Use remove(). Example: my_list.remove(2)"
+        },
+        {
+          question: "What is the purpose of the pass statement in Python?",
+          answer: "It is a placeholder that does nothing; used for creating empty blocks."
+        },
+        {
+          question: "Write a function to check if a number is prime.",
+          answer: "",
+          code: `
+def is_prime(n):
+    if n <= 1:
+        return False
+    for i in range(2, int(n**0.5) + 1):
+        if n % i == 0:
+            return False
+    return True
+          `
+        },
+        {
+          question: "How do you merge two dictionaries in Python?",
+          answer: "Use the update() method or dictionary unpacking (Python 3.5+).",
+          code: `
+dict1.update(dict2)
+merged_dict = {**dict1, **dict2}
+          `
+        },
+        {
+          question: "How do you handle exceptions in Python?",
+          answer: "Use try, except, else, and finally blocks.",
+          code: `
+try:
+    # code
+except Exception as e:
+    # handle exception
+else:
+    # code if no exception
+finally:
+    # cleanup code
+          `
+        },
+        {
+          question: "What is the purpose of the __init__ method in a class?",
+          answer: "It initializes a new object's attributes."
+        },
+        {
+          question: "Write a function to find the factorial of a number.",
+          answer: "",
+          code: `
+def factorial(n):
+    if n == 0:
+        return 1
+    return n * factorial(n - 1)
+          `
+        },
+        {
+          question: "How do you check the type of an object?",
+          answer: "Use the type() function. Example: type(5)"
+        },
+        {
+          question: "What is a lambda function?",
+          answer: "An anonymous, inline function defined with lambda.",
+          code: `
+square = lambda x: x**2
+          `
+        },
+        {
+          question: "How do you iterate over a dictionary?",
+          answer: "Use .items(), .keys(), or .values().",
+          code: `
+for key, value in my_dict.items():
+    # code
+          `
+        },
+        {
+          question: "Write a function to find the common elements between two lists.",
+          answer: "",
+          code: `
+def common_elements(list1, list2):
+    return list(set(list1) & set(list2))
+          `
+        },
+        {
+          question: "How do you create a class in Python?",
+          answer: "",
+          code: `
+class MyClass:
+    def __init__(self, value):
+        self.value = value
+          `
+        }
+      ]
+    },
+    {
+      level: "Expert",
+      items: [
+        {
+          question: "What are decorators and how do they work?",
+          answer: "Decorators modify or extend the behavior of functions. Example:",
+          code: `
+def my_decorator(func):
+    def wrapper():
+        print("Something is happening before the function.")
+        func()
+        print("Something is happening after the function.")
+    return wrapper
+
+@my_decorator
+def say_hello():
+    print("Hello!")
+          `
+        },
+        {
+          question: "Explain how generators work with an example.",
+          answer: "Generators yield items one at a time and maintain state. Example:",
+          code: `
+def countdown(n):
+    while n > 0:
+        yield n
+        n -= 1
+          `
+        },
+        {
+          question: "What are context managers and how are they used?",
+          answer: "Context managers handle resource management. Example:",
+          code: `
+class MyContextManager:
+    def __enter__(self):
+        print("Entering")
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        print("Exiting")
+
+with MyContextManager():
+    print("Inside")
+          `
+        },
+        {
+          question: "What is the Global Interpreter Lock (GIL) in Python?",
+          answer: "A mutex that protects access to Python objects, preventing multiple native threads from executing Python bytecodes at once."
+        },
+        {
+          question: "How do you use multi-threading in Python?",
+          answer: "Use the threading module to run tasks in separate threads.",
+          code: `
+import threading
+
+def print_numbers():
+    for i in range(5):
+        print(i)
+
+thread = threading.Thread(target=print_numbers)
+thread.start()
+          `
+        },
+        {
+          question: "What are metaclasses in Python?",
+          answer: "Metaclasses define the behavior of classes themselves.",
+          code: `
+class Meta(type):
+    def __new__(cls, name, bases, dct):
+        return super().__new__(cls, name, bases, dct)
+
+class MyClass(metaclass=Meta):
+    pass
+          `
+        },
+        {
+          question: "How do you implement a custom iterator in Python?",
+          answer: "Define a class with __iter__() and __next__() methods.",
+          code: `
+class Counter:
+    def __init__(self, low, high):
+        self.current = low
+        self.high = high
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self.current > self.high:
+            raise StopIteration
+        else:
+            self.current += 1
+            return self.current - 1
+          `
+        },
+        {
+          question: "What is memoization and how is it implemented?",
+          answer: "Memoization is caching function results to improve performance. Example:",
+          code: `
+from functools import lru_cache
+
+@lru_cache(maxsize=None)
+def fibonacci(n):
+    if n < 2:
+        return n
+    return fibonacci(n-1) + fibonacci(n-2)
+          `
+        },
+        {
+          question: "How do you manage dependencies in a Python project?",
+          answer: "Use pip and requirements.txt to list and install dependencies.",
+          code: `
+pip freeze > requirements.txt
+pip install -r requirements.txt
+          `
+        },
+        {
+          question: "Explain how to use the asyncio module for asynchronous programming.",
+          answer: "Use async and await keywords to write asynchronous code.",
+          code: `
+import asyncio
+
+async def say_hello():
+    print("Hello")
+    await asyncio.sleep(1)
+    print("World")
+
+asyncio.run(say_hello())
+          `
+        },
+        {
+          question: "What are Python's data descriptors?",
+          answer: "Data descriptors are objects that implement __get__, __set__, and/or __delete__.",
+          code: `
+class Descriptor:
+    def __get__(self, instance, owner):
+        return instance._value
+
+    def __set__(self, instance, value):
+        instance._value = value
+
+class MyClass:
+    attr = Descriptor()
+          `
+        },
+        {
+          question: "How do you implement method chaining in Python?",
+          answer: "Return self from methods to allow chaining.",
+          code: `
+class Chained:
+    def method1(self):
+        print("Method 1")
+        return self
+
+    def method2(self):
+        print("Method 2")
+        return self
+
+Chained().method1().method2()
+          `
+        },
+        {
+          question: "What are the differences between deepcopy and copy?",
+          answer: "copy creates a shallow copy, deepcopy creates a deep copy of nested objects.",
+          code: `
+import copy
+
+original = [[1, 2, 3], [4, 5, 6]]
+shallow_copy = copy.copy(original)
+deep_copy = copy.deepcopy(original)
+          `
+        },
+        {
+          question: "How do you implement a Python class with static methods?",
+          answer: "Use the @staticmethod decorator.",
+          code: `
+class MyClass:
+    @staticmethod
+    def static_method():
+        print("Static method")
+          `
+        },
+        {
+          question: "What is the purpose of the __call__ method in a class?",
+          answer: "Allows an instance of a class to be called as a function.",
+          code: `
+class Callable:
+    def __call__(self, *args, **kwargs):
+        print("Called with", args, kwargs)
+          `
+        }
+      ]
+    }
+                // Your questions data here
+            ];
+
+            return (
+                <div className="space-y-8">
+                    {questions.map((level, index) => (
+                        <div key={index} >
+                          <h4 class="text-2xl font-semibold mb-4 text-blue-500">{level.level} Level Questions</h4>
+                            <ol className="list-decimal list-inside space-y-4">
+                                {level.items.map((item, itemIndex) => (
+                                    <li key={itemIndex}>
+                                        <p className="font-medium">{item.question}</p>
+                                        {item.answer && <p className="mt-1">{item.answer}</p>}
+                                        {item.code && (
+                                            <pre className="bg-gray-100 p-2 rounded mt-2 overflow-x-auto">
+                                                <code>{item.code.trim()}</code>
+                                            </pre>
+                                        )}
+                                    </li>
+                                ))}
+                            </ol>
+                        </div>
+                    ))}
+                </div>
+            );
+        };
+
+        // Render the InterviewSheet component
+        ReactDOM.render(
+            <InterviewSheet />,
+            document.getElementById('interview-sheet-root')
+        );
+    </script>
+ <script>
+  const debounce = (func, delay) => {
+let inDebounce;
+return function() {
+  const context = this;
+  const args = arguments;
+  clearTimeout(inDebounce);
+  inDebounce = setTimeout(() => func.apply(context, args), delay);
+};
+};
+
+// Function to show tab
+function showTab(tabName) {
+const allTabs = document.querySelectorAll('.tab-content');
+const allButtons = document.querySelectorAll('.tab-btn');
+const selectedTab = document.getElementById(tabName);
+const clickedButton = document.querySelector(`.tab-btn[onclick*="${tabName}"]`);
+
+allTabs.forEach(tab => tab.classList.add('hidden'));
+allButtons.forEach(btn => {
+  btn.classList.remove('bg-blue-500', 'text-white');
+  btn.classList.add('bg-gray-200', 'text-gray-700');
+});
+
+if (selectedTab) selectedTab.classList.remove('hidden');
+if (clickedButton) {
+  clickedButton.classList.remove('bg-gray-200', 'text-gray-700');
+  clickedButton.classList.add('bg-blue-500', 'text-white');
+}
+
+const languageDropdown = document.getElementById('languageDropdown');
+if (languageDropdown && languageDropdown.classList.contains('show')) {
+  languageDropdown.classList.remove('show');
+}
+}
+
+// Function to download cheat sheet
+function downloadCheatSheet() {
+alert('Downloading Python Cheat Sheet...');
+}
+
+// Function to check if element is in viewport
+function isElementInViewport(el) {
+const rect = el.getBoundingClientRect();
+return (
+  rect.top >= 0 &&
+  rect.left >= 0 &&
+  rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+  rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+);
+}
+
+// Function to handle scroll and reveal sections
+const handleScroll = debounce(() => {
+const sections = document.querySelectorAll('.cheatsheet-section');
+sections.forEach(section => {
+  if (isElementInViewport(section) && !section.classList.contains('visible')) {
+      section.classList.add('visible');
+  }
+});
+}, 100);
+
+// Event listeners
+document.addEventListener('DOMContentLoaded', () => {
+const dropdownBtn = document.getElementById('dropdownBtn');
+const languageDropdown = document.getElementById('languageDropdown');
+
+dropdownBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  languageDropdown.classList.toggle('show');
+});
+
+document.addEventListener('click', (e) => {
+  if (!dropdownBtn.contains(e.target) && !languageDropdown.contains(e.target)) {
+      languageDropdown.classList.remove('show');
+  }
+});
+
+const fadeElements = document.querySelectorAll('.fade-in');
+fadeElements.forEach(element => element.classList.add('visible'));
+
+const easySection = document.querySelector('.cheatsheet-section');
+if (easySection) easySection.classList.add('visible');
+
+handleScroll();
+});
+
+window.addEventListener('scroll', handleScroll);
+window.addEventListener('resize', handleScroll);
+</script>
+</body>
+</html>

@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastPrepSahil - CSS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&display=swap');
+
+:root {
+--primary-color: #3b82f6;
+--secondary-color: #38bdf8;
+--background-color: #f9f9f9;
+--text-color: #333;
+}
+
+* {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+}
+
+body {
+font-family: 'Manrope', sans-serif;
+line-height: 1.6;
+color: var(--text-color);
+}
+
+.hero-section {
+background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/css.jpg');
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+height: 400px;
+position: relative;
+padding: 2rem 1rem;
+}
+
+.hero-section::before {
+content: "";
+position: absolute;
+inset: 0;
+background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 2px, transparent 2px, transparent 4px);
+pointer-events: none;
+}
+
+.fade-in {
+opacity: 0;
+transform: translateY(20px);
+transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.fade-in.visible {
+opacity: 1;
+transform: translateY(0);
+}
+
+.btn-animated {
+transition: all 0.3s ease;
+}
+
+.btn-animated:hover, .btn-animated:focus {
+transform: translateY(-3px) scale(1.05);
+box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.btn-animated:active {
+transform: translateY(-1px) scale(1.02);
+box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.dropdown-content {
+display: none;
+position: absolute;
+background-color: var(--background-color);
+min-width: 160px;
+box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+z-index: 1;
+}
+
+.dropdown-content a {
+color: var(--text-color);
+padding: 12px 16px;
+text-decoration: none;
+display: block;
+transition: all 0.2s ease;
+}
+
+.dropdown-content a:hover, .dropdown-content a:focus {
+background-color: #f1f1f1;
+transform: translateX(5px);
+}
+
+.show {
+display: block;
+animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+from { opacity: 0; }
+to { opacity: 1; }
+}
+
+.code-block {
+background-color: #f8f8f8;
+border-left: 4px solid var(--primary-color);
+padding: 1rem;
+margin: 1rem 0;
+font-family: 'Courier New', Courier, monospace;
+overflow-x: auto;
+}
+
+.interview-sheet-container {
+background-color: var(--background-color);
+padding: 20px;
+border: 1px solid #ddd;
+border-radius: 10px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+background-image: linear-gradient(to right, #1e293b, #0f172a);
+position: relative;
+overflow: hidden;
+padding: 2rem 1rem;
+}
+
+footer::before {
+content: '';
+position: absolute;
+inset: 0;
+background: url('path/to/subtle-pattern.png') repeat;
+opacity: 0.05;
+z-index: 0;
+}
+
+footer > div {
+position: relative;
+z-index: 1;
+}
+
+footer h3 {
+font-size: 1.25rem;
+margin-bottom: 1rem;
+position: relative;
+display: inline-block;
+}
+
+footer h3::after {
+content: '';
+position: absolute;
+left: 0;
+bottom: -5px;
+width: 50px;
+height: 2px;
+background: linear-gradient(to right, var(--secondary-color), var(--primary-color));
+}
+
+footer p {
+font-size: 0.9rem;
+line-height: 1.6;
+}
+
+footer a:not(.inline-block) {
+transition: all 0.3s ease;
+}
+
+footer a:not(.inline-block):hover, footer a:not(.inline-block):focus {
+color: var(--secondary-color);
+transform: translateX(5px);
+}
+
+footer .inline-block {
+transition: all 0.3s ease;
+}
+
+footer .inline-block:hover, footer .inline-block:focus {
+transform: translateY(-3px);
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.social-icon {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+width: 40px;
+height: 40px;
+border-radius: 50%;
+background: rgba(255, 255, 255, 0.1);
+transition: all 0.3s ease;
+}
+
+.social-icon:hover, .social-icon:focus {
+background: rgba(255, 255, 255, 0.2);
+transform: translateY(-3px);
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+.hero-section {
+  height: 350px;
+}
+
+footer .grid {
+  gap: 1.5rem;
+}
+
+footer .md\:px-12 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.tab-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tab-btn {
+  flex: 1 1 calc(30% - 0.25rem);
+  font-size: 0.9rem;
+  padding: 0.5rem;
+}
+
+}@media only screen and (max-width: 768px) {
+.text-2xl.font-bold.text-blue-600 {
+  display: none;
+}
+
+}</style>
+</head>
+<body class="bg-gray-100"></body>
+    <header class="bg-white shadow-md fixed w-full z-10">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+          <div class="flex items-center">
+            <img src="images/logo2.jpeg" alt="FastPrepSahil Logo" class="h-12 w-auto mr-3">
+            <h1 class="text-2xl font-bold text-blue-600">FastPrepSahil</h1>
+        </div>
+            <div class="flex items-center space-x-2">
+            
+              <button onclick="window.location.href='index.html'" id="searchBtn" class="btn-animated bg-blue-500 text-white px-4 py-2 rounded">Home</button>
+                <div class="relative inline-block">
+                    <button id="dropdownBtn" class="btn-animated bg-gray-200 text-gray-700 px-4 py-2 rounded">
+                        Select Language <i class="fas fa-caret-down ml-1"></i>
+                    </button>
+                    <div id="languageDropdown" class="dropdown-content">
+                        <a href="python.html">Python</a>
+                        <a href="c.html">C</a>
+                        <a href="java.html">Java</a>
+                        <a href="cpp.html">C++</a>
+                        <a href="html.html">HTML</a>
+                        <a href="css.html">CSS</a>
+                        <a href="javascript.html">JavaScript</a>
+                        <a href="sql.html">SQL</a>
+                        <a href="php.html">PHP</a>
+                        <a href="mern.html">MERN</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="hero-section flex items-center justify-center pt-16">
+        <h2 id="language-title" class="text-4xl font-bold text-white text-center">CSS Resources</h2>
+    </div>
+
+    <main class="container mx-auto mt-8 p-4">
+      <div class="tab-buttons flex flex-wrap gap-2 mb-6">
+        <button onclick="showTab('snapshot')" class="tab-btn btn-animated bg-blue-500 text-white px-3 py-2 rounded text-sm flex-grow">Language Snapshot</button>
+        <button onclick="showTab('cheatsheet')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Cheat Sheet</button>
+        <button onclick="showTab('cheatsheetpdfs')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Cheat Sheet PDFs</button>
+        <button onclick="showTab('cheatsheetlibrary')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Cheat Sheet Library</button>
+        <button onclick="showTab('interviewsheet')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Interview Sheet</button>
+        <button onclick="showTab('interviewlibrary')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Interview Library</button>
+        <button onclick="showTab('standardcodesnippets')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Standard Code Snippets</button>
+    </div>
+    
+        <div id="tab-content" class="bg-white p-6 rounded-lg shadow-md fade-in">
+            <div id="snapshot" class="tab-content">
+                <h3 class="text-2xl font-bold mb-8 text-blue-600">Language Snapshot</h3>
+                <div id="snapshot-content" class="space-y-8">
+                    <section>
+                        <h4 class="text-xl font-semibold mb-4">Overview</h4>
+                        <ul class="list-disc pl-6 space-y-2">
+                            <li>
+                                <span class="font-medium">Definition:</span> Cascading Style Sheets (CSS) is a stylesheet language used to describe the presentation of a document written in HTML or XML.
+                            </li>
+                            <li>
+                                <span class="font-medium">Purpose:</span> It enables the separation of content and presentation, allowing for more flexible styling and improved accessibility.
+                            </li>
+                        </ul>
+                    </section>
+            
+                    <section>
+                        <h4 class="text-xl font-semibold mb-4">Invention</h4>
+                        <ul class="list-disc pl-6 space-y-2">
+                            <li><span class="font-medium">Inventor:</span> Håkon Wium Lie</li>
+                            <li><span class="font-medium">First Released:</span> December 1996</li>
+                            <li><span class="font-medium">Evolution:</span> CSS has evolved through several versions, with CSS3 being the most current and widely used version.</li>
+                        </ul>
+                    </section>
+            
+                    <section>
+                        <h4 class="text-xl font-semibold mb-4">Key Features</h4>
+                        <ul class="list-disc pl-6 space-y-2">
+                            <li><span class="font-medium">Selectors:</span> Define which elements to style.</li>
+                            <li><span class="font-medium">Box Model:</span> Describes the rectangular boxes generated for elements, including margins, borders, padding, and content.</li>
+                            <li><span class="font-medium">Responsive Design:</span> Enables designs that adapt to different screen sizes and resolutions.</li>
+                            <li><span class="font-medium">Animations:</span> Provides capabilities for animating changes to CSS properties.</li>
+                        </ul>
+                    </section>
+            
+                    <section>
+                        <h4 class="text-xl font-semibold mb-4">Basic Syntax</h4>
+                        <pre class="bg-gray-100 p-4 rounded-md"><code>
+            selector {
+                property: value;
+            }
+                        </code></pre>
+                    </section>
+            
+                    <section>
+                        <h4 class="text-xl font-semibold mb-4">Common Uses</h4>
+                        <ul class="list-disc pl-6 space-y-2">
+                            <li><span class="font-medium">Styling Text:</span> Fonts, colors, and text alignment.</li>
+                            <li><span class="font-medium">Layout Design:</span> Positioning elements, creating grids and flex layouts.</li>
+                            <li><span class="font-medium">Visual Effects:</span> Adding shadows, transitions, and animations.</li>
+                        </ul>
+                    </section>
+                </div>
+            </div>
+            <div id="cheatsheet" class="tab-content hidden">
+                <h3 class="text-2xl font-bold mb-8 text-blue-600">Cheat Sheet</h3>
+                <section class="cheatsheet-section mb-12">
+                    <h3 class="text-2xl font-semibold mb-4 text-blue-500">Basic Level</h3>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">1. Select all elements:</h4>
+                        <p class="mb-2">Sets default styles for all elements.</p>
+                        <div class="code-block">
+                            <pre>
+            * {
+                margin: 0;
+                padding: 0;
+            }
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">2. Set background color:</h4>
+                        <p class="mb-2">Sets the background color of the body element.</p>
+                        <div class="code-block">
+                            <pre>
+            body {
+                background-color: lightblue;
+            }
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">3. Text color:</h4>
+                        <p class="mb-2">Sets the text color of paragraph elements.</p>
+                        <div class="code-block">
+                            <pre>
+            p {
+                color: darkblue;
+            }
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">4. Font size:</h4>
+                        <p class="mb-2">Sets the font size of heading 1 elements.</p>
+                        <div class="code-block">
+                            <pre>
+            h1 {
+                font-size: 24px;
+            }
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">5. Centering text:</h4>
+                        <p class="mb-2">Centers the text of elements with the class "center".</p>
+                        <div class="code-block">
+                            <pre>
+            .center {
+                text-align: center;
+            }
+                            </pre>
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="cheatsheet-section mb-12">
+                    <h3 class="text-2xl font-semibold mb-4 text-blue-500">Intermediate Level</h3>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">1. Flexbox layout:</h4>
+                        <p class="mb-2">Creates a flexbox layout with justified content.</p>
+                        <div class="code-block">
+                            <pre>
+            .container {
+                display: flex;
+                justify-content: space-between;
+            }
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">2. Grid layout:</h4>
+                        <p class="mb-2">Creates a grid layout with three equal columns.</p>
+                        <div class="code-block">
+                            <pre>
+            .grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+            }
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">3. Media query for responsiveness:</h4>
+                        <p class="mb-2">Changes the background color of the body element on smaller screens.</p>
+                        <div class="code-block">
+                            <pre>
+            @media (max-width: 600px) {
+                body {
+                    background-color: lightgreen;
+                }
+            }
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">4. Hover effect:</h4>
+                        <p class="mb-2">Changes the text color and adds an underline on hover.</p>
+                        <div class="code-block">
+                            <pre>
+            a:hover {
+                color: red;
+                text-decoration: underline;
+            }
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">5. Transition effect:</h4>
+                        <p class="mb-2">Adds a transition effect to the background color of buttons.</p>
+                        <div class=" code-block">
+                            <pre>
+            button {
+                transition: background-color 0.3s;
+            }
+            
+            button:hover {
+                background-color: yellow;
+            }
+                            </pre>
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="cheatsheet-section mb-12">
+                    <h3 class="text-2xl font-semibold mb-4 text-blue-500">Expert Level</h3>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">1. CSS Variables:</h4>
+                        <p class="mb-2">Defines a CSS variable and uses it to set the background color.</p>
+                        <div class="code-block">
+                            <pre>
+            :root {
+                --main-color: coral;
+            }
+            
+            div {
+                background-color: var(--main-color);
+            }
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">2. Keyframe animation:</h4>
+                        <p class="mb-2">Creates a keyframe animation that changes the background color.</p>
+                        <div class="code-block">
+                            <pre>
+            @keyframes example {
+                from {background-color: red;}
+                to {background-color: yellow;}
+            }
+            
+            div {
+                animation: example 4s infinite;
+            }
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">3. Custom scrollbar:</h4>
+                        <p class="mb-2">Customizes the appearance of the scrollbar.</p>
+                        <div class="code-block">
+                            <pre>
+            ::-webkit-scrollbar {
+                width: 12px;
+            }
+            
+            ::-webkit-scrollbar-thumb {
+                background: darkgrey;
+            }
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">4. Z-index stacking:</h4>
+                        <p class="mb-2">Demonstrates z-index stacking with two boxes.</p>
+                        <div class="code-block">
+                            <pre>
+            .box1 {
+                position: relative;
+                z-index: 1;
+            }
+            
+            .box2 {
+                position: relative;
+                z-index: 2;
+            }
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">5. CSS Grid with Named Areas:</h4>
+                        <p class="mb-2">Creates a grid layout with named areas.</p>
+                        <div class="code-block">
+                            <pre>
+            .grid-container {
+                display: grid;
+                grid-template-areas: 
+                    'header header header'
+                    'sidebar content content'
+                    'footer footer footer';
+            }
+                            </pre>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div id="cheatsheetpdfs" class="tab-content hidden">
+                <h3 class="text-2xl font-bold mb-8 text-blue-600">Cheat Sheet PDFs</h3>
+                <p class="mb-8">In this section, you'll find downloadable PDF versions of CSS cheatsheets from different sources. Click on the links below to download the cheat sheets directly.</p>
+                <ul class="list-disc pl-5 space-y-4">
+                  <li>
+                    <a href="https://www3.cs.stonybrook.edu/~pramod.ganapathi/doc/CSE102/CSE102-CheatSheetCSSLong.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                      1. CSS Cheat Sheet (PDF) - Stony Brook University
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.thehoth.com/wp-content/uploads/onblastblog/CSS3-Cheat-Sheet.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                      2. CSS Cheat Sheet (PDF) - The Hoth
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://web.stanford.edu/group/csp/cs21/csscheatsheet.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                      3. CSS Cheat Sheet (PDF) - Stanford University
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.reveillere.fr/M2WEB/sheets/css.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                      4. CSS Cheat Sheet (PDF) - Reveillere
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/iLoveCodingOrg/css-cheatsheet/raw/master/css-cheatsheet.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                      5. CSS Cheat Sheet (PDF) - iLoveCoding.org (GitHub)
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://htmlcheatsheet.com/css/CSS-Cheat-Sheet.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                      6. CSS Cheat Sheet (PDF) - HTML Cheat Sheet
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div id="cheatsheetlibrary" class="tab-content hidden">
+                <h3 class="text-2xl font-bold mb-8 text-blue-600">Cheat Sheet Library</h3>
+                <p class="mb-8">In this section, you'll find various links to CSS cheatsheets available on different websites. Click on the links below to explore the resources.</p>
+                <ul class="list-disc pl-5 space-y-4">
+                  <li>
+                    <a href="https://htmlcheatsheet.com/css" target="_blank" class="text-blue-600 hover:underline">
+                      1. HTML Cheat Sheet - Interactive CSS Cheatsheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.codewithharry.com/blogpost/css-cheatsheet/" target="_blank" class="text-blue-600 hover:underline">
+                      2. Code with Harry CSS Cheatsheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.geeksforgeeks.org/css-cheat-sheet-a-basic-guide-to-css/" target="_blank" class="text-blue-600 hover:underline">
+                      3. GeeksforGeeks CSS Cheat Sheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="http://cheatsheets.shecodes.io/css" target="_blank" class="text-blue-600 hover:underline">
+                      4. SheCodes CSS Cheatsheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.codecademy.com/resources/cheatsheets/language/html-css" target="_blank" class="text-blue-600 hover:underline">
+                      5. Codecademy HTML/CSS Cheatsheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.interviewbit.com/css-cheat-sheet/" target="_blank" class="text-blue-600 hover:underline">
+                      6. InterviewBit CSS Cheat Sheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.creative-tim.com/twcomponents/cheatsheet" target="_blank" class="text-blue-600 hover:underline">
+                      7. Creative Tim CSS Cheatsheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://adam-marsden.co.uk/css-cheat-sheet" target="_blank" class="text-blue-600 hover:underline">
+                      8. Adam Marsden CSS Cheat Sheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.w3schools.com/cssref/index.php" target="_blank" class="text-blue-600 hover:underline">
+                      9. W3Schools CSS Reference
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/acchou/html-css-cheat-sheet" target="_blank" class="text-blue-600 hover:underline">
+                      10. acchou HTML/CSS Cheat Sheet
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div id="interviewsheet" class="tab-content hidden">
+                <h3 class="text-2xl font-bold mb-8 text-blue-600">Interview Sheet</h3>
+                
+                  <div id="interview-sheet-root"></div>
+              </div>
+              <div id="standardcodesnippets" class="tab-content hidden">
+                <h3 class="text-2xl font-bold mb-4 text-blue-600">Standard Code Snippets</h3>
+              
+              
+                  <section class="cheatsheet-section mb-12">
+                    <h4 class="text-2xl font-semibold mb-4 text-blue-500">Basic Level</h4>
+                    <div class="mb-6">
+                      <h5 class="text-xl font-medium mb-2">Basic Styling</h5>
+                      <p class="mb-2">Basic styling for the body element:</p>
+                      <div class="code-block">
+                        <pre>
+                          body {
+                              font-family: Arial, sans-serif;
+                              background-color: #f4f4f4;
+                              color: #333;
+                          }
+                        </pre>
+                      </div>
+                    </div>
+                    <div class="mb-6">
+                      <h5 class="text-xl font-medium mb-2">Centering Text</h5>
+                      <p class="mb-2">Centering text using the text-align property:</p>
+                      <div class="code-block">
+                        <pre>
+                          h1 {
+                              text-align: center;
+                          }
+                        </pre>
+                      </div>
+                    </div>
+                    <div class="mb-6">
+                      <h5 class="text-xl font-medium mb-2">Styling a Button</h5>
+                      <p class="mb-2">Basic styling for a button:</p>
+                      <div class="code-block">
+                        <pre>
+                          .button {
+                              background-color: #007bff;
+                              color: white;
+                              padding: 10px 20px;
+                              border: none;
+                              border-radius: 5px;
+                              cursor: pointer;
+                          }
+                        </pre>
+                      </div>
+                    </div>
+                    <div class="mb-6">
+                      <h5 class="text-xl font-medium mb-2">Hover Effect</h5>
+                      <p class="mb-2">Adding a hover effect to a button:</p>
+                      <div class="code-block">
+                        <pre>
+                          .button:hover {
+                              background-color: #0056b3;
+                          }
+                        </pre>
+                      </div>
+                    </div>
+                    <div class="mb-6">
+                      <h5 class="text-xl font-medium mb-2">Adding Margins</h5>
+                      <p class="mb-2">Adding margins to a container:</p>
+                      <div class="code-block">
+                        <pre>
+                          .container {
+                              margin: 20px;
+                          }
+                        </pre>
+                      </div>
+                    </div>
+                  </section>
+              
+                  <section class="cheatsheet-section mb-12">
+                    <h4 class="text-2xl font-semibold mb-4 text-blue-500">Intermediate Level</h4>
+                    <div class="mb-6">
+                      <h5 class="text-xl font-medium mb-2">Flexbox Layout</h5>
+                      <p class="mb-2">Basic flexbox layout:</p>
+                      <div class="code-block">
+                        <pre>
+                          .flex-container {
+                              display: flex;
+                              justify-content: space-between;
+                              align-items: center;
+                          }
+                        </pre>
+                      </div>
+                    </div>
+                    <div class="mb-6">
+                      <h5 class="text-xl font-medium mb-2">Grid Layout</h5>
+                      <p class="mb-2">Basic grid layout:</p>
+                      <div class="code-block">
+                        <pre>
+                          .grid-container {
+                              display: grid;
+                              grid-template-columns: repeat(3, 1fr);
+                              gap: 10px;
+                          }
+                        </pre>
+                      </div>
+                    </div>
+                    <div class="mb-6">
+                      <h5 class="text-xl font-medium mb-2">Media Queries for Responsive Design</h5>
+                      <p class="mb-2">Using media queries for responsive design:</p>
+                      <div class="code-block">
+                        <pre>
+                          @media (max-width: 600px) {
+                              .flex-container {
+                                  flex-direction: column;
+                              }
+                          }
+                        </pre>
+                      </div>
+                    </div>
+                    <div class="mb-6">
+                      <h5 class="text-xl font-medium mb-2">Custom Scrollbar</h5>
+                      <p class="mb-2">Customizing the scrollbar:</p>
+                      <div class="code-block">
+                        <pre>
+                          ::-webkit-scrollbar {
+                              width: 10px;
+                          }
+              
+                          ::-webkit-scrollbar-thumb {
+                              background: #888;
+                              border-radius: 10px;
+                          }
+                        </pre>
+                      </div>
+                    </div>
+                    <div class="mb-6">
+                      <h5 class="text-xl font-medium mb-2">Transitions</h5>
+                      <p class="mb-2">Adding transitions to an element:</p>
+                      <div class="code-block">
+                        <pre>
+                          .box {
+                              width: 100px;
+                              height: 100px;
+                              background-color: blue;
+                              transition: background-color 0.3s;
+                          }
+              
+                          .box:hover {
+                              background-color: red;
+                          }
+                        </pre>
+                      </div>
+                    </div>
+                  </section>
+              
+                  <section class="cheatsheet-section mb-12">
+                    <h4 class="text-2xl font-semibold mb-4 text-blue-500">Expert Level</h4>
+                    <div class="mb-6">
+                      <h5 class="text-xl font-medium mb-2">CSS Animation</h5>
+                      <p class="mb-2">Creating a CSS animation:</p>
+                      <div class="code-block">
+                        <pre>
+                          @keyframes slide {
+                              from {
+                                  transform: translateX(0);
+                              }
+                              to {
+                                  transform: translateX(100%);
+                              }
+                          }
+              
+                          .animate {
+                              animation: slide 1s forwards;
+                          }
+                        </pre>
+                      </div>
+                    </div>
+                    <div class="mb-6">
+                      <h5 class="text-xl font-medium mb-2">Creating a Responsive Navbar</h5>
+                      <p class="mb-2">Creating a responsive navbar:</p>
+                      <div class="code-block">
+                        <pre>
+                          nav {
+                              display: flex;
+                              justify-content: space-between;
+                              align-items: center;
+                              background-color: #333;
+                          }
+              
+                          nav ul {
+                              display: flex;
+                              list-style: none;
+                              padding: 0;
+                          }
+              
+                          nav ul li {
+                              margin: 0 15px;
+                          }
+              
+                          nav ul li a {
+                              color: white;
+                              text-decoration: none;
+                          }
+                        </pre>
+                      </div>
+                    </div>
+                    <div class="mb-6">
+                      <h5 class="text-xl font-medium mb-2">Sticky Footer</h5>
+                      <p class="mb-2">Creating a sticky footer:</p>
+                      <div class="code-block">
+                        <pre>
+                          body {
+                              display: flex;
+                              flex-direction: column;
+                              min-height: 100vh;
+                          }
+              
+                          footer {
+                              margin-top: auto;
+                          }
+                        </pre>
+                      </div>
+                    </div>
+                    <div class="mb-6">
+                      <h5 class="text-xl font-medium mb-2">Creating a Tooltip</h5>
+                      <p class="mb-2">Creating a tooltip:</p>
+                      <div class="code-block">
+                        <pre>
+                          .tooltip {
+                              position: relative;
+                              display: inline-block;
+                          }
+              
+                          .tooltip .tooltiptext {
+                              visibility: hidden;
+                              width: 120px;
+                              background-color: black;
+                              color: white;
+                              text-align: center;
+                              border-radius: 6px;
+                              padding: 5px 0;
+                              position: absolute;
+                              z-index: 1;
+                              bottom: 125%; /* Position the tooltip above the text */
+                              left: 50%;
+                              margin-left: -60px;
+                          }
+              
+                          .tooltip:hover .tooltiptext {
+                              visibility: visible;
+                          }
+                        </pre>
+                      </div>
+                    </div>
+                    <div class="mb-6">
+                      <h5 class="text-xl font-medium mb-2">Box Shadows and Text Shadows</h5>
+                      <p class="mb-2">Adding box shadows and text shadows:</p>
+                      <div class="code-block">
+                        <pre>
+                          .box-shadow {
+                              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                          }
+              
+                          .text-shadow {
+                              text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+                          }
+                        </pre>
+                      </div>
+                    </div>
+                  </section>
+                </section>
+              </div>
+              <div id="interviewlibrary" class="tab-content hidden">
+                <h3 class="text-2xl font-bold mb-8 text-blue-600">Interview Library</h3>
+                <p class="mb-8">In this section, you'll find links to interview question sheets for CSS from various sources. Click the links below to access these resources and prepare for your interviews.</p>
+                <ul class="list-disc pl-5 space-y-4">
+                  <li>
+                    <a href="https://www.interviewbit.com/css-interview-questions/" target="_blank" class="text-blue-600 hover:underline">1. CSS Interview Questions - InterviewBit</a>
+                  </li>
+                  <li>
+                    <a href="https://www.geeksforgeeks.org/css-interview-questions-and-answers/" target="_blank" class="text-blue-600 hover:underline">2. CSS Interview Questions and Answers - GeeksforGeeks</a>
+                  </li>
+                  <li>
+                    <a href="https://www.javatpoint.com/css-interview-questions" target="_blank" class="text-blue-600 hover:underline">3. CSS Interview Questions - JavaTpoint</a>
+                  </li>
+                  <li>
+                    <a href="https://www.simplilearn.com/tutorials/css-tutorial/css-interview-questions" target="_blank" class="text-blue-600 hover:underline">4. CSS Interview Questions - Simplilearn</a>
+                  </li>
+                  <li>
+                    <a href="https://www.turing.com/interview-questions/css" target="_blank" class="text-blue-600 hover:underline">5. CSS Interview Questions - Turing</a>
+                  </li>
+                  <li>
+                    <a href="https://www.w3schools.com/css/css_interview_prep.asp" target="_blank" class="text-blue-600 hover:underline">6. CSS Interview Preparation - W3Schools</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/Devinterview-io/css-interview-questions" target="_blank" class="text-blue-600 hover:underline">7. CSS Interview Questions - Devinterview.io (GitHub)</a>
+                  </li>
+                  <li>
+                    <a href="https://www.naukri.com/code360/library/css-interview-questions" target="_blank" class="text-blue-600 hover:underline">8. CSS Interview Questions - Naukri</a>
+                  </li>
+                  <li>
+                    <a href="https://medium.com/front-end-weekly/css-interview-questions-with-answers-ebe49257fb13" target="_blank" class="text-blue-600 hover:underline">9. CSS Interview Questions with Answers - Medium</a>
+                  </li>
+                  <li>
+                    <a href="https://codeinstitute.net/global/blog/30-css-interview-questions-answers/" target="_blank" class="text-blue-600 hover:underline">10. 30 CSS Interview Questions and Answers - Code Institute</a>
+                  </li>
+                  <li>
+                    <a href="https://www.testgorilla.com/blog/css-interview-questions/" target="_blank" class="text-blue-600 hover:underline">11. CSS Interview Questions - TestGorilla</a>
+                  </li>
+                  <li>
+                    <a href="https://www.adaface.com/blog/css-interview-questions/" target="_blank" class="text-blue-600 hover:underline">12. CSS Interview Questions - Adaface</a>
+                  </li>
+                  <li>
+                    <a href="https://www.frontendinterviewhandbook.com/css-questions" target="_blank" class="text-blue-600 hover:underline">13. CSS Interview Questions - Frontend Interview Handbook</a>
+                  </li>
+                  <li>
+                    <a href="https://zerotomastery.io/blog/css-interview-questions-and-answers/" target="_blank" class="text-blue-600 hover:underline">14. CSS Interview Questions and Answers - Zero To Mastery</a>
+                  </li>
+                  <li>
+                    <a href="https://in.indeed.com/career-advice/interviewing/css-interview-questions" target="_blank" class="text-blue-600 hover:underline">15. CSS Interview Questions - Indeed</a>
+                  </li>
+                  <li>
+                    <a href="https://www.guvi.com/blog/top-html-css-interview-questions-with-answers/" target="_blank" class="text-blue-600 hover:underline">16. Top HTML CSS Interview Questions with Answers - Guvi</a>
+                  </li>
+                </ul>
+              </div>
+          </div>
+      </main>
+  
+      <footer class="bg-gradient-to-r from-slate-800 to-slate-900 text-white py-16">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-24">
+                <div class="space-y-6 md:px-12">
+                    <h3 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-500">
+                        LastMinutePrep
+                    </h3>
+                    <p class="text-slate-300 leading-relaxed">
+                        Your go-to platform for last-minute coding interview preparation. Ace your interviews with confidence!
+                    </p>
+                    <a href="index.html" class="inline-block px-6 py-3 rounded-full bg-gradient-to-r from-sky-400 to-blue-500 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                        Get Started
+                    </a>
+                </div>
+                <div class="space-y-6 md:px-12">
+                    <h3 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-500">
+                        About Me
+                    </h3>
+                    <div class="space-y-4">
+                        <p class="text-2xl font-bold">Baba Sahil</p>
+                        <p class="text-slate-300">Aspirant Software Engineer</p>
+                        <p class="text-slate-300">
+                            <a href="mailto:babasahil2628@gmail.com" class="text-sky-400 hover:text-sky-300 transition-colors duration-300">
+                                babasahil2628@gmail.com
+                            </a>
+                        </p>
+                    </div>
+                </div>
+                <div class="space-y-6 md:px-12">
+                    <h3 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-500">
+                       Connect with Me
+                    </h3>
+                    <div class="space-y-4">
+                        <a href="https://www.linkedin.com/profile/in/baba-sahil-153721321/" target="_blank" class="flex items-center text-slate-300 hover:text-white transition-colors duration-300">
+                            <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                            LinkedIn Profile
+                        </a>
+                        <a href="https://github.com/babasahil29" target="_blank" class="flex items-center text-slate-300 hover:text-white transition-colors duration-300">
+                            <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
+                            </svg>
+                            GitHub
+                        </a>
+                        <a href="https://babasahil.my.canva.site/" target="_blank" class="flex items-center text-slate-300 hover:text-white transition-colors duration-300">
+                            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                            Portfolio
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 pt-8 border-t border-slate-700 text-center">
+                <p class="text-slate-400">&copy; 2024 <span class="text-sky-400 font-semibold">BabaSahil</span>. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+      
+    <script type="text/babel">
+      // InterviewSheet component
+      const InterviewSheet = () => {
+  const questions = [
+    {
+      level: "Basic",
+      items: [
+        {
+          question: "What does CSS stand for?",
+          answer: "Cascading Style Sheets."
+        },
+        {
+          question: "What is the purpose of CSS?",
+          answer: "CSS is used to style and layout web pages, including colors, fonts, and spacing."
+        },
+        {
+          question: "What is a CSS selector?",
+          answer: "A CSS selector is a pattern used to select the element(s) you want to style."
+        },
+        {
+          question: "What are the three ways to apply CSS to a web page?",
+          answer: "Inline CSS, internal CSS, and external CSS."
+        },
+        {
+          question: "What is the difference between class and ID selectors?",
+          answer: "A class selector is reusable and can be applied to multiple elements (uses a dot .), while an ID selector is unique and can be applied to a single element (uses a hash #)."
+        },
+        {
+          question: "What is the CSS box model?",
+          answer: "The CSS box model describes the rectangular boxes generated for elements in the document tree and consists of margins, borders, padding, and the actual content area."
+        },
+        {
+          question: "How do you change the background color of an element?",
+          answer: "By using the background-color property, e.g., element { background-color: blue; }."
+        },
+        {
+          question: "What is a CSS pseudo-class?",
+          answer: "A pseudo-class is a keyword added to selectors that specifies a special state of the selected elements, e.g., :hover."
+        },
+        {
+          question: "How can you include an external CSS file?",
+          answer: "By using the <link> tag in the HTML <head>, e.g., <link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\">."
+        },
+        {
+          question: "What are media queries?",
+          answer: "Media queries are used to apply different styles for different devices or screen sizes."
+        },
+        {
+          question: "What is the difference between padding and margin?",
+          answer: "Padding is the space between the content and the border of an element, while margin is the space outside the border between the element and other elements."
+        },
+        {
+          question: "What are CSS units?",
+          answer: "CSS units are measurements used to specify sizes, such as px, em, rem, %, etc."
+        },
+        {
+          question: "How can you center a block element horizontally?",
+          answer: "By setting margin: auto; and a defined width."
+        },
+        {
+          question: "What is the purpose of the z-index property?",
+          answer: "The z-index property controls the stacking order of elements on the z-axis (depth)."
+        },
+        {
+          question: "How do you hide an element using CSS?",
+          answer: "By using display: none; or visibility: hidden;."
+        },
+        {
+          question: "What is the float property used for?",
+          answer: "The float property is used to position elements to the left or right, allowing text and inline elements to wrap around it."
+        },
+        {
+          question: "What does the clear property do?",
+          answer: "The clear property specifies whether an element can be next to floating elements or should be moved down."
+        },
+        {
+          question: "What is a CSS variable?",
+          answer: "CSS variables (custom properties) are entities defined by CSS authors that contain specific values to be reused throughout a document, defined using --variable-name."
+        },
+        {
+          question: "How do you change the text color in CSS?",
+          answer: "By using the color property, e.g., element { color: red; }."
+        },
+        {
+          question: "What is Flexbox?",
+          answer: "Flexbox is a CSS layout model that allows you to design a complex layout structure in a more efficient and predictable way than traditional models."
+        }
+      ]
+    },
+    {
+      level: "Intermediate",
+      items: [
+        {
+          question: "What is the CSS position property?",
+          answer: "The position property specifies how an element is positioned in the document, with values like static, relative, absolute, fixed, and sticky."
+        },
+        {
+          question: "Explain the difference between absolute and relative positioning.",
+          answer: "Relative positioning is relative to the element's normal position, while absolute positioning is relative to the nearest positioned ancestor."
+        },
+        {
+          question: "What are CSS transitions?",
+          answer: "CSS transitions allow you to change property values smoothly over a given duration."
+        },
+        {
+          question: "What is the difference between inline, block, and inline-block elements?",
+          answer: "Block elements take the full width and start on a new line, inline elements do not start on a new line and only take as much width as necessary, while inline-block elements are like inline elements but respect width and height."
+        },
+        {
+          question: "What is the CSS calc() function?",
+          answer: "The calc() function allows you to perform calculations to set CSS property values dynamically."
+        },
+        {
+          question: "How do you create a CSS sprite?",
+          answer: "By combining multiple images into one and using the background-position property to display a specific part of the image."
+        },
+        {
+          question: "What is a CSS preprocessor?",
+          answer: "A CSS preprocessor is a scripting language that extends CSS with variables, nested rules, and functions, such as SASS or LESS."
+        },
+        {
+          question: "Explain the concept of specificity in CSS.",
+          answer: "Specificity determines which CSS rule applies when multiple rules match the same element, calculated based on the types of selectors used."
+        },
+        {
+          question: "How can you make a responsive web design using CSS?",
+          answer: "By using relative units (like percentages), media queries, and flexible layouts (like Flexbox or Grid)."
+        },
+        {
+          question: "What are the differences between rem and em units?",
+          answer: "em is relative to the font size of the element, while rem is relative to the font size of the root element (<html>)."
+        },
+        {
+          question: "What is the @import rule in CSS?",
+          answer: "The @import rule is used to import one stylesheet into another, allowing you to modularize your CSS."
+        },
+        {
+          question: "What are vendor prefixes in CSS?",
+          answer: "Vendor prefixes are used to ensure compatibility with different browsers, added before CSS properties (e.g., -webkit-, -moz-)."
+        },
+        {
+          question: "What is the grid layout in CSS?",
+          answer: "The grid layout is a two-dimensional layout system that allows for the creation of complex web layouts using rows and columns."
+        },
+        {
+          question: "What is the difference between visibility: hidden; and display: none;?",
+          answer: "visibility: hidden; hides the element but still takes up space in the layout, while display: none; removes the element entirely from the layout."
+        },
+        {
+          question: "How can you optimize CSS performance?",
+          answer: "By minimizing CSS files, using shorthand properties, removing unused styles, and combining CSS files."
+        },
+        {
+          question: "What is a keyframe in CSS animations?",
+          answer: "A keyframe is a rule that defines the styles at a specific point in the animation sequence."
+        },
+        {
+          question: "How can you implement a responsive navbar?",
+          answer: "By using media queries, Flexbox, or Grid to adjust the layout and visibility of navbar items based on the screen size."
+        },
+        {
+          question: "What are @media rules in CSS?",
+          answer: "@media rules are used to apply different styles depending on the media type or characteristics of the device."
+        },
+        {
+          question: "What is the difference between opacity and rgba()?",
+          answer: "opacity applies to the entire element, making it see-through, while rgba() allows you to set a color with transparency for backgrounds and borders."
+        },
+        {
+          question: "How can you clear floats in CSS?",
+          answer: "By using the clear property or the overflow property on the parent element."
+        }
+      ]
+    },
+    {
+      level: "Expert",
+      items: [
+        {
+          question: "What is the CSS clip-path property?",
+          answer: "The clip-path property allows you to define a visible region of an element, essentially creating complex shapes."
+        },
+        {
+          question: "Explain the difference between flex and grid layout systems.",
+          answer: "Flexbox is a one-dimensional layout model focused on alignment and distribution of items in a single row or column, while Grid is a two-dimensional layout model that handles both rows and columns."
+        },
+        {
+          question: "What is the CSS filter property?",
+          answer: "The filter property applies graphical effects like blurring or color shifting to elements."
+        },
+        {
+          question: "What are custom properties in CSS?",
+          answer: "Custom properties (CSS variables) are properties defined by the user that can be reused throughout the stylesheet."
+        },
+        {
+          question: "What is the backface-visibility property?",
+          answer: "The backface-visibility property determines whether the back face of an element is visible when facing the user."
+        },
+        {
+          question: "What are CSS Grids and how do they work?",
+          answer: "CSS Grids are a layout system that uses rows and columns to create complex web layouts; it allows for precise control of positioning and alignment."
+        },
+        {
+          question: "How can you create a CSS animation?",
+          answer: "By defining keyframes using @keyframes, setting animation properties, and applying them to an element."
+        },
+        {
+          question: "What is a CSS reset?",
+          answer: "A CSS reset is a set of styles that removes default browser styles to create a consistent baseline for styling."
+        },
+        {
+          question: "What is the :nth-child() selector?",
+          answer: "The :nth-child() selector matches elements based on their position in a group of siblings, allowing for specific styling."
+        },
+        {
+          question: "What are the limitations of CSS?",
+          answer: "Limitations include lack of logic (like conditional statements), limited styling capabilities compared to JavaScript, and varying browser compatibility."
+        }
+      ]
+    }
+  ];
+
+    return (
+    <div className="space-y-8">
+      {questions.map((level, index) => (
+        <div key={index}>
+            <h4 class="text-2xl font-semibold mb-4 text-blue-500">{level.level} Level Questions</h4>
+          <ol className="list-decimal list-inside space-y-4">
+            {level.items.map((item, itemIndex) => (
+              <li key={itemIndex}>
+                <p className="font-medium">{item.question}</p>
+                {item.answer && <p className="mt-1">{item.answer}</p>}
+                {item.code && (
+                  <pre className="bg-gray-100 p-2 rounded mt-2 overflow-x-auto">
+                    <code>{item.code.trim()}</code>
+                  </pre>
+                )}
+              </li>
+            ))}
+          </ol>
+        </div>
+      ))}
+    </div>
+  );
+};
+      // Render the InterviewSheet component
+      ReactDOM.render(<InterviewSheet />, document.getElementById("interview-sheet-root"));
+    </script>
+   <script>
+    const debounce = (func, delay) => {
+let inDebounce;
+return function() {
+    const context = this;
+    const args = arguments;
+    clearTimeout(inDebounce);
+    inDebounce = setTimeout(() => func.apply(context, args), delay);
+};
+};
+
+// Function to show tab
+function showTab(tabName) {
+const allTabs = document.querySelectorAll('.tab-content');
+const allButtons = document.querySelectorAll('.tab-btn');
+const selectedTab = document.getElementById(tabName);
+const clickedButton = document.querySelector(`.tab-btn[onclick*="${tabName}"]`);
+
+allTabs.forEach(tab => tab.classList.add('hidden'));
+allButtons.forEach(btn => {
+    btn.classList.remove('bg-blue-500', 'text-white');
+    btn.classList.add('bg-gray-200', 'text-gray-700');
+});
+
+if (selectedTab) selectedTab.classList.remove('hidden');
+if (clickedButton) {
+    clickedButton.classList.remove('bg-gray-200', 'text-gray-700');
+    clickedButton.classList.add('bg-blue-500', 'text-white');
+}
+
+const languageDropdown = document.getElementById('languageDropdown');
+if (languageDropdown && languageDropdown.classList.contains('show')) {
+    languageDropdown.classList.remove('show');
+}
+}
+
+// Function to download cheat sheet
+function downloadCheatSheet() {
+alert('Downloading Python Cheat Sheet...');
+}
+
+// Function to check if element is in viewport
+function isElementInViewport(el) {
+const rect = el.getBoundingClientRect();
+return (
+    rect.top >= 0 &&
+    rect.left >= 0 &&
+    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+);
+}
+
+// Function to handle scroll and reveal sections
+const handleScroll = debounce(() => {
+const sections = document.querySelectorAll('.cheatsheet-section');
+sections.forEach(section => {
+    if (isElementInViewport(section) && !section.classList.contains('visible')) {
+        section.classList.add('visible');
+    }
+});
+}, 100);
+
+// Event listeners
+document.addEventListener('DOMContentLoaded', () => {
+const dropdownBtn = document.getElementById('dropdownBtn');
+const languageDropdown = document.getElementById('languageDropdown');
+
+dropdownBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    languageDropdown.classList.toggle('show');
+});
+
+document.addEventListener('click', (e) => {
+    if (!dropdownBtn.contains(e.target) && !languageDropdown.contains(e.target)) {
+        languageDropdown.classList.remove('show');
+    }
+});
+
+const fadeElements = document.querySelectorAll('.fade-in');
+fadeElements.forEach(element => element.classList.add('visible'));
+
+const easySection = document.querySelector('.cheatsheet-section');
+if (easySection) easySection.classList.add('visible');
+
+handleScroll();
+});
+
+window.addEventListener('scroll', handleScroll);
+window.addEventListener('resize', handleScroll);
+  </script>
+  </body>
+  </html>
+      

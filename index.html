@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastPrepSahil</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+</head>
+<body class="bg-gray-100">
+    <header class="bg-white shadow-md fixed w-full z-10">
+        <div class="container mx-auto px-4 py-2 flex justify-between items-center">
+            <div class="flex items-center">
+                <img src="images/logo2.jpeg" alt="FastPrepSahil Logo" class="h-12 w-auto mr-3">
+                <h1 class="text-2xl font-bold text-blue-600 logo-text">FastPrepSahil</h1>
+            </div>
+            <div class="flex items-center">
+                <button class="bg-blue-500 text-white px-4 py-2 rounded text-lg font-semibold hidden md:block">
+                    Ace the Challenge
+                </button>
+                <div class="relative inline-block ml-4">
+                    <button id="dropdownBtn" class="btn-animated bg-gray-200 text-gray-700 px-4 py-2 rounded">
+                        <span class="hidden md:inline">Select Language</span>
+                        <span class="md:hidden">Select</span>
+                        <i class="fas fa-caret-down ml-1"></i>
+                    </button>
+                    <div id="languageDropdown" class="dropdown-content">
+                        <a href='python.html'>Python</a>
+                        <a href='c.html'>C</a>
+                        <a href='java.html'>Java</a>
+                        <a href='cpp.html'>C++</a>
+                        <a href='html.html'>HTML</a>
+                        <a href='css.html'>CSS</a>
+                        <a href='javascript.html'>JavaScript</a>
+                        <a href='sql.html'>SQL</a>
+                        <a href='php.html'>PHP</a>
+                        <a href='mern.html'>MERN</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+            
+    <main class="pt-16">
+        <section class="hero-section flex flex-col items-center justify-center relative">
+            <div class="text-center text-white mb-12 z-10">
+                <h2 class="text-4xl md:text-6xl font-bold mb-10 hero-title animate-fade-in-up">
+                    <span class="gradient-text">Speed Up</span> Your Coding Prep
+                </h2>
+            </div>
+            <div class="welcome-box animate-float mb-20">
+                <h2 class="text-3xl md:text-5xl font-bold mb-10 hero-title animate-fade-in-up">
+                    <span class="gradient-text text-3xl md:text-5xl font-bold">Sahil</span>
+                    <br class="sm:hidden">
+                    <span class="text-2xl md:text-4xl font-bold text-white sm:text-5xl">Welcomes You</span>
+                </h2>
+            </div>
+        </section>
+        <section class="introduction-section bg-gray-50 py-16 fade-in">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl font-bold text-center mb-8 text-gray-800">Elevate Your Coding Skills Instantly! 💻🚀</h2>
+                
+                <p class="text-center text-xl mb-12 text-gray-600 max-w-3xl mx-auto">
+                    Hi, I’m Sahil! Welcome to our platform, designed to boost your coding interview preparation. Explore What We Offer!
+
+                </p>
+              
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="feature-card">
+                        <div class="icon-wrapper mb-6">
+                            <i class="fas fa-camera text-3xl text-blue-500"></i>
+                        </div>
+                        <h3 class="text-2xl font-semibold mb-4">LanguageSnapshot 📸</h3>
+                        <p>Get a comprehensive overview of each programming language, including its core features, syntax highlights, and historical context.</p>
+                    </div>
+              
+                    <div class="feature-card">
+                        <div class="icon-wrapper mb-6">
+                            <i class="fas fa-file-alt text-3xl text-blue-500"></i>
+                        </div>
+                        <h3 class="text-2xl font-semibold mb-4">CheatSheet 📝</h3>
+                        <p>Access concise, powerful cheat sheets for each language. These sheets are packed with essential concepts and syntax reminders.</p>
+                    </div>
+              
+                    <div class="feature-card">
+                        <div class="icon-wrapper mb-6">
+                            <i class="fas fa-file-pdf text-3xl text-blue-500"></i>
+                        </div>
+                        <h3 class="text-2xl font-semibold mb-4">CheatSheetPDFs 📄</h3>
+                        <p>Download portable versions of our cheat sheets for on-the-go study sessions. Perfect for last-minute revisions.</p>
+                    </div>
+              
+                    <div class="feature-card">
+                        <div class="icon-wrapper mb-6">
+                            <i class="fas fa-book text-3xl text-blue-500"></i>
+                        </div>
+                        <h3 class="text-2xl font-semibold mb-4">CheatSheetLibrary 📚</h3>
+                        <p>Explore our curated list of external resources offering additional cheat sheets. Expand your knowledge with high-quality references.</p>
+                    </div>
+              
+                    <div class="feature-card">
+                        <div class="icon-wrapper mb-6">
+                            <i class="fas fa-bullseye text-3xl text-blue-500"></i>
+                        </div>
+                        <h3 class="text-2xl font-semibold mb-4">InterviewSheet 🎯</h3>
+                        <p>Prepare thoroughly with our collection of the 50 most frequently asked interview questions. Boost your confidence for technical interviews.</p>
+                    </div>
+              
+                    <div class="feature-card">
+                        <div class="icon-wrapper mb-6">
+                            <i class="fas fa-search text-3xl text-blue-500"></i>
+                        </div>
+                        <h3 class="text-2xl font-semibold mb-4">InterviewLibrary 🔍</h3>
+                        <p>Dive deeper into interview preparation with links to websites offering extensive question banks. Tackle a wide range of potential scenarios.</p>
+                    </div>
+              
+                    <div class="feature-card">
+                        <div class="icon-wrapper mb-6">
+                            <i class="fas fa-laptop-code text-3xl text-blue-500"></i>
+                        </div>
+                        <h3 class="text-2xl font-semibold mb-4">StandardCodeSnippets 💻</h3>
+                        <p>Access a treasure trove of commonly requested code snippets, organized by difficulty level—Basic, Intermediate, and Expert.</p>
+                    </div>
+                    <div class="feature-card start-learning-card lg:col-span-2">
+                        <div class="icon-wrapper mb-6">
+                            <i class="fas fa-rocket text-3xl text-blue-500"></i>
+                        </div>
+                        <h3 class="text-2xl font-semibold mb-4">Start Your Learning Journey 🚀</h3>
+                       
+                        <p><strong>Select a language</strong> from the <strong>dropdown</strong> menu above to access tailored content and take the first step towards becoming a proficient developer.</p>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="introduction-section container mx-auto mt-8 p-4 fade-in">
+            <section id="features-section" class="bg-gray-100 py-16 fade-in">
+                <div class="container mx-auto px-4">
+                    <h2 class="text-3xl font-bold mb-12 text-center text-gray-800">Why Choose LastMinutePrep?</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                        <div class="feature-card">
+                            <div class="icon-wrapper mb-6">
+                                <i class="fas fa-clock text-4xl text-blue-500"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-4">Quick Preparation</h3>
+                            <p class="text-gray-600">Concise notes and cheat sheets for efficient learning, saving you valuable time.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="icon-wrapper mb-6">
+                                <i class="fas fa-code text-4xl text-blue-500"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-4">Multiple Languages</h3>
+                            <p class="text-gray-600">Comprehensive coverage for popular programming languages to suit your needs.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="icon-wrapper mb-6">
+                                <i class="fas fa-user-graduate text-4xl text-blue-500"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-4">Interview Ready</h3>
+                            <p class="text-gray-600">Curated questions to boost your confidence and performance in the interview round.</p>
+                        </div>
+                    </div>
+                    
+                    <h2 class="text-3xl font-bold mb-12 text-center text-gray-800">What Our Users Say</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="testimonial-card">
+                            <div class="mb-4">
+                                <p class="font-bold text-lg">Affan S.</p>
+                                <p class="text-sm text-gray-600">Programming Aficionado</p>
+                            </div>
+                            <p class="italic text-gray-700">"This site played a key role in helping me crack my interview"</p>
+                        </div>
+                        <div class="testimonial-card">
+                            <div class="mb-4">
+                                <p class="font-bold text-lg">Imtiyaaz S.</p>
+                                <p class="text-sm text-gray-600">Computer Science Undergraduate</p>
+                            </div>
+                            <p class="italic text-gray-700">"The cheat sheets are incredibly helpful for quick revisions."</p>
+                        </div>
+                        <div class="testimonial-card">
+                            <div class="mb-4">
+                                <p class="font-bold text-lg">Prem K.</p>
+                                <p class="text-sm text-gray-600">Software Development Enthusiast</p>
+                            </div>
+                            <p class="italic text-gray-700">"This platform was my go-to for final day preparation."</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>          
+            
+    
+    </main>
+   
+    
+    <footer class="bg-gradient-to-r from-slate-800 to-slate-900 text-white py-16">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-24">
+                <div class="space-y-6 md:px-12">
+                    <h3 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-500">
+                        LastMinutePrep
+                    </h3>
+                    <p class="text-slate-300 leading-relaxed">
+                        Your go-to platform for last-minute coding interview preparation. Ace your interviews with confidence!
+                    </p>
+                    <a href="#" class="inline-block px-6 py-3 rounded-full bg-gradient-to-r from-sky-400 to-blue-500 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                        Get Started
+                    </a>
+                </div>
+                <div class="space-y-6 md:px-12">
+                    <h3 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-500">
+                        About Me
+                    </h3>
+                    <div class="space-y-4">
+                        <p class="text-2xl font-bold">Baba Sahil</p>
+                        <p class="text-slate-300">Aspirant Software Engineer</p>
+                        <p class="text-slate-300">
+                            <a href="mailto:babasahil2628@gmail.com" class="text-sky-400 hover:text-sky-300 transition-colors duration-300">
+                                babasahil2628@gmail.com
+                            </a>
+                        </p>
+                    </div>
+                </div>
+                <div class="space-y-6 md:px-12">
+                    <h3 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-500">
+                       Connect with Me
+                    </h3>
+                    <div class="space-y-4">
+                        <a href="https://www.linkedin.com/profile/in/baba-sahil-153721321/" target="_blank" class="flex items-center text-slate-300 hover:text-white transition-colors duration-300">
+                            <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                            LinkedIn Profile
+                        </a>
+                        <a href="https://github.com/babasahil29" target="_blank" class="flex items-center text-slate-300 hover:text-white transition-colors duration-300">
+                            <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
+                            </svg>
+                            GitHub
+                        </a>
+                        <a href="https://babasahil.my.canva.site/" target="_blank" class="flex items-center text-slate-300 hover:text-white transition-colors duration-300">
+                            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                            Portfolio
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 pt-8 border-t border-slate-700 text-center">
+                <p class="text-slate-400">&copy; 2024 <span class="text-sky-400 font-semibold">BabaSahil</span>. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    
+    <script src="js/script.js"></script>
+</body>
+</html>

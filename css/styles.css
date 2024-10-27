@@ -1,0 +1,314 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&display=swap');
+
+:root {
+    --primary-color: #3b82f6;
+    --secondary-color: #38bdf8;
+    --text-color: #333333;
+    --background-color: #f3f4f6;
+}
+
+body {
+    font-family: 'Manrope', sans-serif;
+    color: var(--text-color);
+    background-color: var(--background-color);
+}
+
+/* Header styles */
+header {
+    transition: all 0.3s ease;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    background-color: rgba(255, 255, 255, 0.95);
+}
+
+header.scrolled {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+header img {
+    transition: all 0.3s ease;
+}
+
+header.scrolled img {
+    height: 40px;
+}
+
+header h1 {
+    transition: all 0.3s ease;
+}
+
+header.scrolled h1 {
+    font-size: 1.5rem;
+}
+
+.btn-animated {
+    transition: all 0.3s ease;
+}
+
+.btn-animated:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-animated:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Dropdown styles */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #ffffff;
+    min-width: 160px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    border-radius: 4px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    right: 0;
+    top: 100%;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.dropdown-content a {
+    color: var(--text-color);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: all 0.2s ease;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+    transform: translateX(5px);
+}
+
+.show {
+    display: block;
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Hero section */
+.hero-section {
+    background-image: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.6) 100%), url('../images/backg.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 80vh;
+    padding-top: 180px;
+    padding-bottom: 4rem;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-title {
+    font-family: 'Manrope', sans-serif;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    animation: fadeInUp 1s ease-out, glowText 2s ease-in-out infinite alternate;
+}
+
+.gradient-text {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
+}
+
+.welcome-box {
+    border-color: red;
+    border-radius: 40px;
+    
+    padding: 20px 30px;
+    font-size: 24px;
+    font-weight: bold;
+    animation: fadeInUp 1s ease-out 0.6s, float 3s ease-in-out infinite;
+    animation-fill-mode: both;
+    transition: transform 0.3s ease;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.welcome-box:hover {
+    transform: translateY(-5px);
+}
+
+/* Feature and testimonial cards */
+.feature-card, .testimonial-card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover, .testimonial-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.icon-wrapper {
+    background-color: #e6f2ff;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+/* Footer styles */
+footer {
+    background-image: linear-gradient(to right, #1e293b, #0f172a);
+    position: relative;
+    overflow: hidden;
+}
+
+footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('path/to/subtle-pattern.png') repeat;
+    opacity: 0.05;
+    z-index: 0;
+}
+
+footer > div {
+    position: relative;
+    z-index: 1;
+}
+
+footer h3::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 50px;
+    height: 2px;
+    background: linear-gradient(to right, var(--secondary-color), var(--primary-color));
+}
+
+footer a:not(.inline-block):hover {
+    color: var(--secondary-color);
+    transform: translateX(5px);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes glowText {
+    from { text-shadow: 0 0 5px rgba(255, 255, 255, 0.5); }
+    to { text-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 25px rgba(255, 255, 255, 0.6); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    header .container {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 1rem;
+    }
+
+    #dropdownBtn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+        background-color: var(--primary-color);
+        color: white;
+        border-radius: 9999px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 80px;
+    }
+
+    #dropdownBtn i {
+        margin-left: 0.5rem;
+    }
+
+    .hero-section {
+        height: 350px;
+        padding-top: 210px;
+        padding-bottom: 4rem;
+        justify-content: flex-start; /* Align content to the top */
+    }
+
+    .hero-title {
+        font-size: 1.3rem;
+        margin-bottom: 5rem;
+       /* Push the title down */
+    }
+
+    .gradient-text {
+        font-size: 2rem;
+    }
+
+    .welcome-box {
+        font-size: 2rem;
+        padding: 15px 20px;
+        max-width: 90%;
+        margin-top: 1rem; /* Add some space above the welcome box */
+        margin-bottom: auto; /* Push the welcome box up */
+    }
+
+
+    .welcome-box .gradient-text {
+        font-size: 2rem;
+    }
+
+    .welcome-box .text-2xl {
+        font-size: 1.4rem;
+    }
+
+    .feature-card, .testimonial-card {
+        padding: 1.5rem;
+    }
+
+    footer .grid {
+        gap: 2rem;
+    }
+
+    footer .md\:px-12 {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
+
+/* Touch-friendly styles */
+@media (hover: none) {
+    .btn-animated:hover {
+        transform: none;
+    }
+
+    .feature-card:hover, .testimonial-card:hover {
+        transform: none;
+    }
+
+    .dropdown-content a:active {
+        background-color: #f1f1f1;
+    }
+}

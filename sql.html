@@ -1,0 +1,1682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastPrepSahil- sql</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&display=swap');
+
+:root {
+--primary-color: #3b82f6;
+--secondary-color: #38bdf8;
+--background-color: #f9f9f9;
+--text-color: #333;
+}
+
+* {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+}
+
+body {
+font-family: 'Manrope', sans-serif;
+line-height: 1.6;
+color: var(--text-color);
+}
+
+.hero-section {
+background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/sql.jpg');
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+height: 400px;
+position: relative;
+padding: 2rem 1rem;
+}
+
+.hero-section::before {
+content: "";
+position: absolute;
+inset: 0;
+background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 2px, transparent 2px, transparent 4px);
+pointer-events: none;
+}
+
+.fade-in {
+opacity: 0;
+transform: translateY(20px);
+transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.fade-in.visible {
+opacity: 1;
+transform: translateY(0);
+}
+
+.btn-animated {
+transition: all 0.3s ease;
+}
+
+.btn-animated:hover, .btn-animated:focus {
+transform: translateY(-3px) scale(1.05);
+box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.btn-animated:active {
+transform: translateY(-1px) scale(1.02);
+box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.dropdown-content {
+display: none;
+position: absolute;
+background-color: var(--background-color);
+min-width: 160px;
+box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+z-index: 1;
+}
+
+.dropdown-content a {
+color: var(--text-color);
+padding: 12px 16px;
+text-decoration: none;
+display: block;
+transition: all 0.2s ease;
+}
+
+.dropdown-content a:hover, .dropdown-content a:focus {
+background-color: #f1f1f1;
+transform: translateX(5px);
+}
+
+.show {
+display: block;
+animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+from { opacity: 0; }
+to { opacity: 1; }
+}
+
+.code-block {
+background-color: #f8f8f8;
+border-left: 4px solid var(--primary-color);
+padding: 1rem;
+margin: 1rem 0;
+font-family: 'Courier New', Courier, monospace;
+overflow-x: auto;
+}
+
+.interview-sheet-container {
+background-color: var(--background-color);
+padding: 20px;
+border: 1px solid #ddd;
+border-radius: 10px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+background-image: linear-gradient(to right, #1e293b, #0f172a);
+position: relative;
+overflow: hidden;
+padding: 2rem 1rem;
+}
+
+footer::before {
+content: '';
+position: absolute;
+inset: 0;
+background: url('path/to/subtle-pattern.png') repeat;
+opacity: 0.05;
+z-index: 0;
+}
+
+footer > div {
+position: relative;
+z-index: 1;
+}
+
+footer h3 {
+font-size: 1.25rem;
+margin-bottom: 1rem;
+position: relative;
+display: inline-block;
+}
+
+footer h3::after {
+content: '';
+position: absolute;
+left: 0;
+bottom: -5px;
+width: 50px;
+height: 2px;
+background: linear-gradient(to right, var(--secondary-color), var(--primary-color));
+}
+
+footer p {
+font-size: 0.9rem;
+line-height: 1.6;
+}
+
+footer a:not(.inline-block) {
+transition: all 0.3s ease;
+}
+
+footer a:not(.inline-block):hover, footer a:not(.inline-block):focus {
+color: var(--secondary-color);
+transform: translateX(5px);
+}
+
+footer .inline-block {
+transition: all 0.3s ease;
+}
+
+footer .inline-block:hover, footer .inline-block:focus {
+transform: translateY(-3px);
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.social-icon {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+width: 40px;
+height: 40px;
+border-radius: 50%;
+background: rgba(255, 255, 255, 0.1);
+transition: all 0.3s ease;
+}
+
+.social-icon:hover, .social-icon:focus {
+background: rgba(255, 255, 255, 0.2);
+transform: translateY(-3px);
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+.hero-section {
+  height: 350px;
+}
+
+footer .grid {
+  gap: 1.5rem;
+}
+
+footer .md\:px-12 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.tab-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tab-btn {
+  flex: 1 1 calc(30% - 0.25rem);
+  font-size: 0.9rem;
+  padding: 0.5rem;
+}
+
+}@media only screen and (max-width: 768px) {
+.text-2xl.font-bold.text-blue-600 {
+  display: none;
+}
+
+}</style>
+</head>
+<body class="bg-gray-100"></body>
+    <header class="bg-white shadow-md fixed w-full z-10">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+          <div class="flex items-center">
+            <img src="images/logo2.jpeg" alt="FastPrepSahil Logo" class="h-12 w-auto mr-3">
+            <h1 class="text-2xl font-bold text-blue-600">FastPrepSahil</h1>
+        </div>
+            <div class="flex items-center space-x-2">
+            
+              <button onclick="window.location.href='index.html'" id="searchBtn" class="btn-animated bg-blue-500 text-white px-4 py-2 rounded">Home</button>
+                <div class="relative inline-block">
+                    <button id="dropdownBtn" class="btn-animated bg-gray-200 text-gray-700 px-4 py-2 rounded">
+                        Select Language <i class="fas fa-caret-down ml-1"></i>
+                    </button>
+                    <div id="languageDropdown" class="dropdown-content">
+                        <a href="python.html">Python</a>
+                        <a href="c.html">C</a>
+                        <a href="java.html">Java</a>
+                        <a href="cpp.html">C++</a>
+                        <a href="html.html">HTML</a>
+                        <a href="css.html">CSS</a>
+                        <a href="javascript.html">JavaScript</a>
+                        <a href="sql.html">SQL</a>
+                        <a href="php.html">PHP</a>
+                        <a href="mern.html">MERN</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="hero-section flex items-center justify-center pt-16">
+        <h2 id="language-title" class="text-4xl font-bold text-white text-center">SQL Resources</h2>
+    </div>
+
+    <main class="container mx-auto mt-8 p-4">
+      <div class="tab-buttons flex flex-wrap gap-2 mb-6">
+        <button onclick="showTab('snapshot')" class="tab-btn btn-animated bg-blue-500 text-white px-3 py-2 rounded text-sm flex-grow">Language Snapshot</button>
+        <button onclick="showTab('cheatsheet')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Cheat Sheet</button>
+        <button onclick="showTab('cheatsheetpdfs')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Cheat Sheet PDFs</button>
+        <button onclick="showTab('cheatsheetlibrary')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Cheat Sheet Library</button>
+        <button onclick="showTab('interviewsheet')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Interview Sheet</button>
+        <button onclick="showTab('interviewlibrary')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Interview Library</button>
+        <button onclick="showTab('standardcodesnippets')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Standard Code Snippets</button>
+    </div>
+    
+        <div id="tab-content" class="bg-white p-6 rounded-lg shadow-md fade-in">
+            <div id="snapshot" class="tab-content">
+                <h3 class="text-2xl font-bold mb-8 text-blue-600">Language Snapshot</h3>
+                <div id="snapshot-content" class="space-y-8">
+                  <section>
+                    <h4 class="text-xl font-semibold mb-4">Introduction to SQL</h4>
+                    <ul class="list-disc pl-6 space-y-2">
+                      <li>
+                        <span class="font-medium">Definition:</span> SQL (Structured Query Language) is a standardized programming language specifically designed for managing, querying, and manipulating databases.
+                      </li>
+                      <li>
+                        <span class="font-medium">Creator:</span> IBM
+                      </li>
+                      <li>
+                        <span class="font-medium">Year Created:</span> 1970s
+                      </li>
+                      <li>
+                        <span class="font-medium">Purpose:</span> SQL is essential for tasks like retrieving data, inserting new records, updating or deleting existing data, and defining database structures.
+                      </li>
+                    </ul>
+                  </section>
+              
+                  <section>
+                    <h4 class="text-xl font-semibold mb-4">Key Features</h4>
+                    <ul class="list-disc pl-6 space-y-2">
+                      <li>
+                        <span class="font-medium">Data Retrieval:</span> SQL is widely used to query and extract data from relational databases using SELECT statements.
+                      </li>
+                      <li>
+                        <span class="font-medium">Data Manipulation:</span> SQL allows inserting (INSERT), updating (UPDATE), and deleting (DELETE) records from databases.
+                      </li>
+                      <li>
+                        <span class="font-medium">Data Definition:</span> SQL helps in creating and modifying database schemas and objects using Data Definition Language (DDL) commands like CREATE, ALTER, and DROP.
+                      </li>
+                      <li>
+                        <span class="font-medium">Data Control:</span> SQL manages user access to databases using GRANT and REVOKE commands.
+                      </li>
+                      <li>
+                        <span class="font-medium">ACID Compliance:</span> SQL databases adhere to the principles of Atomicity, Consistency, Isolation, and Durability, ensuring reliable transactions.
+                      </li>
+                    </ul>
+                  </section>
+              
+                  <section>
+                    <h4 class="text-xl font-semibold mb-4">SQL Command Categories</h4>
+                    <ul class="list-disc pl-6 space-y-2">
+                      <li>
+                        <span class="font-medium">Data Query Language (DQL):</span>
+                        <ul class="list-disc pl-6 space-y-2">
+                          <li>SELECT: Retrieves data from the database.</li>
+                        </ul>
+                      </li>
+                      <li>
+                        <span class="font-medium">Data Manipulation Language (DML):</span>
+                        <ul class="list-disc pl-6 space-y-2">
+                          <li>INSERT, UPDATE, DELETE: Used for managing data within tables.</li>
+                        </ul>
+                      </li>
+                      <li>
+                        <span class="font-medium">Data Definition Language (DDL):</span>
+                        <ul class="list-disc pl-6 space-y-2">
+                          <li>CREATE, ALTER, DROP, TRUNCATE: Defines the structure and schema of databases and tables.</li>
+                        </ul>
+                      </li>
+                      <li>
+                        <span class="font-medium">Data Control Language (DCL):</span>
+                        <ul class="list-disc pl-6 space-y-2">
+                          <li>GRANT, REVOKE: Manages permissions and access control in databases.</li>
+                        </ul>
+                      </li>
+                      <li>
+                        <span class="font-medium">Transaction Control Language (TCL):</span>
+                        <ul class="list-disc pl-6 space-y-2">
+                          <li>COMMIT, ROLLBACK, SAVEPOINT: Used to manage transactions within databases.</li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </section>
+              
+                  <section>
+                    <h4 class="text-xl font-semibold mb-4">Common Use Cases</h4>
+                    <ul class="list-disc pl-6 space-y-2">
+                      <li>
+                        <span class="font-medium">Data Retrieval:</span> Extracting information from large databases for reporting, analytics, or application use.
+                      </li>
+                      <li>
+                        <span class="font-medium">Database Administration:</span> Maintaining database structures, users, permissions, and optimization.
+                      </li>
+                      <li>
+                        <span class="font-medium">Data Integration:</span> Combining data from multiple tables or databases for processing.
+                      </li>
+                      <li>
+                        <span class="font-medium">Data Integrity & Security:</span> Ensuring that data is accurate and access is controlled.
+                      </li>
+                    </ul>
+                  </section>
+              
+                  <section>
+                    <h4 class="text-xl font-semibold mb-4">Relational Databases Using SQL</h4>
+                    <ul class="list-disc pl-6 space-y-2">
+                      <li>
+                        <span class="font-medium">MySQL:</span> Open-source and widely used in web applications.
+                      </li>
+                      <li>
+                        <span class="font-medium">PostgreSQL:</span> Known for its advanced features and compliance with SQL standards.
+                      </li>
+                      <li>
+                        <span class="font-medium">SQLite:</span> Lightweight, serverless database, often used in mobile and embedded systems.
+                      </li>
+                      <li>
+                        <span class="font-medium">Oracle:</span> A popular RDBMS for enterprise-level applications.
+                      </li>
+                      <li>
+                        <span class="font-medium">Microsoft SQL Server:</span> SQL implementation by Microsoft for enterprise-level applications.
+                      </li>
+                    </ul>
+                  </section>
+              
+                  <section>
+                    <h4 class="text-xl font-semibold mb-4">Key SQL Terms</h4>
+                    <ul class="list-disc pl-6 space-y-2">
+                      <li>
+                        <span class="font-medium">Table:</span> A collection of rows and columns that stores structured data.
+                      </li>
+                      <li>
+                        <span class="font-medium">Primary Key:</span> A unique identifier for each record in a table.
+                      </li>
+                      <li>
+                        <span class="font-medium">Foreign Key:</span> A column that establishes a relationship between two tables.
+                      </li>
+                      <li>
+                        <span class="font-medium">Join:</span> A method to retrieve data from multiple tables based on a related column.
+                      </li>
+                      <li>
+                        <span class="font-medium">Index:</span> A database optimization feature to improve the speed of data retrieval.
+                      </li>
+                    </ul>
+                  </section>
+              
+                  <section>
+                    <h4 class="text-xl font-semibold mb-4">History of SQL</h4>
+                    <ul class="list-disc pl-6 space-y-2">
+                      <li>
+                        <span class="font-medium">1970s:</span> IBM develops SQL based on Dr. Edgar F. Codd's relational model.
+                      </li>
+                      <li>
+                        <span class="font-medium">1986:</span> SQL becomes an ANSI standard.
+                      </li>
+                      <li>
+                        <span class="font-medium">1989:</span> SQL becomes an ISO standard, cementing its use across relational databases globally.
+                      </li>
+                    </ul>
+                  </section>
+                </div>
+              </div>
+              <div id="cheatsheet" class="tab-content hidden">
+                <h3 class="text-2xl font-bold mb-8 text-blue-600">Cheat Sheet</h3>
+                
+                <section class="cheatsheet-section mb-12">
+                    <h3 class="text-2xl font-semibold mb-4 text-blue-500">Easy Level</h3>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">1. Select Data from Table:</h4>
+                        <p class="mb-2">Retrieves all data from the specified table.</p>
+                        <div class="code-block">
+                            <pre>
+            SELECT * FROM table_name;
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">2. Select Specific Columns:</h4>
+                        <p class="mb-2">Retrieves specific columns from the table.</p>
+                        <div class="code-block">
+                            <pre>
+            SELECT column1, column2 FROM table_name;
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">3. Insert Data into Table:</h4>
+                        <p class="mb-2">Inserts new data into the table.</p>
+                        <div class="code-block">
+                            <pre>
+            INSERT INTO table_name (column1, column2) VALUES (value1, value2);
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">4. Update Existing Data:</h4>
+                        <p class="mb-2">Updates data in a table based on a condition.</p>
+                        <div class="code-block">
+                            <pre>
+            UPDATE table_name SET column1 = value1 WHERE condition;
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">5. Delete Data:</h4>
+                        <p class="mb-2">Deletes data that meets the condition.</p>
+                        <div class="code-block">
+                            <pre>
+            DELETE FROM table_name WHERE condition;
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">6. Create a Table:</h4>
+                        <p class="mb-2">Creates a new table with specified columns and data types.</p>
+                        <div class="code-block">
+                            <pre>
+            CREATE TABLE table_name (
+               column1 datatype,
+               column2 datatype
+            );
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">7. Drop a Table:</h4>
+                        <p class="mb-2">Deletes a table and all its data.</p>
+                        <div class="code-block">
+                            <pre>
+            DROP TABLE table_name;
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">8. Filtering Data with WHERE Clause:</h4>
+                        <p class="mb-2">Filters records based on specific criteria.</p>
+                        <div class="code-block">
+                            <pre>
+            SELECT * FROM table_name WHERE condition;
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">9. Sorting Data:</h4>
+                        <p class="mb-2">Sorts data in ascending or descending order.</p>
+                        <div class="code-block">
+                            <pre>
+            SELECT * FROM table_name ORDER BY column_name ASC|DESC;
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">10. Count Rows:</h4>
+                        <p class="mb-2">Returns the number of rows in the table.</p>
+                        <div class="code-block">
+                            <pre>
+            SELECT COUNT(*) FROM table_name;
+                            </pre>
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="cheatsheet-section mb-12">
+                    <h3 class="text-2xl font-semibold mb-4 text-blue-500">Intermediate Level</h3>
+                    
+                    <div class="mb-6">
+                        <h4 class ="text-xl font-medium mb-2">1. Join Two Tables:</h4>
+                        <p class="mb-2">Joins two tables based on a common column.</p>
+                        <div class="code-block">
+                            <pre>
+            SELECT column_name(s)
+            FROM table1
+            INNER JOIN table2
+            ON table1.column = table2.column;
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">2. Group Data:</h4>
+                        <p class="mb-2">Groups data by column and performs an aggregate function.</p>
+                        <div class="code-block">
+                            <pre>
+            SELECT column_name, COUNT(*)
+            FROM table_name
+            GROUP BY column_name;
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">3. Filter Grouped Data (HAVING):</h4>
+                        <p class="mb-2">Filters grouped data using aggregate conditions.</p>
+                        <div class="code-block">
+                            <pre>
+            SELECT column_name, COUNT(*)
+            FROM table_name
+            GROUP BY column_name
+            HAVING COUNT(*) > 1;
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">4. Using Aliases:</h4>
+                        <p class="mb-2">Assigns temporary names (aliases) to columns.</p>
+                        <div class="code-block">
+                            <pre>
+            SELECT column_name AS alias_name
+            FROM table_name;
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">5. Using IN Operator:</h4>
+                        <p class="mb-2">Filters records where the column value matches one of the values.</p>
+                        <div class="code-block">
+                            <pre>
+            SELECT * FROM table_name
+            WHERE column_name IN (value1, value2, value3);
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">6. Subqueries:</h4>
+                        <p class="mb-2">Uses a subquery to filter data.</p>
+                        <div class="code-block">
+                            <pre>
+            SELECT * FROM table_name
+            WHERE column_name = (SELECT column_name FROM another_table WHERE condition);
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">7. Create an Index:</h4>
+                        <p class="mb-2">Creates an index on a table to improve query performance.</p>
+                        <div class="code-block">
+                            <pre>
+            CREATE INDEX index_name ON table_name (column_name);
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">8. Distinct Values:</h4>
+                        <p class="mb-2">Selects only distinct (unique) values from a column.</p>
+                        <div class="code-block">
+                            <pre>
+            SELECT DISTINCT column_name FROM table_name;
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">9. Limit the Number of Results:</h4>
+                        <p class="mb-2">Limits the result set to a specific number of rows.</p>
+                        <div class="code-block">
+                            <pre>
+            SELECT * FROM table_name LIMIT 10;
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">10. Using LIKE for Pattern Matching:</h4>
+                        <p class="mb-2">Searches for a specified pattern in a column.</p>
+                        <div class="code-block">
+                            <pre>
+            SELECT * FROM table_name
+            WHERE column_name LIKE 'pattern%';
+                            </pre>
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="cheatsheet-section mb-12">
+                    <h3 class="text-2xl font-semibold mb-4 text-blue-500">Expert Level</h3>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">1. Transactions:</h4>
+                        <p class="mb-2">Manages transactions by grouping multiple SQL operations.</p>
+             <div class="code-block">
+                            <pre>
+            BEGIN;
+            -- SQL operations
+            COMMIT;
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">2. Rollback a Transaction:</h4>
+                        <p class="mb-2">Reverts changes made during a transaction.</p>
+                        <div class="code-block">
+                            <pre>
+            ROLLBACK;
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">3. UNION Operator:</h4>
+                        <p class="mb-2">Combines the result sets of two queries without duplicates.</p>
+                        <div class="code-block">
+                            <pre>
+            SELECT column_name FROM table_name1
+            UNION
+            SELECT column_name FROM table_name2;
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">4. FULL OUTER JOIN:</h4>
+                        <p class="mb-2">Returns all rows from both tables, with matching records from both sides.</p>
+                        <div class="code-block">
+                            <pre>
+            SELECT column_name(s)
+            FROM table1
+            FULL OUTER JOIN table2
+            ON table1.column = table2.column;
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">5. Self Join:</h4>
+                        <p class="mb-2">Joins a table with itself.</p>
+                        <div class="code-block">
+                            <pre>
+            SELECT a.column_name, b.column_name
+            FROM table_name a, table_name b
+            WHERE a.common_field = b.common_field;
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">6. Create a View:</h4>
+                        <p class="mb-2">Creates a virtual table (view) based on a SQL query.</p>
+                        <div class="code-block">
+                            <pre>
+            CREATE VIEW view_name AS
+            SELECT column_name(s) FROM table_name WHERE condition;
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">7. Using EXISTS:</h4>
+                        <p class="mb-2">Returns true if the subquery returns any records.</p>
+                        <div class="code-block">
+                            <pre>
+            SELECT * FROM table_name
+            WHERE EXISTS (SELECT 1 FROM another_table WHERE condition);
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">8. Window Functions:</h4>
+                        <p class="mb-2">Applies a function across a set of table rows related to the current row.</p>
+                        <div class="code-block">
+                            <pre>
+            SELECT column_name,
+               ROW_NUMBER() OVER (PARTITION BY column_name ORDER BY column_name) AS row_num
+            FROM table_name;
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">9. Recursive Query:</h4>
+                        <p class="mb-2">Performs a recursive query.</p>
+                        <div class="code-block">
+                            <pre>
+            WITH RECURSIVE subquery_name AS (
+              SELECT column_name
+              FROM table_name
+              WHERE condition
+              UNION ALL
+              SELECT column_name
+              FROM table_name
+              WHERE condition
+            )
+            SELECT * FROM subquery_name;
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">10. Dynamic SQL:</h4>
+                        <p class="mb-2">Executes dynamically built SQL statements.</p>
+                        <div class="code-block">
+                            <pre>
+            EXECUTE immediate 'SELECT * FROM ' || table_name;
+                            </pre>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div id="cheatsheetpdfs" class="tab-content hidden">
+                <h3 class="text-2xl font-bold mb-8 text-blue-600">Cheat Sheet PDFs</h3>
+                <p class="mb-8">In this section, you'll find downloadable PDF versions of SQL cheatsheets from different sources. Click on the links below to download the cheat sheets directly.</p>
+                <ul class="list-disc pl-5 space-y-4">
+                  <li>
+                    <a href="https://www.dbvis.com/wp-content/uploads/2024/04/SQL-Cheat-Sheet.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                      1. SQL Cheat Sheet (PDF) - DBVis
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://learnsql.com/blog/sql-basics-cheat-sheet/sql-basics-cheat-sheet-a4.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                      2. SQL Basics Cheat Sheet (PDF) - LearnSQL
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.sqltutorial.org/wp-content/uploads/2016/04/SQL-cheat-sheet.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                      3. SQL Cheat Sheet (PDF) - SQL Tutorial
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://acrobat.adobe.com/link/review?uri=urn:aaid:scds:US:ae13bdb7-59ed-3f58-a72a-42c9ca0d63b0" target="_blank" class="text-blue-600 hover:underline" download>
+                      4. SQL Cheat Sheet (PDF) - Adobe
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://websitesetup.org/wp-content/uploads/2020/08/SQL-Cheat-Sheet-websitesetup.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                      5. SQL Cheat Sheet (PDF) - Website Setup
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://data36.com/wp-content/uploads/2018/12/sql-cheat-sheet-for-data-scientists-by-tomi-mester.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                      6. SQL Cheat Sheet for Data Scientists (PDF) - Data36
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://intellipaat.com/blog/wp-content/uploads/2022/10/SQL-Commands-Cheat-Sheet-2022.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                      7. SQL Commands Cheat Sheet (PDF) - Intellipaat
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://drive.google.com/file/d/1XgQP_UE_v5EPTN0omgMVW1j3F4uxlfj_/view?usp=sharing" target="_blank" class="text-blue-600 hover:underline" download>
+                      8. SQL Cheat Sheet (PDF) - Google Drive
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            <div id="cheatsheetlibrary" class="tab-content hidden">
+                <h3 class="text-2xl font-bold mb-8 text-blue-600">Cheat Sheet Library</h3>
+                <p class="mb-8">In this section, you'll find various links to SQL cheatsheets available on different websites. Click on the links below to explore the resources.</p>
+                <ul class="list-disc pl-5 space-y-4">
+                  <li>
+                    <a href="https://learnsql.com/blog/sql-basics-cheat-sheet/" target="_blank" class="text-blue-600 hover:underline">
+                      1. LearnSQL SQL Basics Cheat Sheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.geeksforgeeks.org/sql-cheat-sheet/" target="_blank" class="text-blue-600 hover:underline">
+                      2. GeeksforGeeks SQL Cheat Sheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.datacamp.com/cheat-sheet/sql-basics-cheat-sheet" target="_blank" class="text-blue-600 hover:underline">
+                      3. DataCamp SQL Basics Cheat Sheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.interviewbit.com/sql-cheat-sheet/" target="_blank" class="text-blue-600 hover:underline">
+                      4. InterviewBit SQL Cheat Sheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.sqltutorial.org/sql-cheat-sheet/" target="_blank" class="text-blue-600 hover:underline">
+                      5. SQL Tutorial SQL Cheat Sheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.sqlshack.com/sql-cheat-sheet-for-newbies/" target="_blank" class="text-blue-600 hover:underline">
+                      6. SQL Shack SQL Cheat Sheet for Newbies
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.codecademy.com/learn/learn-sql/modules/learn-sql-queries/cheatsheet" target="_blank" class="text-blue-600 hover:underline">
+                      7. Codecademy SQL Cheat Sheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.cockroachlabs.com/blog/sql-cheat-sheet/" target="_blank" class="text-blue-600 hover:underline">
+                      8. Cockroach Labs SQL Cheat Sheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.freecodecamp.org/news/learn-sql-in-10-minutes/" target="_blank" class="text-blue-600 hover:underline">
+                      9. FreeCodeCamp Learn SQL in 10 Minutes
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.invicti.com/blog/web-security/sql-injection-cheat-sheet/" target="_blank" class="text-blue-600 hover:underline">
+                      10. Invicti SQL Injection Cheat Sheet
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            <div id="interviewsheet" class="tab-content hidden">
+                <h3 class="text-2xl font-bold mb-8 text-blue-600">Interview Sheet</h3>
+                
+                  <div id="interview-sheet-root"></div>
+              </div>
+            <div id="standardcodesnippets" class="tab-content hidden">
+                <h3 class="text-2xl font-bold mb-4 text-blue-600">Standard Code Snippets</h3>
+            
+                <section class="cheatsheet-section mb-12">
+                    <h4 class="text-2xl font-semibold mb-4 text-blue-500">Basic Level</h4>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Create a Table</h5>
+                        <p class="mb-2">Create a new table in the database.</p>
+                        <div class="code-block">
+                            <pre>
+                                CREATE TABLE employees (
+                                    id INT PRIMARY KEY,
+                                    name VARCHAR(100),
+                                    age INT,
+                                    department VARCHAR(50)
+                                );
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Insert Data into a Table</h5>
+                        <p class="mb-2">Insert new data into an existing table.</p>
+                        <div class="code-block">
+                            <pre>
+                                INSERT INTO employees (id, name, age, department)
+                                VALUES (1, 'Sahil', 22, 'HR');
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Select All Data</h5>
+                        <p class="mb-2">Retrieve all data from a table.</p>
+                        <div class="code-block">
+                            <pre>
+                                SELECT * FROM employees;
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Update a Record</h5>
+                        <p class="mb-2">Update an existing record in a table.</p>
+                        <div class="code-block">
+                            <pre>
+                                UPDATE employees
+                                SET age = 31
+                                WHERE id = 1;
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Delete a Record</h5>
+                        <p class="mb-2">Delete a record from a table.</p>
+                        <div class="code-block">
+                            <pre>
+                                DELETE FROM employees
+                                WHERE id = 1;
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Filter Data Using WHERE</h5>
+                        <p class="mb-2">Filter data based on a condition.</p>
+                        <div class="code-block">
+                            <pre>
+                                SELECT * FROM employees
+                                WHERE age > 25;
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Add a New Column to a Table</h5>
+                        <p class="mb-2">Add a new column to an existing table.</p>
+                        <div class="code-block">
+                            <pre>
+                                ALTER TABLE employees
+                                ADD email VARCHAR(100);
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Create a Simple View</h5>
+                        <p class="mb-2">Create a simple view of a table.</p>
+                        <div class="code-block">
+                            <pre>
+                                CREATE VIEW employee_view AS
+                                SELECT name, department FROM employees;
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Drop a Table</h5>
+                        <p class="mb-2">Drop an existing table.</p>
+                        <div class="code-block">
+                            <pre>
+                                DROP TABLE employees;
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Get the Maximum Value</h5>
+                        <p class="mb-2">Get the maximum value of a column.</p>
+                        <div class="code-block">
+                            <pre>
+                                SELECT MAX(age) FROM employees;
+                            </pre>
+                        </div>
+                    </div>
+                </section>
+            
+                <section class="cheatsheet-section mb-12">
+                    <h4 class="text-2xl font-semibold mb-4 text-blue-500">Intermediate Level</h4>
+                    <div class="mb -6">
+                        <h5 class="text-xl font-medium mb-2">Join Two Tables</h5>
+                        <p class="mb-2">Join two tables based on a common column.</p>
+                        <div class="code-block">
+                            <pre>
+                                SELECT e.name, d.department_name
+                                FROM employees e
+                                INNER JOIN departments d ON e.department = d.department_id;
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Group Data and Count</h5>
+                        <p class="mb-2">Group data and count the number of rows.</p>
+                        <div class="code-block">
+                            <pre>
+                                SELECT department, COUNT(*)
+                                FROM employees
+                                GROUP BY department;
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Create an Index</h5>
+                        <p class="mb-2">Create an index on a column for faster querying.</p>
+                        <div class="code-block">
+                            <pre>
+                                CREATE INDEX idx_name ON employees(name);
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Create a Foreign Key</h5>
+                        <p class="mb-2">Create a foreign key constraint between two tables.</p>
+                        <div class="code-block">
+                            <pre>
+                                ALTER TABLE employees
+                                ADD CONSTRAINT fk_department FOREIGN KEY (department)
+                                REFERENCES departments(department_id);
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Use CASE in SELECT</h5>
+                        <p class="mb-2">Use a CASE statement in a SELECT query.</p>
+                        <div class="code-block">
+                            <pre>
+                                SELECT name, age,
+                                CASE
+                                    WHEN age < 30 THEN 'Junior'
+                                    ELSE 'Senior'
+                                END AS level
+                                FROM employees;
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Use a Subquery</h5>
+                        <p class="mb-2">Use a subquery to filter data.</p>
+                        <div class="code-block">
+                            <pre>
+                                SELECT name, age
+                                FROM employees
+                                WHERE age > (SELECT AVG(age) FROM employees);
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Calculate the Total with SUM</h5>
+                        <p class="mb-2">Calculate the total sum of a column.</p>
+                        <div class="code-block">
+                            <pre>
+                                SELECT SUM(salary) FROM employees;
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Create a Trigger</h5>
+                        <p class="mb-2">Create a trigger to perform an action on data modification.</p>
+                        <div class="code-block">
+                            <pre>
+                                CREATE TRIGGER update_timestamp
+                                BEFORE UPDATE ON employees
+                                FOR EACH ROW
+                                SET NEW.updated_at = NOW();
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Use DISTINCT to Remove Duplicates</h5>
+                        <p class="mb-2">Use the DISTINCT keyword to remove duplicate rows.</p>
+                        <div class="code-block">
+                            <pre>
+                                SELECT DISTINCT department FROM employees;
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Select Top N Rows</h5>
+                        <p class="mb-2">Select the top N rows from a table.</p>
+                        <div class="code-block">
+                            <pre>
+                                SELECT * FROM employees
+                                ORDER BY salary DESC
+                                LIMIT 5;
+                            </pre>
+                        </div>
+                    </div>
+                </section>
+            
+                <section class="cheatsheet-section mb-12">
+                    <h4 class="text-2xl font-semibold mb-4 text-blue-500">Expert Level</h4>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Recursive Query for Hierarchical Data</h5>
+                        <p class="mb-2">Use a recursive query to retrieve hierarchical data.</p>
+                        <div class="code-block">
+                            <pre>
+                                WITH RECURSIVE employee_hierarchy AS (
+                                    SELECT id, name, manager_id
+                                    FROM employees
+                                    WHERE manager_id IS NULL
+                                    UNION ALL
+                                    SELECT e.id, e.name, e.manager_id
+                                    FROM employees e
+                                    INNER JOIN employee_hierarchy eh ON e.manager_id = eh.id
+                                )
+                                SELECT * FROM employee_hierarchy;
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Pivot Data</h5>
+                        <p class="mb-2">Pivot data to transform rows into columns.</p>
+                        <div class="code-block">
+                            <pre>
+                                SELECT *
+                                FROM (SELECT department, salary FROM employees) AS source
+                                PIVOT (AVG(salary) FOR department IN ('HR', 'IT', 'Sales')) AS pvt;
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Dynamic SQL Execution</h5>
+                        <p class="mb-2">Execute dynamic SQL queries.</p>
+                        <div class="code-block">
+                            <pre>
+                                SET @sql = 'SELECT * FROM ' + @table_name;
+                                PREPARE stmt FROM @sql;
+                                EXECUTE stmt;
+                                DEALLOCATE PREPARE stmt;
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Window Function with Ranking</h5>
+                        <p class="mb-2">Use a window function to rank data.</p>
+                        <div class="code-block">
+                            <pre>
+                                SELECT name, salary, RANK() OVER (ORDER BY salary DESC) AS rank
+                                FROM employees;
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Create a Stored Procedure</h5>
+                        <p class="mb-2">Create a stored procedure to perform a complex operation.</p>
+                        <div class="code-block">
+                            <pre>
+                                CREATE PROCEDURE update_salary(IN employee_id INT, IN salary_increase DECIMAL)
+                                BEGIN
+                                    UPDATE employees
+                                    SET salary = salary + salary_increase
+                                    WHERE id = employee_id;
+                                END;
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Using CTE with Aggregation</h5>
+                        <p class="mb-2">Use a common table expression (CTE) with aggregation.</p>
+                        <div class="code-block">
+                            <pre>
+                                WITH sales_data AS (
+                                    SELECT department, SUM(sales) AS total_sales
+                                    FROM sales
+                                    GROUP BY department
+                                )
+                                SELECT * FROM sales_data WHERE total_sales > 100000;
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Using JSON Data in SQL</h5>
+                        <p class="mb-2">Use JSON data in SQL queries.</p>
+                        <div class="code-block">
+                            <pre>
+                                SELECT name, json_data->>'$.key' AS key_value
+                                FROM employees
+                                WHERE json_data IS NOT NULL;
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Partitioning Table Data</h5>
+                        <p class="mb-2">Partition table data for better performance.</p>
+                        <div class="code-block">
+                            <pre>
+                                CREATE TABLE employees_partitioned (
+                                    id INT, name VARCHAR(100), salary DECIMAL
+                                )
+                                PARTITION BY RANGE (salary) (
+                                    PARTITION p0 VALUES LESS THAN (30000),
+                                    PARTITION p1 VALUES LESS THAN (60000),
+                                    PARTITION p2 VALUES LESS THAN (90000)
+                                );
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Error Handling in Transactions</h5>
+                        <p class="mb-2">Handle errors in transactions.</p>
+                        <div class="code-block">
+                            <pre>
+                                START TRANSACTION;
+                                BEGIN TRY
+                                    INSERT INTO employees (id, name, salary) VALUES (1, 'John', 50000);
+                                    COMMIT;
+                                EXCEPTION
+                                    ROLLBACK;
+                                END TRY;
+                            </pre>
+                        </div>
+                </section>
+            </div>
+                
+            <div id="interviewlibrary" class="tab-content hidden">
+                <h3 class="text-2xl font-bold mb-8 text-blue-600">Interview Library</h3>
+                <p class="mb-8">In this section, you'll find links to interview question sheets for SQL from various sources. Click the links below to access these resources and prepare for your interviews.</p>
+                <ul class="list-disc pl-5 space-y-4">
+                  <li>
+                    <a href="https://www.geeksforgeeks.org/sql-interview-questions/" target="_blank" class="text-blue-600 hover:underline">1. SQL Interview Questions - GeeksforGeeks</a>
+                  </li>
+                  <li>
+                    <a href="https://www.interviewbit.com/sql-interview-questions/" target="_blank" class="text-blue-600 hover:underline">2. SQL Interview Questions - InterviewBit</a>
+                  </li>
+                  <li>
+                    <a href="https://www.javatpoint.com/sql-interview-questions" target="_blank" class="text-blue-600 hover:underline">3. SQL Interview Questions - JavaTpoint</a>
+                  </li>
+                  <li>
+                    <a href="https://www.simplilearn.com/top-sql-interview-questions-and-answers-article" target="_blank" class="text-blue-600 hover:underline">4. Top SQL Interview Questions and Answers - Simplilearn</a>
+                  </li>
+                  <li>
+                    <a href="https://www.datacamp.com/blog/top-sql-interview-questions-and-answers-for-beginners-and-intermediate-practitioners" target="_blank" class="text-blue-600 hover:underline">5. Top SQL Interview Questions and Answers for Beginners and Intermediate Practitioners - DataCamp</a>
+                  </li>
+                  <li>
+                    <a href="https://upesonline.ac.in/blog/advanced-sql-interview-questions" target="_blank" class="text-blue-600 hover:underline">6. Advanced SQL Interview Questions - UPES Online</a>
+                  </li>
+                  <li>
+                    <a href="https://www.naukri.com/code360/library/sql-interview-questions" target="_blank" class="text-blue-600 hover:underline">7. SQL Interview Questions - Naukri</a>
+                  </li>
+                  <li>
+                    <a href="https://www.coursera.org/articles/sql-interview-questions" target="_blank" class="text-blue-600 hover:underline">8. SQL Interview Questions - Coursera</a>
+                  </li>
+                  <li>
+                    <a href="https://programiz.pro/course/sql-interview-questions" target="_blank" class="text-blue-600 hover:underline">9. SQL Interview Questions - Programiz</a>
+                  </li>
+                  <li>
+                    <a href="https://www.edureka.co/blog/interview-questions/sql-interview-questions" target="_blank" class="text-blue-600 hover:underline">10. SQL Interview Questions - Edureka</a>
+                  </li>
+                  <li>
+                    <a href="https://www.adaface.com/blog/sql-interview-questions/" target="_blank" class="text-blue-600 hover:underline">11. SQL Interview Questions - Adaface</a>
+                  </li>
+                  <li>
+                    <a href="https://www.codechef.com/practice/sql-interview-questions" target="_blank" class="text-blue-600 hover:underline">12. SQL Interview Questions - CodeChef</a>
+                  </li>
+                </ul>
+              </div>
+      </main>
+  
+      <footer class="bg-gradient-to-r from-slate-800 to-slate-900 text-white py-16">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-24">
+                <div class="space-y-6 md:px-12">
+                    <h3 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-500">
+                        LastMinutePrep
+                    </h3>
+                    <p class="text-slate-300 leading-relaxed">
+                        Your go-to platform for last-minute coding interview preparation. Ace your interviews with confidence!
+                    </p>
+                    <a href="index.html" class="inline-block px-6 py-3 rounded-full bg-gradient-to-r from-sky-400 to-blue-500 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                        Get Started
+                    </a>
+                </div>
+                <div class="space-y-6 md:px-12">
+                    <h3 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-500">
+                        About Me
+                    </h3>
+                    <div class="space-y-4">
+                        <p class="text-2xl font-bold">Baba Sahil</p>
+                        <p class="text-slate-300">Aspirant Software Engineer</p>
+                        <p class="text-slate-300">
+                            <a href="mailto:babasahil2628@gmail.com" class="text-sky-400 hover:text-sky-300 transition-colors duration-300">
+                                babasahil2628@gmail.com
+                            </a>
+                        </p>
+                    </div>
+                </div>
+                <div class="space-y-6 md:px-12">
+                    <h3 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-500">
+                       Connect with Me
+                    </h3>
+                    <div class="space-y-4">
+                        <a href="https://www.linkedin.com/profile/in/baba-sahil-153721321/" target="_blank" class="flex items-center text-slate-300 hover:text-white transition-colors duration-300">
+                            <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                            LinkedIn Profile
+                        </a>
+                        <a href="https://github.com/babasahil29" target="_blank" class="flex items-center text-slate-300 hover:text-white transition-colors duration-300">
+                            <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
+                            </svg>
+                            GitHub
+                        </a>
+                        <a href="https://babasahil.my.canva.site/" target="_blank" class="flex items-center text-slate-300 hover:text-white transition-colors duration-300">
+                            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                            Portfolio
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 pt-8 border-t border-slate-700 text-center">
+                <p class="text-slate-400">&copy; 2024 <span class="text-sky-400 font-semibold">BabaSahil</span>. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+      
+    <script type="text/babel">
+        // InterviewSheet component
+        const InterviewSheet = () => {
+          const questions = [
+            {
+              level: "Basic",
+              items: [
+                {
+                  question: "What is SQL?",
+                  answer: "SQL stands for Structured Query Language, and it is used to interact with databases by writing queries."
+                },
+                {
+                  question: "What are the different types of SQL commands?",
+                  answer: "DDL, DML, DCL, TCL, and DQL."
+                },
+                {
+                  question: "What is the difference between DELETE and TRUNCATE?",
+                  answer: "DELETE removes specified rows, whereas TRUNCATE removes all rows but keeps the structure."
+                },
+                {
+                  question: "What is a primary key?",
+                  answer: "A primary key uniquely identifies each row in a table."
+                },
+                {
+                  question: "What is a foreign key?",
+                  answer: "A foreign key links two tables by referencing the primary key of another table."
+                },
+                {
+                  question: "How can you create a table in SQL?",
+                  answer: "CREATE TABLE table_name (column1 datatype, column2 datatype);"
+                },
+                {
+                  question: "What is normalization?",
+                  answer: "Normalization is the process of organizing data to reduce redundancy."
+                },
+                {
+                  question: "What are the different types of joins?",
+                  answer: "INNER JOIN, LEFT JOIN, RIGHT JOIN, FULL OUTER JOIN."
+                },
+                {
+                  question: "What is an index in SQL?",
+                  answer: "An index improves query performance by allowing faster data retrieval."
+                },
+                {
+                  question: "What is a unique constraint?",
+                  answer: "A unique constraint ensures that all values in a column are distinct."
+                },
+                {
+                  question: "What is a NULL value?",
+                  answer: "NULL represents missing or undefined data."
+                },
+                {
+                  question: "What is the difference between WHERE and HAVING?",
+                  answer: "WHERE filters records before aggregation, while HAVING filters after aggregation."
+                },
+                {
+                  question: "How can you get the current date in SQL?",
+                  answer: "SELECT CURRENT_DATE;"
+                },
+                {
+                  question: "How can you remove duplicates from a result set?",
+                  answer: "SELECT DISTINCT column_name FROM table_name;"
+                },
+                {
+                  question: "What is a self-join?",
+                  answer: "A self-join is when a table is joined with itself."
+                },
+                {
+                  question: "What is a view in SQL?",
+                  answer: "A view is a virtual table based on the result of a SQL query."
+                },
+                {
+                  question: "What is a subquery?",
+                  answer: "A query nested inside another query."
+                },
+                {
+                  question: "What is a transaction?",
+                  answer: "A transaction is a set of operations that are executed together, ensuring data consistency."
+                },
+                {
+                  question: "What are constraints in SQL?",
+                  answer: "Constraints are rules applied to table columns, such as NOT NULL, UNIQUE, PRIMARY KEY."
+                },
+                {
+                  question: "How do you add a new column to an existing table?",
+                  answer: "ALTER TABLE table_name ADD column_name datatype;"
+                }
+              ]
+            },
+            {
+              level: "Intermediate",
+              items: [
+                {
+                  question: "What is a composite key?",
+                  answer: "A composite key is made up of two or more columns to uniquely identify a row."
+                },
+                {
+                  question: "What is the difference between UNION and UNION ALL?",
+                  answer: "UNION removes duplicates, while UNION ALL keeps all results, including duplicates."
+                },
+                {
+                  question: "How do you implement a foreign key in SQL?",
+                  answer: "CREATE TABLE table_name (column1 datatype, column2 datatype, FOREIGN KEY (column2) REFERENCES other_table(column1))"
+                },
+                {
+                  question: "What are the ACID properties of a transaction?",
+                  answer: "Atomicity, Consistency, Isolation, and Durability."
+                },
+                {
+                  question: "How do you create an index?",
+                  answer: "CREATE INDEX index_name ON table_name(column_name);"
+                },
+                {
+                  question: "What is a clustered index?",
+                  answer: "A clustered index sorts and stores the data rows in the table based on the key values."
+                },
+                {
+                  question: "What is a correlated subquery?",
+                  answer: "A subquery that uses values from the outer query."
+                },
+                {
+                  question: "What is a non-clustered index?",
+                  answer: "A non-clustered index creates a separate structure to store key values, improving search performance."
+                },
+                {
+                  question: "How can you find the second-highest salary in a table?",
+                  answer: "SELECT MAX(salary) FROM employees WHERE salary < (SELECT MAX(salary) FROM employees);"
+                },
+                {
+                  question: "What is a materialized view?",
+                  answer: "A materialized view stores the result of a query physically in the database."
+                },
+                {
+                  question: "How do you rename a column in SQL?",
+                  answer: "ALTER TABLE table_name RENAME COLUMN old_column_name TO new_column_name;"
+                },
+                {
+                  question: "What is an alias in SQL?",
+                  answer: "An alias is a temporary name assigned to a column or table for a query."
+                },
+                {
+                  question: "How can you concatenate two strings in SQL?",
+                  answer: "SELECT CONCAT(string1, string2);"
+                },
+                {
+                  question: "What is a trigger in SQL?",
+                  answer: "A trigger is a set of instructions that automatically executes in response to a database event."
+                },
+                {
+                  question: "What is the difference between CHAR and VARCHAR?",
+                  answer: "CHAR has a fixed length, while VARCHAR can vary in length."
+                },
+                {
+                  question: "How do you delete a column from a table?",
+                  answer: "ALTER TABLE table_name DROP COLUMN column_name;"
+                },
+                {
+                  question: "What is an outer join?",
+                  answer: "An outer join returns all records when there is a match in either left or right table."
+                },
+                {
+                  question: "How do you handle errors in SQL?",
+                  answer: "By using transaction control and error handling methods such as TRY-CATCH."
+                },
+                {
+                  question: "What is referential integrity?",
+                  answer: "Referential integrity ensures that relationships between tables remain consistent."
+                },
+                {
+                  question: "How do you check if a table exists in SQL?",
+                  answer: "SELECT * FROM information_schema.tables WHERE table_name = 'table_name';"
+                }
+              ]
+            },
+            {
+              level: "Expert",
+              items: [
+                {
+                  question: "What is a recursive query?",
+                  answer: "A query that references itself, often used for hierarchical data."
+                },
+                {
+                  question: "How do you implement a recursive CTE in SQL?",
+                  answer: "WITH RECURSIVE cte_name AS (SELECT column1 UNION ALL SELECT column1 FROM cte_name WHERE condition) SELECT * FROM cte_name;"
+                },
+                {
+                  question: "What is database sharding?",
+                  answer: "Sharding is partitioning a database into smaller, faster, more easily managed pieces called shards."
+                },
+                {
+                  question: "How do you optimize a query?",
+                  answer: "By creating indexes, optimizing JOINs, avoiding unnecessary columns in SELECT, and using LIMIT."
+                },
+                {
+                  question: "How can you use a window function in SQL?",
+                  answer: "SELECT column_name, ROW_NUMBER() OVER (PARTITION BY column_name ORDER BY column_name) AS row_num FROM table_name;"
+                },
+                {
+                  question: "What is a pivot in SQL?",
+                  answer: "A pivot turns rows into columns."
+                },
+                {
+                  question: "How do you handle many-to-many relationships in SQL?",
+                  answer: "By creating a junction table with foreign keys that reference both tables."
+                },
+                {
+                  question: "What is SQL injection? How do you prevent it?",
+                  answer: "SQL injection is an attack that allows an attacker to execute arbitrary SQL code. Use prepared statements and parameterized queries to prevent it."
+                },
+                {
+                  question: "How do you execute dynamic SQL?",
+                  answer: "EXECUTE 'SQL_statement';"
+                },
+                {
+                  question: "What is the difference between OLTP and OLAP?",
+                  answer: "OLTP (Online Transaction Processing) is for day-to-day operations, whereas OLAP (Online Analytical Processing) is for complex queries and reporting."
+                }
+              ]
+            }
+          ];
+      
+          return (
+            <div className="space-y-8">
+              {questions.map((level, index) => (
+                <div key={index}>
+                  <h4 class="text-2xl font-semibold mb-4 text-blue-500">{level.level} Level Questions</h4>
+                  <ol className="list-decimal list-inside space-y-4">
+                    {level.items.map((item, itemIndex) => (
+                      <li key={itemIndex}>
+                        <p className="font-medium">{item.question}</p>
+                        {item.answer && <p className="mt-1">{item.answer}</p>}
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              ))}
+            </div>
+          );
+        };
+      
+        ReactDOM.render(<InterviewSheet />, document.getElementById("interview-sheet-root"));
+      </script>
+  
+  <script>
+    const debounce = (func, delay) => {
+let inDebounce;
+return function() {
+    const context = this;
+    const args = arguments;
+    clearTimeout(inDebounce);
+    inDebounce = setTimeout(() => func.apply(context, args), delay);
+};
+};
+
+// Function to show tab
+function showTab(tabName) {
+const allTabs = document.querySelectorAll('.tab-content');
+const allButtons = document.querySelectorAll('.tab-btn');
+const selectedTab = document.getElementById(tabName);
+const clickedButton = document.querySelector(`.tab-btn[onclick*="${tabName}"]`);
+
+allTabs.forEach(tab => tab.classList.add('hidden'));
+allButtons.forEach(btn => {
+    btn.classList.remove('bg-blue-500', 'text-white');
+    btn.classList.add('bg-gray-200', 'text-gray-700');
+});
+
+if (selectedTab) selectedTab.classList.remove('hidden');
+if (clickedButton) {
+    clickedButton.classList.remove('bg-gray-200', 'text-gray-700');
+    clickedButton.classList.add('bg-blue-500', 'text-white');
+}
+
+const languageDropdown = document.getElementById('languageDropdown');
+if (languageDropdown && languageDropdown.classList.contains('show')) {
+    languageDropdown.classList.remove('show');
+}
+}
+
+// Function to download cheat sheet
+function downloadCheatSheet() {
+alert('Downloading Python Cheat Sheet...');
+}
+
+// Function to check if element is in viewport
+function isElementInViewport(el) {
+const rect = el.getBoundingClientRect();
+return (
+    rect.top >= 0 &&
+    rect.left >= 0 &&
+    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+);
+}
+
+// Function to handle scroll and reveal sections
+const handleScroll = debounce(() => {
+const sections = document.querySelectorAll('.cheatsheet-section');
+sections.forEach(section => {
+    if (isElementInViewport(section) && !section.classList.contains('visible')) {
+        section.classList.add('visible');
+    }
+});
+}, 100);
+
+// Event listeners
+document.addEventListener('DOMContentLoaded', () => {
+const dropdownBtn = document.getElementById('dropdownBtn');
+const languageDropdown = document.getElementById('languageDropdown');
+
+dropdownBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    languageDropdown.classList.toggle('show');
+});
+
+document.addEventListener('click', (e) => {
+    if (!dropdownBtn.contains(e.target) && !languageDropdown.contains(e.target)) {
+        languageDropdown.classList.remove('show');
+    }
+});
+
+const fadeElements = document.querySelectorAll('.fade-in');
+fadeElements.forEach(element => element.classList.add('visible'));
+
+const easySection = document.querySelector('.cheatsheet-section');
+if (easySection) easySection.classList.add('visible');
+
+handleScroll();
+});
+
+window.addEventListener('scroll', handleScroll);
+window.addEventListener('resize', handleScroll);
+  </script>
+  </body>
+  </html>
+      

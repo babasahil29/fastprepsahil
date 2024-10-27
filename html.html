@@ -1,0 +1,1425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastPrepSahil - HTML</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&display=swap');
+
+:root {
+--primary-color: #3b82f6;
+--secondary-color: #38bdf8;
+--background-color: #f9f9f9;
+--text-color: #333;
+}
+
+* {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+}
+
+body {
+font-family: 'Manrope', sans-serif;
+line-height: 1.6;
+color: var(--text-color);
+}
+
+.hero-section {
+background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/html.jpg');
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+height: 400px;
+position: relative;
+padding: 2rem 1rem;
+}
+
+.hero-section::before {
+content: "";
+position: absolute;
+inset: 0;
+background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 2px, transparent 2px, transparent 4px);
+pointer-events: none;
+}
+
+.fade-in {
+opacity: 0;
+transform: translateY(20px);
+transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.fade-in.visible {
+opacity: 1;
+transform: translateY(0);
+}
+
+.btn-animated {
+transition: all 0.3s ease;
+}
+
+.btn-animated:hover, .btn-animated:focus {
+transform: translateY(-3px) scale(1.05);
+box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.btn-animated:active {
+transform: translateY(-1px) scale(1.02);
+box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.dropdown-content {
+display: none;
+position: absolute;
+background-color: var(--background-color);
+min-width: 160px;
+box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+z-index: 1;
+}
+
+.dropdown-content a {
+color: var(--text-color);
+padding: 12px 16px;
+text-decoration: none;
+display: block;
+transition: all 0.2s ease;
+}
+
+.dropdown-content a:hover, .dropdown-content a:focus {
+background-color: #f1f1f1;
+transform: translateX(5px);
+}
+
+.show {
+display: block;
+animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+from { opacity: 0; }
+to { opacity: 1; }
+}
+
+.code-block {
+background-color: #f8f8f8;
+border-left: 4px solid var(--primary-color);
+padding: 1rem;
+margin: 1rem 0;
+font-family: 'Courier New', Courier, monospace;
+overflow-x: auto;
+}
+
+.interview-sheet-container {
+background-color: var(--background-color);
+padding: 20px;
+border: 1px solid #ddd;
+border-radius: 10px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+background-image: linear-gradient(to right, #1e293b, #0f172a);
+position: relative;
+overflow: hidden;
+padding: 2rem 1rem;
+}
+
+footer::before {
+content: '';
+position: absolute;
+inset: 0;
+background: url('path/to/subtle-pattern.png') repeat;
+opacity: 0.05;
+z-index: 0;
+}
+
+footer > div {
+position: relative;
+z-index: 1;
+}
+
+footer h3 {
+font-size: 1.25rem;
+margin-bottom: 1rem;
+position: relative;
+display: inline-block;
+}
+
+footer h3::after {
+content: '';
+position: absolute;
+left: 0;
+bottom: -5px;
+width: 50px;
+height: 2px;
+background: linear-gradient(to right, var(--secondary-color), var(--primary-color));
+}
+
+footer p {
+font-size: 0.9rem;
+line-height: 1.6;
+}
+
+footer a:not(.inline-block) {
+transition: all 0.3s ease;
+}
+
+footer a:not(.inline-block):hover, footer a:not(.inline-block):focus {
+color: var(--secondary-color);
+transform: translateX(5px);
+}
+
+footer .inline-block {
+transition: all 0.3s ease;
+}
+
+footer .inline-block:hover, footer .inline-block:focus {
+transform: translateY(-3px);
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.social-icon {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+width: 40px;
+height: 40px;
+border-radius: 50%;
+background: rgba(255, 255, 255, 0.1);
+transition: all 0.3s ease;
+}
+
+.social-icon:hover, .social-icon:focus {
+background: rgba(255, 255, 255, 0.2);
+transform: translateY(-3px);
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  
+.hero-section {
+  height: 350px;
+}
+
+footer .grid {
+  gap: 1.5rem;
+}
+
+footer .md\:px-12 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.tab-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tab-btn {
+  flex: 1 1 calc(30% - 0.5rem);
+  font-size: 0.9rem;
+  padding: 0.5rem;
+}
+
+}@media only screen and (max-width: 768px) {
+.text-2xl.font-bold.text-blue-600 {
+  display: none;
+}
+
+}</style>
+</head>
+<body class="bg-gray-100"></body>
+    <header class="bg-white shadow-md fixed w-full z-10">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+          <div class="flex items-center">
+            <img src="images/logo2.jpeg" alt="FastPrepSahil Logo" class="h-12 w-auto mr-3">
+            <h1 class="text-2xl font-bold text-blue-600">FastPrepSahil</h1>
+        </div>
+            <div class="flex items-center space-x-2">
+            
+              <button onclick="window.location.href='index.html'" id="searchBtn" class="btn-animated bg-blue-500 text-white px-4 py-2 rounded">Home</button>
+                <div class="relative inline-block">
+                    <button id="dropdownBtn" class="btn-animated bg-gray-200 text-gray-700 px-4 py-2 rounded">
+                        Select Language <i class="fas fa-caret-down ml-1"></i>
+                    </button>
+                    <div id="languageDropdown" class="dropdown-content">
+                        <a href="python.html">Python</a>
+                        <a href="c.html">C</a>
+                        <a href="java.html">Java</a>
+                        <a href="cpp.html">C++</a>
+                        <a href="html.html">HTML</a>
+                        <a href="css.html">CSS</a>
+                        <a href="javascript.html">JavaScript</a>
+                        <a href="sql.html">SQL</a>
+                        <a href="php.html">PHP</a>
+                        <a href="mern.html">MERN</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="hero-section flex items-center justify-center pt-16">
+        <h2 id="language-title" class="text-4xl font-bold text-white text-center">HTML Resources</h2>
+    </div>
+
+    <main class="container mx-auto mt-8 p-4">
+      <div class="tab-buttons flex flex-wrap gap-2 mb-6">
+        <button onclick="showTab('snapshot')" class="tab-btn btn-animated bg-blue-500 text-white px-3 py-2 rounded text-sm flex-grow">Language Snapshot</button>
+        <button onclick="showTab('cheatsheet')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Cheat Sheet</button>
+        <button onclick="showTab('cheatsheetpdfs')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Cheat Sheet PDFs</button>
+        <button onclick="showTab('cheatsheetlibrary')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Cheat Sheet Library</button>
+        <button onclick="showTab('interviewsheet')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Interview Sheet</button>
+        <button onclick="showTab('interviewlibrary')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Interview Library</button>
+        <button onclick="showTab('standardcodesnippets')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Standard Code Snippets</button>
+    </div>
+    
+        <div id="tab-content" class="bg-white p-6 rounded-lg shadow-md fade-in">
+            <div id="snapshot" class="tab-content">
+    <h3 class="text-2xl font-bold mb-8 text-blue-600">Language Snapshot</h3>
+    <div id="snapshot-content" class="space-y-8">
+        <section>
+            <h4 class="text-xl font-semibold mb-4">Overview</h4>
+            <ul class="list-disc pl-6 space-y-2">
+                <li>
+                    <span class="font-medium">Language Type:</span> Markup Language
+                </li>
+                <li>
+                    <span class="font-medium">Key Features:</span>
+                    <ul class="list-circle pl-6 mt-2 space-y-2">
+                        <li><span class="font-medium">Structure Web Pages:</span> Defines the structure of a webpage by organizing elements</li>
+                        <li><span class="font-medium">Multimedia Embedding:</span> Supports embedding images, videos, audio, and other multimedia elements</li>
+                        <li><span class="font-medium">Cross-Browser Compatibility:</span> Works across various web browsers</li>
+                        <li><span class="font-medium">Responsive Design Support:</span> Works with CSS and JavaScript for responsive designs</li>
+                        <li><span class="font-medium">SEO-Friendly:</span> Proper structure helps search engines index and understand content better</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h4 class="text-xl font-semibold mb-4">Invention</h4>
+            <ul class="list-disc pl-6 space-y-2">
+                <li><span class="font-medium">Creator:</span> Tim Berners-Lee</li>
+                <li><span class="font-medium">Year Created:</span> 1991</li>
+                <li><span class="font-medium">Current Version:</span> HTML5 (released in 2014)</li>
+                <li>
+                    <span class="font-medium">Major Influence:</span> Creation and structure of web content
+                </li>
+                <li>
+                    <span class="font-medium">Purpose:</span> To create and structure web content like text, images, and multimedia
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h4 class="text-xl font-semibold mb-4">Basic HTML Structure</h4>
+            <pre class="bg-gray-100 p-4 rounded-md"><code>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content
+    ="width=device-width,
+    initial-scale=1.0"&gt;
+    &lt;title&gt;Page Title&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;This is a Heading&lt;/h1&gt;
+    &lt;p&gt;This is a paragraph.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+            </code></pre>
+        </section>
+
+        <section>
+            <h4 class="text-xl font-semibold mb-4">Popular HTML Elements</h4>
+            <ul class="list-disc pl-6 space-y-2">
+                <li><span class="font-medium">&lt;h1&gt; to &lt;h6&gt;:</span> Define headings</li>
+                <li><span class="font-medium">&lt;p&gt;:</span> Defines paragraphs</li>
+                <li><span class="font-medium">&lt;a&gt;:</span> Creates hyperlinks</li>
+                <li><span class="font-medium">&lt;img&gt;:</span> Embeds images</li>
+                <li><span class="font-medium">&lt;div&gt;:</span> Defines a section or container</li>
+            </ul>
+        </section>
+
+        <section>
+            <h4 class="text-xl font-semibold mb-4">Common Use Cases</h4>
+            <ul class="list-disc pl-6 space-y-2">
+                <li><span class="font-medium">Building Websites:</span> Every website is built with HTML</li>
+                <li><span class="font-medium">Creating Web Applications:</span> Forms the foundation of web applications</li>
+                <li><span class="font-medium">Embedding Media:</span> Allows embedding of images, videos, and audio on web pages</li>
+                <li><span class="font-medium">Structuring Content:</span> Organizes web content for better readability and SEO</li>
+            </ul>
+        </section>
+    </div>
+            </div>
+            <div id="cheatsheet" class="tab-content hidden">
+                <h3 class="text-2xl font-bold mb-8 text-blue-600">Cheatsheet</h3>
+                <section class="cheatsheet-section mb-12">
+                    <h3 class="text-2xl font-semibold mb-4 text-blue-500">Basic Level</h3>
+                
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">1. Basic HTML Structure</h4>
+                        <p class="mb-2">A simple structure to build any webpage with a title, heading, and paragraph.</p>
+                        <div class="code-block">
+                            <pre>
+            &lt;!DOCTYPE html&gt;
+            &lt;html&gt;
+            &lt;head&gt;
+                &lt;title&gt;Page Title&lt;/title&gt;
+            &lt;/head&gt;
+            &lt;body&gt;
+                &lt;h1&gt;This is a Heading&lt;/h1&gt;
+                &lt;p&gt;This is a paragraph.&lt;/p&gt;
+            &lt;/body&gt;
+            &lt;/html&gt;
+                            </pre>
+                        </div>
+                    </div>
+                
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">2. Headings</h4>
+                        <p class="mb-2">Defines different heading levels on the page. &lt;h1&gt; is the highest level.</p>
+                        <div class="code-block">
+                            <pre>
+            &lt;h1&gt;Main Heading&lt;/h1&gt;
+            &lt;h2&gt;Subheading&lt;/h2&gt;
+                            </pre>
+                        </div>
+                    </div>
+                
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">3. Paragraphs</h4>
+                        <p class="mb-2">Used to add blocks of text on the webpage.</p>
+                        <div class="code-block">
+                            <pre>
+            &lt;p&gt;This is a paragraph of text.&lt;/p&gt;
+                            </pre>
+                        </div>
+                    </div>
+                
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">4. Links</h4>
+                        <p class="mb-2">Creates a clickable link to another webpage.</p>
+                        <div class="code-block">
+                            <pre>
+            &lt;a href="https://example.com"&gt;Click here&lt;/a&gt;
+                            </pre>
+                        </div>
+                    </div>
+                
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">5. Images</h4>
+                        <p class="mb-2">Embeds an image in your webpage.</p>
+                        <div class="code-block">
+                            <pre>
+            &lt;img src="image.jpg" alt="Image description"&gt;
+                            </pre>
+                        </div>
+                    </div>
+                
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">6. Ordered and Unordered Lists</h4>
+                        <p class="mb-2">Ordered lists are numbered, unordered lists are bullet points.</p>
+                        <div class="code-block">
+                            <pre>
+            &lt;!-- Ordered (Numbered) List --&gt;
+            &lt;ol&gt;
+                &lt;li&gt;First item&lt;/li&gt;
+                &lt;li&gt;Second item&lt;/li&gt;
+            &lt;/ol&gt;
+            
+            &lt;!-- Unordered (Bullet) List --&gt;
+            &lt;ul&gt;
+                &lt;li&gt;Item 1&lt;/li&gt;
+                &lt;li&gt;Item 2&lt;/li&gt;
+            &lt;/ul&gt;
+                            </pre>
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="cheatsheet-section mb-12">
+                    <h3 class="text-2xl font-semibold mb-4 text-blue-500">Intermediate Level</h3>
+                
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">1. Tables</h4>
+                        <p class="mb-2">Displays data in a structured format with rows and columns.</p>
+                        <div class="code-block">
+                            <pre>
+            &lt;table&gt;
+                &lt;tr&gt;
+                    &lt;th&gt;Header 1&lt;/th&gt;
+                    &lt;th&gt;Header 2&lt;/th&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                    &lt;td&gt;Data 1&lt;/td&gt;
+                    &lt;td&gt;Data 2&lt;/td&gt;
+                &lt;/tr&gt;
+            &lt;/table&gt;
+                            </pre>
+                        </div>
+                    </div>
+                
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">2. Forms</h4>
+                        <p class="mb-2">Used to collect user input and submit data.</p>
+                        <div class="code-block">
+                            <pre>
+            &lt;form action="/submit" method="post"&gt;
+                &lt;label for="name"&gt;Name:&lt;/label&gt;
+                &lt;input type="text" id="name" name="name"&gt;
+                &lt;input type="submit" value="Submit"&gt;
+            &lt;/form&gt;
+                            </pre>
+                        </div>
+                    </div>
+                
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">3. Divisions and Spans</h4>
+                        <p class="mb-2">&lt;div&gt; groups block elements, and &lt;span&gt; groups inline elements.</p>
+                        <div class="code-block">
+                            <pre>
+            &lt;!-- Div (Block-level) --&gt;
+            &lt;div&gt;This is a division.&lt;/div&gt;
+            
+            &lt;!-- Span (Inline-level) --&gt;
+            &lt;span style="color:red;"&gt;Red Text&lt;/span&gt;
+                            </pre>
+                        </div>
+                    </div>
+                
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">4. Attributes</h4>
+                        <p class="mb-2">id and class attributes are used to uniquely identify and style elements.</p>
+                        <div class="code-block">
+                            <pre>
+            &lt;p id="para1" class="text"&gt;This is a paragraph.&lt;/p&gt;
+                            </pre>
+                        </div>
+                    </div>
+                
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">5. Link Target Attribute</h4>
+                        <p class="mb-2">Opens links in a new browser tab.</p>
+                        <div class="code-block">
+                            <pre>
+            &lt;a href="https://example.com" target="_blank"&gt;Open in new tab&lt;/a&gt;
+                            </pre>
+                        </div>
+                    </div>
+                
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">6. Comments</h4>
+                        <p class="mb-2">Comments are used for documentation within the code and are not displayed on the webpage.</p>
+                        <div class="code-block">
+                            <pre>
+            &lt;!-- This is a comment --&gt;
+                            </pre>
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="cheatsheet-section mb-12">
+                    <h3 class="text-2xl font-semibold mb-4 text-blue-500">Expert Level</h3>
+                
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">1. Video Embedding</h4>
+                        <p class="mb-2">Embeds a video file with control options like play, pause, and volume.</p>
+                        <div class="code-block">
+                            <pre>
+            &lt;video width="320" height="240" controls&gt;
+                &lt;source src="movie.mp4" type="video/mp4"&gt;
+            &lt;/video&gt;
+                            </pre>
+                        </div>
+                    </div>
+                
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">2. Audio Embedding</h4>
+                        <p class="mb-2">Embeds an audio file with player controls.</p>
+                        <div class="code-block">
+                            <pre>
+            &lt;audio controls&gt;
+                &lt;source src="audio.mp3" type="audio/mpeg"&gt;
+            &lt;/audio&gt;
+                            </pre>
+                        </div>
+                    </div>
+                
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">3. Semantic Elements</h4>
+                        <p class="mb-2">Semantic elements provide meaning to the structure of web content.</p>
+                        <div class="code-block">
+                            <pre>
+            &lt;header&gt;
+                &lt;h1&gt;Website Title&lt;/h1&gt;
+            &lt;/header&gt;
+            &lt;nav&gt;
+                &lt;a href="#home"&gt;Home&lt;/a&gt;
+            &lt;/nav&gt;
+            &lt;main&gt;
+                &lt;p&gt;Main content here.&lt;/p&gt;
+            &lt;/main&gt;
+            &lt;footer&gt;
+                &lt;p&gt;Footer text here.&lt;/p&gt;
+            &lt;/footer&gt;
+                            </pre>
+                        </div>
+                    </div>
+                
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">4. Meta Tags</h4>
+                        <p class="mb-2">Used to provide metadata for the document, including character encoding and SEO information.</p>
+                        <div class="code-block">
+                            <pre>
+            &lt;meta charset="UTF-8"&gt;
+            &lt;meta name="description" content="Description of the webpage."&gt;
+            &lt;meta name="keywords" content="HTML, CSS, JavaScript"&gt;
+            &lt;meta name="author" content="John Doe"&gt;
+                            </pre>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div id="cheatsheetpdfs" class="tab-content hidden">
+                <h3 class="text-2xl font-bold mb-8 text-blue-600">Cheat Sheet PDFs</h3>
+                <p class="mb-8">In this section, you'll find downloadable PDF versions of HTML cheatsheets from different sources. Click on the links below to download the cheat sheets directly.</p>
+                <ul class="list-disc pl-5 space-y-4">
+                  <li>
+                    <a href="https://web.stanford.edu/group/csp/cs21/htmlcheatsheet.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                      1. HTML Cheat Sheet (PDF) - Stanford University
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www3.cs.stonybrook.edu/~pramod.ganapathi/doc/CSE102/CSE102-CheatSheetHTML.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                      2. HTML Cheat Sheet (PDF) - Stony Brook University
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://html.com/wp-content/uploads/html-cheat-sheet.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                      3. HTML Cheat Sheet (PDF) - HTML.com
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://johndecember.com/html/spec/HTML5-Cheat-Sheet.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                      4. HTML5 Cheat Sheet (PDF) - John December
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.cheat-sheets.org/saved-copy/hf-html-cheat-sheet.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                      5. HTML Cheat Sheet (PDF) - Cheat-Sheets.org
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://cdn.hostinger.com/tutorials/pdf/HTML-Cheatsheet.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                      6. HTML Cheat Sheet (PDF) - Hostinger
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/iLoveCodingOrg/html-cheatsheet/raw/master/html-cheatsheet.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                      7. HTML Cheat Sheet (PDF) - iLoveCoding.org (GitHub)
+                    </a>
+                  </li>
+                  <li>
+                    <a href="http://www.cheat-sheets.org/saved-copy/html-cheat-sheet.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                      8. HTML Cheat Sheet (PDF) - Cheat-Sheets.org (Alternative)
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div id="cheatsheetlibrary" class="tab-content hidden">
+                <h3 class="text-2xl font-bold mb-8 text-blue-600">Cheat Sheet Library</h3>
+                <p class="mb-8">In this section, you'll find various links to HTML cheatsheets available on different websites. Click on the links below to explore the resources.</p>
+                <ul class="list-disc pl-5 space-y-4">
+                  <li>
+                    <a href="https://htmlcheatsheet.com/" target="_blank" class="text-blue-600 hover:underline">
+                      1. HTML Cheat Sheet - Interactive HTML Cheatsheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.codewithharry.com/blogpost/html-cheatsheet/" target="_blank" class="text-blue-600 hover:underline">
+                      2. Code with Harry HTML Cheatsheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.geeksforgeeks.org/html-cheat-sheet/" target="_blank" class="text-blue-600 hover:underline">
+                      3. GeeksforGeeks HTML Cheatsheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Cheatsheet" target="_blank" class="text-blue-600 hover:underline">
+                      4. MDN Web Docs HTML Cheatsheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://quickref.me/html.html" target="_blank" class="text-blue-600 hover:underline">
+                      5. QuickRef HTML Cheatsheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="http://www.simplehtmlguide.com/cheatsheet.php" target="_blank" class="text-blue-600 hover:underline">
+                      6. Simple HTML Guide Cheatsheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.codecademy.com/learn/learn-html/modules/learn-html-elements/cheatsheet" target="_blank" class="text-blue-600 hover:underline">
+                      7. Codecademy HTML Elements Cheatsheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="http://cheatsheets.shecodes.io/html" target="_blank" class="text-blue-600 hover:underline">
+                      8. SheCodes HTML Cheatsheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.freecodecamp.org/news/html-cheat-sheet-html-elements-list-reference/" target="_blank" class="text-blue-600 hover:underline">
+                      9. freeCodeCamp HTML Cheat Sheet and Elements List
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.codecademy.com/resources/cheatsheets/language/html-css" target="_blank" class="text-blue-600 hover:underline">
+                      10. Codecademy HTML/CSS Cheatsheet
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div id="interviewsheet" class="tab-content hidden">
+                <h3 class="text-2xl font-bold mb-8 text-blue-600">Interview Sheet</h3>
+                
+                  <div id="interview-sheet-root"></div>
+              </div>
+              <div id="standardcodesnippets" class="tab-content hidden">
+                <h3 class="text-2xl font-bold mb-4 text-blue-600">Standard Code Snippets</h3>
+                
+                <section class="cheatsheet-section mb-12">
+                  <h4 class="text-2xl font-semibold mb-4 text-blue-500">Basic Level</h4>
+                  <div class="mb-6">
+                    <h5 class="text-xl font-medium mb-2">Basic HTML Structure</h5>
+                    <p class="mb-2">A simple HTML5 document structure:</p>
+                    <div class="code-block">
+                      <pre>
+              &lt;!DOCTYPE html&gt;
+              &lt;html lang="en"&gt;
+              &lt;head&gt;
+                  &lt;meta charset="UTF-8"&gt;
+                  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+                  &lt;title&gt;Basic HTML Page&lt;/title&gt;
+              &lt;/head&gt;
+              &lt;body&gt;
+                  &lt;h1&gt;Welcome to My Web Page&lt;/h1&gt;
+                  &lt;p&gt;This is a simple paragraph of text.&lt;/p&gt;
+              &lt;/body&gt;
+              &lt;/html&gt;
+                      </pre>
+                    </div>
+                  </div>
+                  <div class="mb-6">
+                    <h5 class="text-xl font-medium mb-2">Linking an External Stylesheet</h5>
+                    <p class="mb-2">How to link an external CSS file:</p>
+                    <div class="code-block">
+                      <pre>
+              &lt;!DOCTYPE html&gt;
+              &lt;html lang="en"&gt;
+              &lt;head&gt;
+                  &lt;meta charset="UTF-8"&gt;
+                  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+                  &lt;link rel="stylesheet" href="styles.css"&gt;
+                  &lt;title&gt;Stylesheet Example&lt;/title&gt;
+              &lt;/head&gt;
+              &lt;body&gt;
+                  &lt;h1&gt;This page has an external stylesheet&lt;/h1&gt;
+              &lt;/body&gt;
+              &lt;/html&gt;
+                      </pre>
+                    </div>
+                  </div>
+                  <div class="mb-6">
+                    <h5 class="text-xl font-medium mb-2">Adding an Image</h5>
+                    <p class="mb-2">Inserting an image with alternative text and dimensions:</p>
+                    <div class="code-block">
+                      <pre>
+              &lt;!DOCTYPE html&gt;
+              &lt;html lang="en"&gt;
+              &lt;head&gt;
+                  &lt;meta charset="UTF-8"&gt;
+                  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+                  &lt;title&gt;Image Example&lt;/title&gt;
+              &lt;/head&gt;
+              &lt;body&gt;
+                  &lt;h1&gt;My Favorite Image&lt;/h1&gt;
+                  &lt;img src="image.jpg" alt="A description of the image" width="300"&gt;
+              &lt;/body&gt;
+              &lt;/html&gt;
+                      </pre>
+                    </div>
+                  </div>
+                  <div class="mb-6">
+                    <h5 class="text-xl font-medium mb-2">Creating a Simple List</h5>
+                    <p class="mb-2">An unordered list of fruits:</p>
+                    <div class="code-block">
+                      <pre>
+              &lt;h2&gt;Fruits List&lt;/h2&gt;
+              &lt;ul&gt;
+                  &lt;li&gt;Apple&lt;/li&gt;
+                  &lt;li&gt;Banana&lt;/li&gt;
+                  &lt;li&gt;Orange&lt;/li&gt;
+              &lt;/ul&gt;
+                      </pre>
+                    </div>
+                  </div>
+                  <div class="mb-6">
+                    <h5 class="text-xl font-medium mb-2">Hyperlinks with Target</h5>
+                    <p class="mb-2">Creating a link that opens in a new tab:</p>
+                    <div class="code-block">
+                      <pre>
+              &lt;p&gt;Visit &lt;a href="https://www.example.com" target="_blank"&gt;this website&lt;/a&gt; for more information.&lt;/p&gt;
+                      </pre>
+                    </div>
+                  </div>
+                </section>
+              
+                <section class="cheatsheet-section mb-12">
+                  <h4 class="text-2xl font-semibold mb-4 text-blue-500">Intermediate Level</h4>
+                  <div class="mb-6">
+                    <h5 class="text-xl font-medium mb-2">HTML Form with Input Fields</h5>
+                    <p class="mb-2">A simple form with text and email inputs:</p>
+                    <div class="code-block">
+                      <pre>
+              &lt;form action="/submit-form" method="POST"&gt;
+                  &lt;label for="name"&gt;Name:&lt;/label&gt;
+                  &lt;input type="text" id="name" name="name" required&gt;&lt;br&gt;
+                  &lt;label for="email"&gt;Email:&lt;/label&gt;
+                  &lt;input type="email" id="email" name="email" required&gt;&lt;br&gt;
+                  &lt;input type="submit" value="Submit"&gt;
+              &lt;/form&gt;
+                      </pre>
+                    </div>
+                  </div>
+                  <div class="mb-6">
+                    <h5 class="text-xl font-medium mb-2">Embedding a Video</h5>
+                    <p class="mb-2">Using the HTML5 video element:</p>
+                    <div class="code-block">
+                      <pre>
+              &lt;video width="400" controls&gt;
+                  &lt;source src="movie.mp4" type="video/mp4"&gt;
+                  Your browser does not support the video tag.
+              &lt;/video&gt;
+                      </pre>
+                    </div>
+                  </div>
+                  <div class="mb-6">
+                    <h5 class="text-xl font-medium mb-2">Creating a Table</h5>
+                    <p class="mb-2">A simple HTML table with headers and data:</p>
+                    <div class="code-block">
+                      <pre>
+              &lt;table border="1"&gt;
+                  &lt;thead&gt;
+                      &lt;tr&gt;
+                          &lt;th&gt;Name&lt;/th&gt;
+                          &lt;th&gt;Age&lt;/th&gt;
+                          &lt;th&gt;City&lt;/th&gt;
+                      &lt;/tr&gt;
+                  &lt;/thead&gt;
+                  &lt;tbody&gt;
+                      &lt;tr&gt;
+                          &lt;td&gt;John&lt;/td&gt;
+                          &lt;td&gt;28&lt;/td&gt;
+                          &lt;td&gt;New York&lt;/td&gt;
+                      &lt;/tr&gt;
+                      &lt;tr&gt;
+                          &lt;td&gt;Jane&lt;/td&gt;
+                          &lt;td&gt;32&lt;/td&gt;
+                          &lt;td&gt;Los Angeles&lt;/td&gt;
+                      &lt;/tr&gt;
+                  &lt;/tbody&gt;
+              &lt;/table&gt;
+                      </pre>
+                    </div>
+                  </div>
+                  <div class="mb-6">
+                    <h5 class="text-xl font-medium mb-2">Creating a Drop-down List</h5>
+                    <p class="mb-2">A select element with options:</p>
+                    <div class="code-block">
+                      <pre>
+              &lt;label for="cars"&gt;Choose a car:&lt;/label&gt;
+              &lt;select id="cars" name="cars"&gt;
+                  &lt;option value="volvo"&gt;Volvo&lt;/option&gt;
+                  &lt;option value="saab"&gt;Saab&lt;/option&gt;
+                  &lt;option value="mercedes"&gt;Mercedes&lt;/option&gt;
+                  &lt;option value="audi"&gt;Audi&lt;/option&gt;
+              &lt;/select&gt;
+                      </pre>
+                    </div>
+                  </div>
+                  <div class="mb-6">
+                    <h5 class="text-xl font-medium mb-2">Checkboxes and Radio Buttons</h5>
+                    <p class="mb-2">Examples of checkbox and radio button inputs:</p>
+                    <div class="code-block">
+                      <pre>
+              &lt;h3&gt;Select your favorite fruit:&lt;/h3&gt;
+              &lt;label&gt;&lt;input type="checkbox" name="fruit" value="apple"&gt; Apple&lt;/label&gt;&lt;br&gt;
+              &lt;label&gt;&lt;input type="checkbox" name="fruit" value="banana"&gt; Banana&lt;/label&gt;&lt;br&gt;
+              &lt;label&gt;&lt;input type="checkbox" name="fruit" value="orange"&gt; Orange&lt;/label&gt;&lt;br&gt;
+              
+              &lt;h3&gt;Select your gender:&lt;/h3&gt;
+              &lt;label&gt;&lt;input type="radio" name="gender" value="male"&gt; Male&lt;/label&gt;&lt;br&gt;
+              &lt;label&gt;&lt;input type="radio" name="gender" value="female"&gt; Female&lt;/label&gt;&lt;br&gt;
+                      </pre>
+                    </div>
+                  </div>
+                </section>
+              
+                <section class="cheatsheet-section mb-12">
+                  <h4 class="text-2xl font-semibold mb-4 text-blue-500">Expert Level</h4>
+                  <div class="mb-6">
+                    <h5 class="text-xl font-medium mb-2">Creating a Responsive Navigation Bar</h5>
+                    <p class="mb-2">HTML and CSS for a simple responsive navigation:</p>
+                    <div class="code-block">
+                      <pre>
+              &lt;nav&gt;
+                  &lt;ul&gt;
+                      &lt;li&gt;&lt;a href="#home"&gt;Home&lt;/a&gt;&lt;/li&gt;
+                      &lt;li&gt;&lt;a href="#about"&gt;About&lt;/a&gt;&lt;/li&gt;
+                      &lt;li&gt;&lt;a href="#services"&gt;Services&lt;/a&gt;&lt;/li&gt;
+                      &lt;li&gt;&lt;a href="#contact"&gt;Contact&lt;/a&gt;&lt;/li&gt;
+                  &lt;/ul&gt;
+              &lt;/nav&gt;
+              
+              &lt;style&gt;
+                  nav ul {
+                      list-style-type: none;
+                      padding: 0;
+                  }
+              
+                  nav ul li {
+                      display: inline-block;
+                      margin-right: 20px;
+                  }
+              
+                  nav ul li a {
+                      text-decoration: none;
+                  }
+              &lt;/style&gt;
+                      </pre>
+                    </div>
+                  </div>
+                  <div class="mb-6">
+                    <h5 class="text-xl font-medium mb-2">HTML5 Audio Player</h5>
+                    <p class="mb-2">Embedding an audio player:</p>
+                    <div class="code-block">
+                      <pre>
+              &lt;audio controls&gt;
+                  &lt;source src="song.mp3" type="audio/mp3"&gt;
+                  Your browser does not support the audio element.
+              &lt;/audio&gt;
+                      </pre>
+                    </div>
+                  </div>
+                  <div class="mb-6">
+                    <h5 class="text-xl font-medium mb-2">HTML5 Canvas Drawing</h5>
+                    <p class="mb-2">Creating a simple drawing on a canvas:</p>
+                    <div class="code-block">
+                      <pre>
+              &lt;canvas id="myCanvas" width="400" height="300" style="border:1px solid #000000;"&gt;&lt;/canvas&gt;
+              
+              &lt;script&gt;
+                  var canvas = document.getElementById('myCanvas');
+                  var context = canvas.getContext('2d');
+                  context.fillStyle = 'blue';
+                  context.fillRect(50, 50, 150, 100);
+              &lt;/script&gt;
+                      </pre>
+                    </div>
+                  </div>
+                  <div class="mb-6">
+                    <h5 class="text-xl font-medium mb-2">Embedding Google Maps</h5>
+                    <p class="mb-2">Embedding a Google Maps iframe:</p>
+                    <div class="code-block">
+                      <pre>
+              &lt;iframe
+                  width="600"
+                  height="450"
+                  style="border:0"
+                  loading="lazy"
+                  allowfullscreen
+                  src="https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&amp;q=Space+Needle,Seattle+WA"&gt;
+              &lt;/iframe&gt;
+                      </pre>
+                    </div>
+                  </div>
+                  <div class="mb-6">
+                    <h5 class="text-xl font-medium mb-2">Creating a Responsive Image</h5>
+                    <p class="mb-2">Making an image responsive with CSS:</p>
+                    <div class="code-block">
+                      <pre>
+              &lt;img src="image.jpg" alt="Description" style="max-width:100%;height:auto;"&gt;
+                      </pre>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div id="interviewlibrary" class="tab-content hidden">
+                <h3 class="text-2xl font-bold mb-8 text-blue-600">Interview Library</h3>
+                <p class="mb-8">In this section, you'll find links to interview question sheets for HTML from various sources. Click the links below to access these resources and prepare for your interviews.</p>
+                <ul class="list-disc pl-5 space-y-4">
+                  <li>
+                    <a href="https://www.interviewbit.com/html-interview-questions/" target="_blank" class="text-blue-600 hover:underline">1. HTML Interview Questions - InterviewBit</a>
+                  </li>
+                  <li>
+                    <a href="https://www.geeksforgeeks.org/html-interview-questions-answers-set-1/" target="_blank" class="text-blue-600 hover:underline">2. HTML Interview Questions (Set 1) - GeeksforGeeks</a>
+                  </li>
+                  <li>
+                    <a href="https://www.javatpoint.com/html-interview-questions" target="_blank" class="text-blue-600 hover:underline">3. HTML Interview Questions - JavaTpoint</a>
+                  </li>
+                  <li>
+                    <a href="https://www.w3schools.com/html/html_interview_prep.asp" target="_blank" class="text-blue-600 hover:underline">4. HTML Interview Preparation - W3Schools</a>
+                  </li>
+                  <li>
+                    <a href="https://www.simplilearn.com/html-interview-questions-and-answers-article" target="_blank" class="text-blue-600 hover:underline">5. HTML Interview Questions and Answers - Simplilearn</a>
+                  </li>
+                  <li>
+                    <a href="https://www.naukri.com/code360/library/html-interview-questions" target="_blank" class="text-blue-600 hover:underline">6. HTML Interview Questions - Naukri</a>
+                  </li>
+                  <li>
+                    <a href="https://www.almabetter.com/bytes/articles/html-interview-questions" target="_blank" class="text-blue-600 hover:underline">7. HTML Interview Questions - AlmaBetter</a>
+                  </li>
+                  <li>
+                    <a href="https://www.tops-int.com/blog/html-interview-questions-and-answers" target="_blank" class="text-blue-600 hover:underline">8. HTML Interview Questions and Answers - TOPS Technologies</a>
+                  </li>
+                  <li>
+                    <a href="https://www.adaface.com/blog/html5-interview-questions/" target="_blank" class="text-blue-600 hover:underline">9. HTML5 Interview Questions - Adaface</a>
+                  </li>
+                  <li>
+                    <a href="https://www.frontendinterviewhandbook.com/html-questions" target="_blank" class="text-blue-600 hover:underline">10. HTML Interview Questions - Frontend Interview Handbook</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/Devinterview-io/html5-interview-questions" target="_blank" class="text-blue-600 hover:underline">11. HTML5 Interview Questions - Devinterview.io (GitHub)</a>
+                  </li>
+                  <li>
+                    <a href="https://www.turing.com/interview-questions/html" target="_blank" class="text-blue-600 hover:underline">12. HTML Interview Questions - Turing</a>
+                  </li>
+                  <li>
+                    <a href="https://www.shiksha.com/online-courses/articles/top-html-interview-questions-and-answers/" target="_blank" class="text-blue-600 hover:underline">13. Top HTML Interview Questions and Answers - Shiksha</a>
+                  </li>
+                  <li>
+                    <a href="https://www.skillreactor.io/blog/html-interview-questions/" target="_blank" class="text-blue-600 hover:underline">14. HTML Interview Questions - SkillReactor</a>
+                  </li>
+                  <li>
+                    <a href="https://www.geeksforgeeks.org/html-interview-questions-answers-set-2/" target="_blank" class="text-blue-600 hover:underline">15. HTML Interview Questions (Set 2) - GeeksforGeeks</a>
+                  </li>
+                </ul>
+              </div>
+          </div>
+      </main>
+  
+      <footer class="bg-gradient-to-r from-slate-800 to-slate-900 text-white py-16">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-24">
+                <div class="space-y-6 md:px-12">
+                    <h3 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-500">
+                        LastMinutePrep
+                    </h3>
+                    <p class="text-slate-300 leading-relaxed">
+                        Your go-to platform for last-minute coding interview preparation. Ace your interviews with confidence!
+                    </p>
+                    <a href="index.html" class="inline-block px-6 py-3 rounded-full bg-gradient-to-r from-sky-400 to-blue-500 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                        Get Started
+                    </a>
+                </div>
+                <div class="space-y-6 md:px-12">
+                    <h3 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-500">
+                        About Me
+                    </h3>
+                    <div class="space-y-4">
+                        <p class="text-2xl font-bold">Baba Sahil</p>
+                        <p class="text-slate-300">Aspirant Software Engineer</p>
+                        <p class="text-slate-300">
+                            <a href="mailto:babasahil2628@gmail.com" class="text-sky-400 hover:text-sky-300 transition-colors duration-300">
+                                babasahil2628@gmail.com
+                            </a>
+                        </p>
+                    </div>
+                </div>
+                <div class="space-y-6 md:px-12">
+                    <h3 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-500">
+                       Connect with Me
+                    </h3>
+                    <div class="space-y-4">
+                        <a href="https://www.linkedin.com/profile/in/baba-sahil-153721321/" target="_blank" class="flex items-center text-slate-300 hover:text-white transition-colors duration-300">
+                            <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                            LinkedIn Profile
+                        </a>
+                        <a href="https://github.com/babasahil29" target="_blank" class="flex items-center text-slate-300 hover:text-white transition-colors duration-300">
+                            <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
+                            </svg>
+                            GitHub
+                        </a>
+                        <a href="https://babasahil.my.canva.site/" target="_blank" class="flex items-center text-slate-300 hover:text-white transition-colors duration-300">
+                            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                            Portfolio
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 pt-8 border-t border-slate-700 text-center">
+                <p class="text-slate-400">&copy; 2024 <span class="text-sky-400 font-semibold">BabaSahil</span>. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+      
+    <script type="text/babel">
+      // InterviewSheet component
+      const InterviewSheet = () => {
+        const questions = [
+          {
+            level: "Basic",
+            items: [
+              {
+                question: "What is HTML?",
+                answer: "HTML (HyperText Markup Language) is the standard language used to create and design web pages."
+              },
+              {
+                question: "What are HTML tags?",
+                answer: "HTML tags are elements enclosed within < > that define the structure and content of a webpage."
+              },
+              {
+                question: "What is the <!DOCTYPE> declaration?",
+                answer: "It defines the HTML version and ensures that the browser renders the page in the correct mode."
+              },
+              {
+                question: "What is the purpose of the <head> tag?",
+                answer: "The <head> tag contains metadata, including the title, scripts, and links to stylesheets."
+              },
+              {
+                question: "What is the <title> tag used for?",
+                answer: "It specifies the title of the webpage, which appears in the browser tab."
+              },
+              {
+                question: "What does the <body> tag represent?",
+                answer: "The <body> tag contains the actual content of the webpage that is displayed to users."
+              },
+              {
+                question: "How do you create a hyperlink in HTML?",
+                answer: "Use the <a> tag: <a href=\"URL\">Link Text</a>."
+              },
+              {
+                question: "How do you add an image in HTML?",
+                answer: "Use the <img> tag: <img src=\"image.jpg\" alt=\"description\">."
+              },
+              {
+                question: "What is an empty tag in HTML?",
+                answer: "Empty tags don’t have closing tags, e.g., <img>, <br>, <hr>."
+              },
+              {
+                question: "What is the difference between <div> and <span>?",
+                answer: "<div> is a block-level element, and <span> is an inline element."
+              },
+              {
+                question: "What is the role of the <meta> tag?",
+                answer: "It provides metadata like charset, viewport, description, and keywords for SEO."
+              },
+              {
+                question: "What is the purpose of the alt attribute in the <img> tag?",
+                answer: "It provides alternative text if the image cannot be displayed."
+              },
+              {
+                question: "How do you create an ordered and unordered list in HTML?",
+                answer: "Use <ol> for ordered lists and <ul> for unordered lists, with <li> for list items."
+              },
+              {
+                question: "What does the <table> tag do?",
+                answer: "It creates a table in HTML, using <tr>, <td>, and <th> for rows, data cells, and headers."
+              },
+              {
+                question: "What is a semantic element in HTML?",
+                answer: "Semantic elements like <header>, <footer>, <article> provide meaningful structure."
+              },
+              {
+                question: "How do you embed a video in HTML?",
+                answer: "Use the <video> tag: <video src=\"video.mp4\" controls></video>."
+              },
+              {
+                question: "What is the <form> element used for?",
+                answer: "It creates an HTML form to collect user input."
+              },
+              {
+                question: "What are HTML attributes?",
+                answer: "Attributes provide additional information about HTML elements, such as class, id, href, src, etc."
+              },
+              {
+                question: "How do you include JavaScript code in an HTML file?",
+                answer: "Use the <script> tag inside the <head> or <body>."
+              },
+              {
+                question: "What is the purpose of the class and id attributes?",
+                answer: "class allows styling multiple elements, and id uniquely identifies a single element."
+              }
+              ]
+    },
+    {
+            level: "Intermediate",
+            items: [
+              {
+                question: "What is the difference between block-level and inline elements?",
+                answer: "Block-level elements take up the full width, while inline elements take up only the necessary space."
+              },
+              {
+                question: "What is the viewport meta tag, and why is it important?",
+                answer: "It helps control the layout on mobile browsers. Example: <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">."
+              },
+              {
+                question: "How do you create a responsive design in HTML?",
+                answer: "Use media queries, the viewport tag, and flexible grid layouts."
+              },
+              {
+                question: "What is the data-* attribute used for?",
+                answer: "It stores custom data private to the page or application."
+              },
+              {
+                question: "What is the difference between <section> and <article>?",
+                answer: "<section> represents a thematic grouping of content, while <article> represents a standalone content piece."
+              },
+              {
+                question: "What are global attributes in HTML?",
+                answer: "Global attributes can be used with any HTML element, like class, id, style, data-*."
+              },
+              {
+                question: "Explain the difference between HTML5 local storage and cookies.",
+                answer: "Local storage stores data with no expiration date, while cookies store small amounts of data that expire after a set time."
+              },
+              {
+                question: "What is the purpose of the placeholder attribute in an input field?",
+                answer: "It shows text inside the input box as a hint before the user types."
+              },
+              {
+                question: "What is the contenteditable attribute?",
+                answer: "It makes an element editable by the user when set to true."
+              },
+              {
+                question: "What is the <iframe> tag used for?",
+                answer: "It embeds another HTML page within the current page."
+              },
+              {
+                question: "What is the use of the <progress> tag in HTML?",
+                answer: "It displays the progress of a task, like file uploading."
+              },
+              {
+                question: "What is the <canvas> element used for?",
+                answer: "It is used to draw graphics via JavaScript."
+              },
+              {
+                question: "What are the new form elements introduced in HTML5?",
+                answer: "Elements like <date>, <time>, <email>, <range>, and <color> were introduced."
+              },
+              {
+                question: "Explain the concept of defer and async attributes in the <script> tag.",
+                answer: "defer loads the script after the HTML is parsed, while async loads the script asynchronously."
+              },
+              {
+                question: "What is the difference between <b> and <strong> tags?",
+                answer: "<b> is for stylistic bold text, while <strong> indicates important text with semantic meaning."
+              },
+              {
+                question: "How do you create a favicon for a webpage?",
+                answer: "Use the <link> tag inside <head>: <link rel=\"icon\" href=\"favicon.ico\" type=\"image/x-icon\">."
+              },
+              {
+                question: "What is the use of the aria-* attributes?",
+                answer: "aria-* attributes help make web content accessible to users with disabilities."
+              },
+              {
+                question: "How do you prevent form submission in HTML?",
+                answer: "Use onsubmit=\"return false\" in the <form> tag."
+              },
+              {
+                question: "Explain the concept of web storage in HTML5.",
+                answer: "Web storage provides local and session storage to store data in the browser without cookies."
+              },
+              {
+                question: "What is the purpose of the <picture> tag in HTML5?",
+                answer: "It allows different images to be displayed based on screen size, resolution, or other factors."
+              }
+              ]
+    },
+    {
+              level: "Expert",
+              items: [
+                {
+                  question: "What is the Shadow DOM in HTML?",
+                  answer: "The Shadow DOM allows for encapsulation of styles and scripts, creating isolated components."
+                },
+                {
+                  question: "Explain the concept of microdata in HTML.",
+                  answer: "Microdata is used to nest metadata within existing content, providing semantic meaning to the data."
+                },
+                {
+                  question: "What is HTML5 WebSockets?",
+                  answer: "WebSockets provide full-duplex communication channels over a single TCP connection between a client and server."
+                },
+                {
+                  question: "What is a polyfill in HTML5?",
+                  answer: "A polyfill is a JavaScript library that provides fallback functionality for older browsers that do not support newer features."
+                },
+                {
+                  question: "How do you improve the accessibility of a website using HTML?",
+                  answer: "Use semantic elements, alt attributes for images, aria-* attributes, and make forms accessible."
+                },
+                {
+                  question: "What is the difference between SVG and Canvas?",
+                  answer: "SVG is for vector graphics and is scalable, while Canvas is for pixel-based, immediate-mode graphics."
+                },
+                {
+                  question: "How do you lazy-load images in HTML?",
+                  answer: "Use the loading=\"lazy\" attribute in the <img> tag."
+                },
+                {
+                  question: "What is the use of the rel=\"noopener noreferrer\" attribute in an anchor tag?",
+                  answer: "It prevents security vulnerabilities and performance issues when linking to external sites."
+                },
+                {
+                  question: "What is progressive rendering in HTML?",
+                  answer: "Progressive rendering loads visible content first to improve performance and user experience."
+                },
+                {
+                  question: "Explain the concept of a service worker in HTML5.",
+                  answer: "A service worker is a background script that enables features like offline caching and push notifications in web applications."
+                }
+              ]
+            }
+          ]
+        ;
+    
+        return (
+    <div className="space-y-8">
+      {questions.map((level, index) => (
+        <div key={index}>
+            <h4 class="text-2xl font-semibold mb-4 text-blue-500">{level.level} Level Questions</h4>
+          <ol className="list-decimal list-inside space-y-4">
+            {level.items.map((item, itemIndex) => (
+              <li key={itemIndex}>
+                <p className="font-medium">{item.question}</p>
+                {item.answer && <p className="mt-1">{item.answer}</p>}
+                {item.code && (
+                  <pre className="bg-gray-100 p-2 rounded mt-2 overflow-x-auto">
+                    <code>{item.code.trim()}</code>
+                  </pre>
+                )}
+              </li>
+            ))}
+          </ol>
+        </div>
+      ))}
+    </div>
+  );
+};
+      // Render the InterviewSheet component
+      ReactDOM.render(<InterviewSheet />, document.getElementById("interview-sheet-root"));
+    </script>
+  
+  <script>
+    const debounce = (func, delay) => {
+let inDebounce;
+return function() {
+    const context = this;
+    const args = arguments;
+    clearTimeout(inDebounce);
+    inDebounce = setTimeout(() => func.apply(context, args), delay);
+};
+};
+
+// Function to show tab
+function showTab(tabName) {
+const allTabs = document.querySelectorAll('.tab-content');
+const allButtons = document.querySelectorAll('.tab-btn');
+const selectedTab = document.getElementById(tabName);
+const clickedButton = document.querySelector(`.tab-btn[onclick*="${tabName}"]`);
+
+allTabs.forEach(tab => tab.classList.add('hidden'));
+allButtons.forEach(btn => {
+    btn.classList.remove('bg-blue-500', 'text-white');
+    btn.classList.add('bg-gray-200', 'text-gray-700');
+});
+
+if (selectedTab) selectedTab.classList.remove('hidden');
+if (clickedButton) {
+    clickedButton.classList.remove('bg-gray-200', 'text-gray-700');
+    clickedButton.classList.add('bg-blue-500', 'text-white');
+}
+
+const languageDropdown = document.getElementById('languageDropdown');
+if (languageDropdown && languageDropdown.classList.contains('show')) {
+    languageDropdown.classList.remove('show');
+}
+}
+
+// Function to download cheat sheet
+function downloadCheatSheet() {
+alert('Downloading Python Cheat Sheet...');
+}
+
+// Function to check if element is in viewport
+function isElementInViewport(el) {
+const rect = el.getBoundingClientRect();
+return (
+    rect.top >= 0 &&
+    rect.left >= 0 &&
+    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+);
+}
+
+// Function to handle scroll and reveal sections
+const handleScroll = debounce(() => {
+const sections = document.querySelectorAll('.cheatsheet-section');
+sections.forEach(section => {
+    if (isElementInViewport(section) && !section.classList.contains('visible')) {
+        section.classList.add('visible');
+    }
+});
+}, 100);
+
+// Event listeners
+document.addEventListener('DOMContentLoaded', () => {
+const dropdownBtn = document.getElementById('dropdownBtn');
+const languageDropdown = document.getElementById('languageDropdown');
+
+dropdownBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    languageDropdown.classList.toggle('show');
+});
+
+document.addEventListener('click', (e) => {
+    if (!dropdownBtn.contains(e.target) && !languageDropdown.contains(e.target)) {
+        languageDropdown.classList.remove('show');
+    }
+});
+
+const fadeElements = document.querySelectorAll('.fade-in');
+fadeElements.forEach(element => element.classList.add('visible'));
+
+const easySection = document.querySelector('.cheatsheet-section');
+if (easySection) easySection.classList.add('visible');
+
+handleScroll();
+});
+
+window.addEventListener('scroll', handleScroll);
+window.addEventListener('resize', handleScroll);
+  </script>
+  </body>
+  </html>
+      

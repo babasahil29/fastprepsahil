@@ -1,0 +1,1888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastPrepSahil - MERN</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&display=swap');
+
+:root {
+--primary-color: #3b82f6;
+--secondary-color: #38bdf8;
+--background-color: #f9f9f9;
+--text-color: #333;
+}
+
+* {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+}
+
+body {
+font-family: 'Manrope', sans-serif;
+line-height: 1.6;
+color: var(--text-color);
+}
+
+.hero-section {
+background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/mern.jpg');
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+height: 400px;
+position: relative;
+padding: 2rem 1rem;
+}
+
+.hero-section::before {
+content: "";
+position: absolute;
+inset: 0;
+background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 2px, transparent 2px, transparent 4px);
+pointer-events: none;
+}
+
+.fade-in {
+opacity: 0;
+transform: translateY(20px);
+transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.fade-in.visible {
+opacity: 1;
+transform: translateY(0);
+}
+
+.btn-animated {
+transition: all 0.3s ease;
+}
+
+.btn-animated:hover, .btn-animated:focus {
+transform: translateY(-3px) scale(1.05);
+box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.btn-animated:active {
+transform: translateY(-1px) scale(1.02);
+box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.dropdown-content {
+display: none;
+position: absolute;
+background-color: var(--background-color);
+min-width: 160px;
+box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+z-index: 1;
+}
+
+.dropdown-content a {
+color: var(--text-color);
+padding: 12px 16px;
+text-decoration: none;
+display: block;
+transition: all 0.2s ease;
+}
+
+.dropdown-content a:hover, .dropdown-content a:focus {
+background-color: #f1f1f1;
+transform: translateX(5px);
+}
+
+.show {
+display: block;
+animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+from { opacity: 0; }
+to { opacity: 1; }
+}
+
+.code-block {
+background-color: #f8f8f8;
+border-left: 4px solid var(--primary-color);
+padding: 1rem;
+margin: 1rem 0;
+font-family: 'Courier New', Courier, monospace;
+overflow-x: auto;
+}
+
+.interview-sheet-container {
+background-color: var(--background-color);
+padding: 20px;
+border: 1px solid #ddd;
+border-radius: 10px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+background-image: linear-gradient(to right, #1e293b, #0f172a);
+position: relative;
+overflow: hidden;
+padding: 2rem 1rem;
+}
+
+footer::before {
+content: '';
+position: absolute;
+inset: 0;
+background: url('path/to/subtle-pattern.png') repeat;
+opacity: 0.05;
+z-index: 0;
+}
+
+footer > div {
+position: relative;
+z-index: 1;
+}
+
+footer h3 {
+font-size: 1.25rem;
+margin-bottom: 1rem;
+position: relative;
+display: inline-block;
+}
+
+footer h3::after {
+content: '';
+position: absolute;
+left: 0;
+bottom: -5px;
+width: 50px;
+height: 2px;
+background: linear-gradient(to right, var(--secondary-color), var(--primary-color));
+}
+
+footer p {
+font-size: 0.9rem;
+line-height: 1.6;
+}
+
+footer a:not(.inline-block) {
+transition: all 0.3s ease;
+}
+
+footer a:not(.inline-block):hover, footer a:not(.inline-block):focus {
+color: var(--secondary-color);
+transform: translateX(5px);
+}
+
+footer .inline-block {
+transition: all 0.3s ease;
+}
+
+footer .inline-block:hover, footer .inline-block:focus {
+transform: translateY(-3px);
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.social-icon {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+width: 40px;
+height: 40px;
+border-radius: 50%;
+background: rgba(255, 255, 255, 0.1);
+transition: all 0.3s ease;
+}
+
+.social-icon:hover, .social-icon:focus {
+background: rgba(255, 255, 255, 0.2);
+transform: translateY(-3px);
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+
+  
+.hero-section {
+  height: 350px;
+}
+
+footer .grid {
+  gap: 1.5rem;
+}
+
+footer .md\:px-12 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.tab-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tab-btn {
+  flex: 1 1 calc(30% - 0.25rem);
+  font-size: 0.9rem;
+  padding: 0.5rem;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .snapshot-content section {
+    margin-bottom: 2rem;
+  }
+
+}
+
+}@media only screen and (max-width: 768px) {
+.text-2xl.font-bold.text-blue-600 {
+  display: none;
+}
+
+}</style>
+</head>
+<body class="bg-gray-100">
+  <header class="bg-white shadow-md fixed w-full z-10">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <div class="flex items-center">
+        <img src="images/logo2.jpeg" alt="FastPrepSahil Logo" class="h-12 w-auto mr-3">
+        <h1 class="text-2xl font-bold text-blue-600">FastPrepSahil</h1>
+    </div>
+        <div class="flex items-center space-x-2">
+        
+          <button onclick="window.location.href='index.html'" id="searchBtn" class="btn-animated bg-blue-500 text-white px-4 py-2 rounded">Home</button>
+            <div class="relative inline-block">
+                <button id="dropdownBtn" class="btn-animated bg-gray-200 text-gray-700 px-4 py-2 rounded">
+                    Select Language <i class="fas fa-caret-down ml-1"></i>
+                </button>
+                <div id="languageDropdown" class="dropdown-content">
+                    <a href="python.html">Python</a>
+                    <a href="c.html">C</a>
+                    <a href="java.html">Java</a>
+                    <a href="cpp.html">C++</a>
+                    <a href="html.html">HTML</a>
+                    <a href="css.html">CSS</a>
+                    <a href="javascript.html">JavaScript</a>
+                    <a href="sql.html">SQL</a>
+                    <a href="php.html">PHP</a>
+                    <a href="mern.html">MERN</a>
+                </div>
+            </div>
+        </div>
+    </div>
+   </header>
+
+   <div class="hero-section flex items-center justify-center pt-16">
+    <h2 id="language-title" class="text-4xl font-bold text-white text-center">MERN Resources</h2>
+</div>
+
+    <main class="container mx-auto mt-8 p-4">
+      <div class="tab-buttons flex flex-wrap gap-2 mb-6">
+        <button onclick="showTab('snapshot')" class="tab-btn btn-animated bg-blue-500 text-white px-3 py-2 rounded text-sm flex-grow">Language Snapshot</button>
+        <button onclick="showTab('cheatsheet')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Cheat Sheet</button>
+        <button onclick="showTab('cheatsheetpdfs')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Cheat Sheet PDFs</button>
+        <button onclick="showTab('cheatsheetlibrary')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Cheat Sheet Library</button>
+        <button onclick="showTab('interviewsheet')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Interview Sheet</button>
+        <button onclick="showTab('interviewlibrary')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Interview Library</button>
+        <button onclick="showTab('standardcodesnippets')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Standard Code Snippets</button>
+    </div>
+    
+        <div id="tab-content" class="bg-white p-6 rounded-lg shadow-md fade-in">
+          <div id="snapshot" class="tab-content">
+            <h3 class="text-2xl font-bold mb-8 text-blue-600">Language Snapshot</h3>
+            <div id="snapshot-content" class="space-y-8">
+              <section>
+                <h4 class="text-xl font-semibold mb-4">Overview</h4>
+                <p>The MERN stack is a popular full-stack JavaScript framework used for building modern web applications. MERN stands for:</p>
+                <ul class="list-disc pl-6 space-y-2">
+                  <li>
+                    <span class="font-medium">M:</span> MongoDB (Database)
+                  </li>
+                  <li>
+                    <span class="font-medium">E:</span> Express.js (Back-end framework)
+                  </li>
+                  <li>
+                    <span class="font-medium">R:</span> React.js (Front-end library)
+                  </li>
+                  <li>
+                    <span class="font-medium">N:</span> Node.js (Server environment)
+                  </li>
+                </ul>
+                <p>This stack allows developers to use JavaScript for both front-end and back-end development, creating efficient, scalable, and high-performance applications.</p>
+              </section>
+          
+              <section>
+                <h4 class="text-xl font-semibold mb-4">MongoDB (Database)</h4>
+                <p>MongoDB is a NoSQL database that stores data in flexible, JSON-like documents. It’s highly scalable and well-suited for handling large amounts of data.</p>
+                <h5 class="text-lg font-semibold mb-2">Key Features:</h5>
+                <ul class="list-disc pl-6 space-y-2">
+                  <li>
+                    <span class="font-medium">Document-oriented:</span> Stores data in JSON-like BSON format.
+                  </li>
+                  <li>
+                    <span class="font-medium">Flexible schema:</span> Dynamic data structure without rigid schemas.
+                  </li>
+                  <li>
+                    <span class="font-medium">Scalable:</span> Horizontal scaling with sharding.
+                  </li>
+                  <li>
+                    <span class="font-medium">High Availability:</span> Data replication across multiple servers.
+                  </li>
+                </ul>
+                <h5 class="text-lg font-semibold mb-2">Snapshot Example:</h5>
+                <pre class="bg-gray-100 p-4 rounded-md"><code>
+db.users.insertOne({ name: "Sahil",
+age: 22, course: "MERN Stack" });
+db.users.find({ name: "Sahil" });
+db.users.updateOne({ name: "Sahil"},
+{ $set: { age: 23 } });
+                </code></pre>
+              </section>
+          
+              <section>
+                <h4 class="text-xl font-semibold mb-4">Express.js (Back-end framework)</h4>
+                <p>Express.js is a lightweight back-end web application framework for Node.js. It’s used to build APIs and handle HTTP requests.</p>
+                <h5 class="text-lg font-semibold mb-2">Key Features:</h5>
+                <ul class="list-disc pl-6 space-y-2">
+                  <li>
+                    <span class="font-medium">Minimalist:</span> Simplifies working with Node.js and HTTP requests.
+                  </li>
+                  <li>
+                    <span class="font-medium">Middleware:</span> Uses middleware to process requests.
+                  </li>
+                  <li>
+                    <span class="font-medium">Routing:</span> Manages routes to handle requests and send responses.
+                  </li>
+                  <li>
+                    <span class="font-medium">Fast:</span> Lightweight with no unnecessary bloat.
+                  </li>
+                </ul>
+                <h5 class="text-lg font-semibold mb-2">Snapshot Example:</h5>
+                <pre class="bg-gray-100 p-4 rounded-md"><code>
+const express = require("express");
+const app = express();
+          
+app.get("/", (req, res) => {
+res.send("Hello, MERN Stack!");
+});
+          
+app.listen(3000, () => {
+console.log("Server running on
+ port 3000");
+ });
+          
+app.post("/user", (req, res) => {
+const user = req.body;
+res.send(`User ${user.name} added
+ successfully!`);
+});
+                </code></pre>
+              </section>
+          
+              <section>
+                <h4 class="text-xl font-semibold mb-4">React.js (Front-end library)</h4>
+                <p>React.js is a powerful JavaScript library for building user interfaces. It allows developers to create reusable UI components.</p>
+                <h5 class="text-lg font-semibold mb-2">Key Features :</h5>
+                <ul class="list-disc pl-6 space-y-2">
+                  <li>
+                    <span class="font-medium">Component-based:</span> Build encapsulated components that manage their own state.
+                  </li>
+                  <li>
+                    <span class="font-medium">Virtual DOM:</span> Efficiently updates only changed parts of the UI.
+                  </li>
+                  <li>
+                    <span class="font-medium">Unidirectional data flow:</span> Ensures data flows in one direction for predictable behavior.
+                  </li>
+                  <li>
+                    <span class="font-medium">Hooks:</span> Provide state and lifecycle management in function components.
+                  </li>
+                </ul>
+                <h5 class="text-lg font-semibold mb-2">Snapshot Example:</h5>
+                <pre class="bg-gray-100 p-4 rounded-md"><code>
+import React from 'react';
+          
+function App() {
+  return (
+     &lt;div&gt;
+        &lt;h1&gt;Hello, MERN Stack!&lt;/h1&gt;
+     &lt;/div&gt;
+   );
+ }
+          
+export default App;
+          
+import React,{useState} from 'react';
+          
+function App() {
+ const [count,setCount]=useState(0);
+          
+  return (
+    &lt;div&gt;
+     &lt;p&gt;Count: {count}&lt;/p&gt;
+     &lt;button onClick={() =&gt; setCount
+    (count + 1)}&gt;Increment&lt;/button&gt;
+     &lt;/div&gt;
+    );
+  }
+          
+export default App;
+          
+import React, { useEffect,useState} 
+from 'react';
+import axios from 'axios';
+          
+function App() {
+ const [data,setData]=useState([]);
+          
+ useEffect(() =&gt; {
+  axios.get("/api/data").then
+  (response=&gt;setData(response.data));
+ }, []);
+          
+  return (
+    &lt;ul&gt;
+      {data.map(item =&gt; (
+       &lt;li key={item.id}&gt;{item.name
+          lt;/li&gt;
+      ))}
+    &lt;/ul&gt;
+   );
+}                 
+          
+export default App;
+                </code></pre>
+              </section>
+          
+              <section>
+                <h4 class="text-xl font-semibold mb-4">Node.js (Server environment)</h4>
+                <p>Node.js is a JavaScript runtime built on Chrome’s V8 engine, allowing developers to use JavaScript for server-side scripting.</p>
+                <h5 class="text-lg font-semibold mb-2">Key Features:</h5>
+                <ul class="list-disc pl-6 space-y-2">
+                  <li>
+                    <span class="font-medium">Non-blocking I/O:</span> Handles multiple requests concurrently.
+                  </li>
+                  <li>
+                    <span class="font-medium">JavaScript Everywhere:</span> Use the same language (JavaScript) for both client and server.
+                  </li>
+                  <li>
+                    <span class="font-medium">Event-driven:</span> Handles asynchronous events efficiently.
+                  </li>
+                  <li>
+                    <span class="font-medium">NPM:</span> Comes with a rich package manager, providing a huge range of third-party modules.
+                  </li>
+              </section
+              
+  
+                
+                <h5 class="text-lg font-semibold mb-2">Snapshot Example:</h5>
+                <pre class="bg-gray-100 p-4 rounded-md">
+                  <code>
+const http = require("http");
+          
+const server = http.createServer
+((req, res) =&gt; {
+  res.statusCode = 200;
+  res.setHeader("Content-Type",
+  "text/plain");
+  res.end("Hello, MERN Stack\n");
+});
+          
+ server.listen(3000, () =&gt; {
+   console.log("Server running 
+   on port 3000");
+  });
+          
+  const express=require("express");
+  const app = express();
+          
+   app.use(express.static("public"));
+          
+app.listen(3000, () =&gt; {
+console.log("Serving static files 
+from the public folder");
+    });
+                </code>
+                </pre>
+              </section>          
+              <section>
+                <h4 class="text-xl font-semibold mb-4">Full MERN Stack Example</h4>
+                <p>A basic MERN stack application involves a combination of the front-end (React) interacting with the back-end (Express and Node.js) and storing data in MongoDB.</p>
+                <h5 class="text-lg font-semibold mb-2">Snapshot Example:</h5>
+                <pre class="bg-gray-100 p-4 rounded-md"><code>
+const express = require("express");
+const mongoose = require("mongoose");
+          
+const app = express();
+app.use(express.json());
+          
+mongoose.connect("mongodb://
+localhost:27017/mern",
+{useNewUrlParser:true});
+          
+const UserSchema=new 
+mongoose.Schema({
+ name: String,
+ email: String,
+});
+          
+const User=mongoose.model("User"
+,UserSchema);
+          
+app.post("/users",async(req,res)=&gt;{
+  const user = new User(req.body);
+  await user.save();
+  res.send(user);
+ });
+          
+  app.listen(3000, () =&gt; {
+  console.log("Server running 
+  on port 3000");
+  });
+          
+import React,{useState} from "react";
+import axios from "axios";
+          
+ function App() {
+const [name,setName]=useState("");
+const [email,setEmail]=useState("");
+          
+  const handleSubmit=async(e)=&gt; {
+       e.preventDefault();
+       await axios.post("/users",
+        { name, email });
+       alert("User added!");
+      };
+          
+  return (
+   &lt;form onSubmit={handleSubmit}&gt;
+        &lt;input
+            type="text"
+            value={name}
+            onChange={(e) =&gt; 
+            setName(e.target.value)}
+            placeholder="Name"
+          /&gt;
+          &lt;input
+       type="email"
+       value={email}
+       onChange={(e) =&gt; 
+       setEmail(e.target.value)}
+       placeholder="Email"
+    /&gt;
+     &lt;button type="submit"&gt;
+     Submit&lt;/button&gt;
+   &lt;/form&gt;
+   );
+  }
+          
+      export default App;
+                </code></pre>
+              </section>
+          
+              <section>
+                <h4 class="text-xl font-semibold mb-4">Key Advantages of MERN Stack</h4>
+                <ul class="list-disc pl-6 space-y-2">
+                  <li>
+                    <span class="font-medium">JavaScript Consistency:</span> Use JavaScript across the stack for front-end, back-end, and database queries.
+                  </li>
+                  <li>
+                    <span class="font-medium">Flexibility:</span> Suitable for single-page applications (SPAs) and large-scale applications.
+                  </li>
+                  <li>
+                    <span class="font-medium">Open Source:</span> All technologies in the stack are open-source with a large developer community.
+                  </li>
+                  <li>
+                    <span class="font-medium">Full-stack Solution:</span> From UI to server and database, MERN covers everything needed to build a modern web application.
+                  </li>
+                </ul>
+                <p>The MERN Stack is a powerful and efficient way to build full-stack applications, providing flexibility, scalability, and ease of use for both small and large-scale web applications.</p>
+              </section>
+
+
+            </div>
+          </div>
+          <div id="cheatsheet" class="tab-content hidden">
+            <h3 class="text-2xl font-bold mb-8 text-blue-600">Cheat Sheet</h3>
+            
+            <section class="cheatsheet-section mb-12">
+                <h3 class="text-2xl font-semibold mb-4 text-blue-500">MongoDB Cheat Sheet</h3>
+                
+                <div class="mb-6">
+                    <h4 class="text-xl font-medium mb-2">Easy Level</h4>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">1. Insert a Single Document:</h4>
+                        <p class="mb-2">Insert a single document into a collection.</p>
+                        <div class="code-block">
+                            <pre>
+                                db.collection.insertOne({ key: value });
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">2. Find All Documents:</h4>
+                        <p class="mb-2">Find all documents in a collection.</p>
+                        <div class="code-block">
+                            <pre>
+                                db.collection.find();
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">3. Find Specific Document:</h4>
+                        <p class="mb-2">Find a specific document in a collection.</p>
+                        <div class="code-block">
+                            <pre>
+                                db.collection.find({ name: "Sahil" });
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">4. Update Document:</h4>
+                        <p class="mb-2">Update a document in a collection.</p>
+                        <div class="code-block">
+                            <pre>
+                                db.collection.updateOne({ _id: ObjectId("id") }, { $set: { age: 22 } });
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="text-xl font-medium mb-2">Intermediate Level</h4>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">1. Find with a Condition:</h4>
+                        <p class="mb-2">Find documents in a collection with a condition.</p>
+                        <div class="code-block">
+                            <pre>
+                                db.collection.find({ age: { $gte: 18 } });
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">2. Delete a Document:</h4>
+                        <p class="mb-2">Delete a document from a collection.</p>
+                        <div class="code-block">
+                            <pre>
+                                db.collection.deleteOne({ name: "Sahil" });
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">3. Add Multiple Documents:</h4>
+                        <p class="mb-2">Add multiple documents to a collection.</p>
+                        <div class="code-block">
+                            <pre>
+                                db.collection.insertMany([{ name: "Sahil" }, { name: "Maaya" }]);
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="text-xl font-medium mb-2">Expert Level</h4>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">1. Aggregation Pipeline:</h4>
+                        <p class="mb-2">Perform aggregation operations on a collection.</p>
+                        <div class="code-block">
+                            <pre>
+                                db.collection.aggregate([
+                                  { $match: { age: { $gte: 18 } } },
+                                  { $group: { _id: "$age", total: { $sum: 1 } } }
+                                ]);
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">2. Indexing:</h4>
+                        <p class="mb-2">Create an index on a collection.</p>
+                        <div class="code-block">
+                            <pre>
+                                db.collection.createIndex({ name: 1 });
+                            </pre>
+                        </div>
+                    </ div>
+                </div>
+            </section>
+            
+            <section class="cheatsheet-section mb-12">
+                <h3 class="text-2xl font-semibold mb-4 text-blue-500">Express.js Cheat Sheet</h3>
+                
+                <div class="mb-6">
+                    <h4 class="text-xl font-medium mb-2">Easy Level</h4>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">1. Basic Express Server:</h4>
+                        <p class="mb-2">Create a basic Express server.</p>
+                        <div class="code-block">
+                            <pre>
+                                const express = require("express");
+                                const app = express();
+        
+                                app.get("/", (req, res) => {
+                                  res.send("Hello, MERN Stack!");
+                                });
+        
+                                app.listen(3000, () => {
+                                  console.log("Server running on port 3000");
+                                });
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">2. Handling POST Requests:</h4>
+                        <p class="mb-2">Handle POST requests in Express.</p>
+                        <div class="code-block">
+                            <pre>
+                                app.post("/submit", (req, res) => {
+                                  res.send("Data submitted successfully!");
+                                });
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="text-xl font-medium mb-2">Intermediate Level</h4>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">1. Middleware Example:</h4>
+                        <p class="mb-2">Create a middleware function in Express.</p>
+                        <div class="code-block">
+                            <pre>
+                                const logger = (req, res, next) => {
+                                  console.log(`${req.method} request for ${req.url}`);
+                                  next();
+                                };
+                                app.use(logger);
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">2. Serving Static Files:</h4>
+                        <p class="mb-2">Serve static files in Express.</p>
+                        <div class="code-block">
+                            <pre>
+                                app.use(express.static("public"));
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="text-xl font-medium mb-2">Expert Level</h4>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">1. Connecting to MongoDB:</h4>
+                        <p class="mb-2">Connect to a MongoDB database using Mongoose.</p>
+                        <div class="code-block">
+                            <pre>
+                                const mongoose = require("mongoose");
+                                mongoose.connect("mongodb://localhost:27017/mern", { useNewUrlParser: true });
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">2. Error Handling Middleware:</h4>
+                        <p class="mb-2">Create an error handling middleware function in Express.</p>
+                        <div class="code-block">
+                            <pre>
+                                app.use((err, req, res, next) => {
+                                  console.error(err.stack);
+                                  res.status(500).send("Something went wrong!");
+                                });
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="cheatsheet-section mb-12">
+                <h3 class="text-2xl font-semibold mb-4 text-blue-500">React.js Cheat Sheet</h3>
+                
+                <div class="mb-6">
+                    <h4 class="text-xl font-medium mb-2">Easy Level</h4>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">1. Basic React Component:</h4>
+                        <p class="mb-2">Create a basic React component.</p>
+                        <div class="code-block">
+                            <pre>
+                                function App() {
+                                  return &lt;h1&gt;Hello, MERN Stack!&lt;/h1&gt;;
+                                }
+                                export default App;
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">2. Handling Events:</h4>
+                        <p class="mb-2">Handle events in React.</p>
+         <div class="code-block">
+                            <pre>
+                                function App() {
+                                  const handleClick = () =&gt; alert("Button clicked!");
+                                  return &lt;button onClick={handleClick}&gt;Click Me&lt;/button&gt;;
+                                }
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="text-xl font-medium mb-2">Intermediate Level</h4>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">1. State with useState Hook:</h4>
+                        <p class="mb-2">Use the useState hook to manage state in React.</p>
+                        <div class="code-block">
+                            <pre>
+                                import React, { useState } from "react";
+        
+                                function App() {
+                                  const [count, setCount] = useState(0);
+        
+                                  return (
+                                    &lt;div&gt;
+                                      &lt;p&gt;Count: {count}&lt;/p&gt;
+                                      &lt;button onClick={() =&gt; setCount(count + 1)}&gt;Increment&lt;/button&gt;
+                                    &lt;/div&gt;
+                                  );
+                                }
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">2. Fetching Data with useEffect:</h4>
+                        <p class="mb-2">Use the useEffect hook to fetch data in React.</p>
+                        <div class="code-block">
+                            <pre>
+                                import React, { useEffect, useState } from "react";
+        
+                                function App() {
+                                  const [data, setData] = useState([]);
+        
+                                  useEffect(() =&gt; {
+                                    fetch("/api/data")
+                                      .then(response =&gt; response.json())
+                                      .then(data =&gt; setData(data));
+                                  }, []);
+        
+                                  return (
+                                    &lt;ul&gt;
+                                      {data.map(item =&gt; (
+                                        &lt;li key={item.id}&gt;{item.name}&lt;/li&gt;
+                                      ))}
+                                    &lt;/ul&gt;
+                                  );
+                                }
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="text-xl font-medium mb-2">Expert Level</h4>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">1. Context API:</h4>
+                        <p class="mb-2">Use the Context API to share state between components in React.</p>
+                        <div class="code-block">
+                            <pre>
+                                import React, { createContext, useState } from "react";
+        
+                                export const UserContext = createContext();
+        
+                                function App() {
+                                  const [user, setUser] = useState({ name: "Sahil", age: 22 });
+        
+                                  return (
+                                    &lt;UserContext.Provider value={user}&gt;
+                                      &lt;ComponentA /&gt;
+                                    &lt;/UserContext.Provider&gt;
+                                  );
+                                }
+        
+                                function ComponentA() {
+                                  return (
+                                    &lt;UserContext.Consumer&gt;
+                                      {user =&gt; &lt;h1&gt;{user.name}&lt;/h1&gt;}
+                                    &lt;/UserContext.Consumer&gt;
+                                  );
+                                }
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="cheatsheet-section mb-12">
+                <h3 class="text-2xl font-semibold mb-4 text-blue-500">Node.js Cheat Sheet</h3>
+                
+                <div class="mb-6">
+                    <h4 class="text-xl font-medium mb-2">Easy Level</h4>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">1. Basic HTTP Server:</h4>
+                        <p class="mb-2">Create a basic HTTP server using Node.js.</p>
+                        <div class="code-block">
+                            <pre>
+                                const http = require("http");
+        
+                                const server = http.createServer((req, res) =&gt; {
+                                  res.writeHead(200, { "Content-Type": "text/plain" });
+                                  res.end("Hello, MERN Stack!\n");
+                                });
+        
+                                server.listen(3000, () =&gt; {
+                                  console.log("Server running on port 3000");
+                                });
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="text-xl font-medium mb-2">Intermediate Level</h4>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">1. Reading Files with fs:</h4>
+         <p class="mb-2">Read files using the fs module in Node.js.</p>
+                        <div class="code-block">
+                            <pre>
+                                const fs = require("fs");
+        
+                                fs.readFile("file.txt", "utf8", (err, data) =&gt; {
+                                  if (err) throw err;
+                                  console.log(data);
+                                });
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">2. Creating Routes in Express:</h4>
+                        <p class="mb-2">Create routes in Express.js.</p>
+                        <div class="code-block">
+                            <pre>
+                                app.get("/users", (req, res) =&gt; {
+                                  res.send("Users page");
+                                });
+        
+                                app.post("/users", (req, res) =&gt; {
+                                  res.send("User added");
+                                });
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="text-xl font-medium mb-2">Expert Level</h4>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">1. Using Clusters:</h4>
+                        <p class="mb-2">Use clusters to improve performance in Node.js.</p>
+                        <div class="code-block">
+                            <pre>
+                                const cluster = require("cluster");
+                                const http = require("http");
+        
+                                if (cluster.isMaster) {
+                                  for (let i = 0; i &lt; 4; i++) {
+                                    cluster.fork();
+                                  }
+                                } else {
+                                  http.createServer((req, res) =&gt; {
+                                    res.writeHead(200);
+                                    res.end("Clustered Server");
+                                  }).listen(8000);
+                                }
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div id="cheatsheetpdfs" class="tab-content hidden">
+          <h3 class="text-2xl font-bold mb-8 text-blue-600">Cheat Sheet PDFs</h3>
+          <p class="mb-8">In this section, you'll find downloadable PDF versions of cheat sheets from different sources. Click on the links below to download the cheat sheets directly.</p>
+          <ul class="list-disc pl-5 space-y-4">
+            <li>
+              <a href="https://mongodb-devhub-cms.s3.us-west-1.amazonaws.com/Mongo_DB_Shell_Cheat_Sheet_1a0e3aa962.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                1. MongoDB Shell Cheat Sheet (PDF) - MongoDB DevHub
+              </a>
+            </li>
+            <li>
+              <a href="https://cdn.chools.in/DIG_LIB/Cheat_Sheet/Full_Stack/mongodb-cheat-sheet%20(1).pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                2. MongoDB Cheat Sheet (PDF) - Chools
+              </a>
+            </li>
+            <li>
+              <a href="https://dl.icdst.org/pdfs/files3/efd99f5a294649913c8a07f2cfc4ce24.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                3. MongoDB Cheat Sheet (PDF) - ICDST
+              </a>
+            </li>
+            <li>
+              <a href="https://courses.cs.washington.edu/courses/cse154/19su/resources/assets/cheatsheets/node-cheatsheet.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                4. Node.js Cheat Sheet (PDF) - University of Washington
+              </a>
+            </li>
+            <li>
+              <a href="https://lcc.lt/assets/pdf_files/express-handbook.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                5. Express.js Handbook (PDF) - LCC
+              </a>
+            </li>
+            <li>
+              <a href="https://ihatetomatoes.net/wp-content/uploads/2017/01/react-cheat-sheet.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                6. React Cheat Sheet (PDF) - I Hate Tomatoes
+              </a>
+            </li>
+            <li>
+              <a href="https://courses.cs.washington.edu/courses/cse154/19su/resources/assets/cheatsheets/node-cheatsheet.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                7. Node.js Cheat Sheet (PDF) - University of Washington ( Duplicate )
+              </a>
+            </li>
+            <li>
+              <a href="https://zerotomastery.io/cheatsheets/node-js-cheat-sheet/" target="_blank" class="text-blue-600 hover:underline" download>
+                8. Node.js Cheat Sheet (PDF) - Zero To Mastery
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div id="cheatsheetlibrary" class="tab-content hidden">
+          <h3 class="text-2xl font-bold mb-8 text-blue-600">Cheat Sheet Library</h3>
+          <p class="mb-8">In this section, you'll find various links to MERN stack cheatsheets available on different websites. Click on the links below to explore the resources.</p>
+          <ul class="list-disc pl-5 space-y-4">
+            <li>
+              <a href="https://github.com/kickstartcoding/cheatsheets/blob/master/kickstart-frontend/5-mern.md" target="_blank" class="text-blue-600 hover:underline">
+                1. Kickstart Coding MERN Stack Cheat Sheet
+              </a>
+            </li>
+            <li>
+              <a href="https://medium.com/@kaiwalyaharkare/cheat-sheet-for-creating-a-full-stack-mern-stack-application-d2244994f09a" target="_blank" class="text-blue-600 hover:underline">
+                2. Medium MERN Stack Cheat Sheet
+              </a>
+            </li>
+            <li>
+              <a href="https://dev.to/thamaraiselvam/mean-stack-cheat-sheet-5a1n" target="_blank" class="text-blue-600 hover:underline">
+                3. Dev.to MEAN Stack Cheat Sheet
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/VedantKhairnar/Cheat-Sheets/blob/master/Web%20Development/cheatsheets.md" target="_blank" class="text-blue-600 hover:underline">
+                4. Vedant Khairnar Web Development Cheat Sheets
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mongodb.com/developer/products/mongodb/cheat-sheet/" target="_blank" class="text-blue-600 hover:underline">
+                5. MongoDB Official Cheat Sheet
+              </a>
+            </li>
+            <li>
+              <a href="https://gist.github.com/bradtraversy/f407d642bdc3b31681bc7e56d95485b6" target="_blank" class="text-blue-600 hover:underline">
+                6. Brad Traversy MongoDB Cheat Sheet
+              </a>
+            </li>
+            <li>
+              <a href="https://www.geeksforgeeks.org/mongodb-cheat-sheet/" target="_blank" class="text-blue-600 hover:underline">
+                7. GeeksforGeeks MongoDB Cheat Sheet
+              </a>
+            </li>
+            <li>
+              <a href="https://www.codewithharry.com/blogpost/mongodb-cheatsheet/" target="_blank" class="text-blue-600 hover:underline">
+                8. CodeWithHarry MongoDB Cheat Sheet
+              </a>
+            </li>
+            <li>
+              <a href="https://www.interviewbit.com/mongodb-cheat-sheet/" target="_blank" class="text-blue-600 hover:underline">
+                9. InterviewBit MongoDB Cheat Sheet
+              </a>
+            </li>
+            <li>
+              <a href="https://dev.to/burakboduroglu/mongodb-cheat-sheet-1a6a" target="_blank" class="text-blue-600 hover:underline">
+                10. Dev.to MongoDB Cheat Sheet
+              </a>
+            </li>
+            <li>
+              <a href="https://dev.to/alexmercedcoder/2022-expressjs-cheatsheet-160o" target="_blank" class="text-blue-600 hover:underline">
+                11. Dev.to Express.js Cheat Sheet
+              </a>
+            </li>
+            <li>
+              <a href="https://quickref.me/express.html" target="_blank" class="text-blue-600 hover:underline">
+                12. QuickRef.me Express.js Cheat Sheet
+              </a>
+            </li>
+            <li>
+              <a href="https://devhints.io/express" target="_blank" class="text-blue-600 hover:underline">
+                13. DevHints.io Express.js Cheat Sheet
+              </a>
+            </li>
+            <li>
+              <a href="https://lush93md.medium.com/express-js-cheatsheet-256b5112511b" target="_blank" class="text-blue-600 hover:underline">
+                14. Medium Express.js Cheat Sheet
+              </a>
+            </li>
+            <li>
+              <a href="https://www.codecademy.com/learn/wdcp-22-build-a-back-end-with-express-js/modules/wdcp-22 -introduction-to-express-js/cheatsheet" target="_blank" class="text-blue-600 hover:underline">
+                15. Codecademy Express.js Cheat Sheet
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/technolaaji/nodejs-express-cheatsheet" target="_blank" class="text-blue-600 hover:underline">
+                16. Technolaaji Node.js Express Cheat Sheet
+              </a>
+            </li>
+            <li>
+              <a href="https://devhints.io/react" target="_blank" class="text-blue-600 hover:underline">
+                17. DevHints.io React Cheat Sheet
+              </a>
+            </li>
+            <li>
+              <a href="https://www.geeksforgeeks.org/react-cheat-sheet/" target="_blank" class="text-blue-600 hover:underline">
+                18. GeeksforGeeks React Cheat Sheet
+              </a>
+            </li>
+            <li>
+              <a href="http://cheatsheets.shecodes.io/react" target="_blank" class="text-blue-600 hover:underline">
+                19. SheCodes.io React Cheat Sheet
+              </a>
+            </li>
+            <li>
+              <a href="https://dev.to/codedthemes/reactjs-cheatsheet-the-ultimate-guide-29gf" target="_blank" class="text-blue-600 hover:underline">
+                20. Dev.to React.js Cheat Sheet
+              </a>
+            </li>
+            <li>
+              <a href="https://www.codecademy.com/learn/react-101/modules/react-101-jsx-u/cheatsheet" target="_blank" class="text-blue-600 hover:underline">
+                21. Codecademy React Cheat Sheet
+              </a>
+            </li>
+            <li>
+              <a href="https://www.freecodecamp.org/news/the-react-cheatsheet/" target="_blank" class="text-blue-600 hover:underline">
+                22. FreeCodeCamp React Cheat Sheet
+              </a>
+            </li>
+            <li>
+              <a href="https://www.codecademy.com/learn/learn-node-js/modules/intro-to-node-js/cheatsheet" target="_blank" class="text-blue-600 hover:underline">
+                23. Codecademy Node.js Cheat Sheet
+              </a>
+            </li>
+            <li>
+              <a href="https://zerotomastery.io/cheatsheets/node-js-cheat-sheet/" target="_blank" class="text-blue-600 hover:underline">
+                24. ZeroToMastery Node.js Cheat Sheet
+              </a>
+            </li>
+            <li>
+              <a href="https://medium.com/@yuvrajkakkar1/node-js-cheat-sheet-essential-quick-reference-f26322ac1189" target="_blank" class="text-blue-600 hover:underline">
+                25. Medium Node.js Cheat Sheet
+              </a>
+            </li>
+            <li>
+              <a href="https://overapi.com/nodejs" target="_blank" class="text-blue-600 hover:underline">
+                26. OverAPI Node.js Cheat Sheet
+              </a>
+            </li>
+            <li>
+              <a href="https://www.linkedin.com/pulse/nodejs-cheat-sheet-jomas-daconceicao" target="_blank" class="text-blue-600 hover:underline">
+                27. LinkedIn Node.js Cheat Sheet
+              </a>
+            </li>
+            <li>
+              <a href="https://www.tatvasoft.com/outsourcing/2022/03/node-js-cheat-sheet.html" target="_blank" class="text-blue-600 hover:underline">
+                28. TatvaSoft Node.js Cheat Sheet
+              </a>
+            </li>
+          </ul>
+        </div>
+            <div id="interviewsheet" class="tab-content hidden">
+                <h3 class="text-2xl font-bold mb-8 text-blue-600">Interview Sheet</h3>
+                
+                  <div id="interview-sheet-root"></div>
+              </div>
+              <div id="standardcodesnippets" class="tab-content hidden">
+                <h3 class="text-2xl font-bold mb-4 text-blue-600">Standard Code Snippets</h3>
+            
+                <section class="cheatsheet-section mb-12">
+                    <h4 class="text-2xl font-semibold mb-4 text-blue-500">Basic Level</h4>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">MongoDB: Connect to Database</h5>
+                        <p class="mb-2">Connect to a MongoDB database using Mongoose.</p>
+                        <div class="code-block">
+                            <pre>
+            const mongoose = require('mongoose');
+            
+            const connectDB = async () => {
+                try {
+                    await mongoose.connect('mongodb://localhost:27017/mydatabase', {
+                        useNewUrlParser: true,
+                        useUnifiedTopology: true,
+                    });
+                    console.log('MongoDB connected...');
+                } catch (error) {
+                    console.error(error.message);
+                    process.exit(1);
+                }
+            };
+            
+            module.exports = connectDB;
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Express: Basic Server Setup</h5>
+                        <p class="mb-2">Set up a basic Express server.</p>
+                        <div class="code-block">
+                            <pre>
+            const express = require('express');
+            const app = express();
+            const PORT = process.env.PORT || 5000;
+            
+            // Middleware
+            app.use(express.json());
+            
+            app.get('/', (req, res) => {
+                res.send('API Running');
+            });
+            
+            app.listen(PORT, () => {
+                console.log(`Server running on port ${PORT}`);
+            });
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">React: Simple Form Submission</h5>
+                        <p class="mb-2">Create a simple form submission component using React and Axios.</p>
+                        <div class="code-block">
+                            <pre>
+                              import React, { useState } from 'react';
+                              import axios from 'axios';
+                              
+                              const SimpleForm = () => {
+                                  const [formData, setFormData] = useState({ name: '', email: '' });
+                              
+                                  const handleChange = (e) => {
+                                      setFormData({ ...formData, [e.target.name]: e.target.value });
+                                  };
+                              
+                                  const handleSubmit = async (e) => {
+                                      e.preventDefault();
+                                      const response = await axios.post('/submit-form', formData);
+                                      console.log(response.data);
+                                  };
+                              
+                                  return (
+                                      &lt;form onSubmit={handleSubmit}&gt;
+                                          &lt;input type="text" name="name" onChange={handleChange} placeholder="Name" required /&gt;
+                                          &lt;input type="email" name="email" onChange={handleChange} placeholder="Email" required /&gt;
+                                          &lt;button type="submit"&gt;Submit&lt;/button&gt;
+                                      &lt;/form&gt;
+                                  );
+                              };
+                              
+                              export default SimpleForm;
+                              
+                            </pre>
+                        </div>
+                    </div>
+                </section>
+            
+                <section class="cheatsheet-section mb-12">
+                    <h4 class="text-2xl font-semibold mb-4 text-blue-500">Intermediate Level</h4>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Mongoose: Define a Schema and Model</h5>
+                        <p class="mb-2">Define a Mongoose schema and model for a User document.</p>
+                        <div class="code-block">
+                            <pre>
+            const mongoose = require('mongoose');
+            
+            const UserSchema = new mongoose.Schema({
+                name: { type: String, required: true },
+                email: { type: String, required: true, unique: true },
+                password: { type: String, required: true },
+            });
+            
+            const User = mongoose.model('User', UserSchema);
+            module.exports = User;
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Express: Middleware for Error Handling</h5>
+                        <p class="mb-2">Create a middleware function for error handling in Express.</p>
+                        <div class="code-block">
+                            <pre>
+            const errorHandler = (err, req, res, next) => {
+                const statusCode = err.statusCode || 500;
+                res.status(statusCode).json({
+                    success: false,
+                    message: err.message || 'Server Error',
+                });
+            };
+            
+            // Use the error handling middleware
+            app.use(errorHandler);
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">JWT Authentication: Generating a Token</h5>
+                        <p class="mb-2">Generate a JSON Web Token (JWT) for authentication.</p>
+                        <div class="code-block">
+                            <pre>
+            const jwt = require('jsonwebtoken');
+            
+            const generateToken = (id) => {
+                return jwt.sign({ id }, 'yourSecretKey', { expiresIn: '30d' });
+            };
+            
+            module.exports = generateToken;
+                            </pre>
+                        </div>
+                    </div>
+                </section>
+            
+                <section class="cheatsheet-section mb-12">
+                    <h4 class="text-2xl font-semibold mb-4 text-blue-500">Expert Level</h4>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Express: Handling Form Data</h5>
+                        <p class="mb-2">Handle form data submission in an Express route.</p>
+                        <div class="code-block">
+                            <pre>
+            app.post('/submit-form', (req, res) => {
+                const { name, email } = req.body;
+                // Handle form submission logic
+                res.json({ message: 'Form submitted successfully!', data: { name, email } });
+            });
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">React: Fetch Data with Axios</h5>
+                        <p class="mb-2">Fetch data from an API endpoint using Axios in a React component.</p>
+                        <div class="code-block">
+                            <pre>
+                              import React, { useEffect, useState } from 'react';
+                              import axios from 'axios';
+                              
+                              const DataFetchingComponent = () => {
+                                  const [data, setData] = useState([]);
+                              
+                                  useEffect(() => {
+                                      const fetchData = async () => {
+                                          const response = await axios.get('/api/data'); // Replace with your API endpoint
+                                          setData(response.data);
+                                      };
+                              
+                                      fetchData();
+                                  }, []);
+                              
+                                  return (
+                                      &lt;div&gt;
+                                          {data.map(item => (
+                                              &lt;div key={item.id}&gt;{item.name}&lt;/div&gt; // Replace with your data structure
+                                          ))}
+                                      &lt;/div&gt;
+                                  );
+                              };
+                              
+                              export default DataFetchingComponent;
+                              
+                );
+            };
+            
+            export default DataFetchingComponent;
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">MongoDB: Query Documents</h5>
+                        <p class="mb-2">Query documents in a MongoDB collection using Mongoose.</p>
+                        <div class="code-block">
+                            <pre>
+            const getUsers = async () => {
+                try {
+                    const users = await User.find(); // Assuming User is the model created above
+                    return users;
+                } catch (error) {
+                    console.error('Error fetching users:', error);
+                }
+            };
+                            </pre>
+                        </div>
+                    </div>
+                </section>
+            </div>
+                
+            <div id="interviewlibrary" class="tab-content hidden">
+              <h3 class="text-2xl font-bold mb-8 text-blue-600">MERN Stack Interview Library</h3>
+              <p class="mb-8">In this section, you'll find links to interview question sheets for MERN Stack from various sources. Click the links below to access these resources and prepare for your interviews.</p>
+              <ul class="list-disc pl-5 space-y-4">
+                <li>
+                  <a href="https://www.geeksforgeeks.org/top-mern-stack-interview-questions/" target="_blank" class="text-blue-600 hover:underline">1. Top MERN Stack Interview Questions - GeeksforGeeks</a>
+                </li>
+                <li>
+                  <a href="https://www.vskills.in/interview-questions/mern-stack-interview-questions-vskills" target="_blank" class="text-blue-600 hover:underline">2. MERN Stack Interview Questions - VSkills</a>
+                </li>
+                <li>
+                  <a href="https://www.fullstack.cafe/blog/mern-stack-interview-questions" target="_blank" class="text-blue-600 hover:underline">3. MERN Stack Interview Questions - Full Stack Cafe</a>
+                </li>
+                <li>
+                  <a href="https://pwskills.com/blog/mern-stack-developer-interview-questions/" target="_blank" class="text-blue-600 hover:underline">4. MERN Stack Developer Interview Questions - PWSkills</a>
+                </li>
+                <li>
+                  <a href="https://www.simplilearn.com/full-stack-development-interview-questions-article" target="_blank" class="text-blue-600 hover:underline">5. Full Stack Development Interview Questions - Simplilearn</a>
+                </li>
+                <li>
+                  <a href="https://github.com/umeshgmrl/Learn-MERN-stack/blob/master/javascript/interview_questions.md" target="_blank" class="text-blue-600 hover:underline">6. MERN Stack Interview Questions - GitHub</a>
+                </li>
+                <li>
+                  <a href="https://www.cromacampus.com/blogs/mern-stack-interview-questions-with-answers/" target="_blank" class="text-blue-600 hover:underline">7. MERN Stack Interview Questions with Answers - Cromacampus</a>
+                </li>
+                <li>
+                  <a href="https://www.ccbp.in/blog/articles/mern-stack-interview-questions" target="_blank" class="text-blue-600 hover:underline">8. MERN Stack Interview Questions - CCBP</a>
+                </li>
+                <li>
+                  <a href="https://www.skillvertex.com/blog/mern-stack-interview-questions-and-answers/" target="_blank" class="text-blue-600 hover:underline">9. MERN Stack Interview Questions and Answers - SkillVertex</a>
+                </li>
+                <li>
+                  <a href="https://www.codesquadz.com/blog/top-20-mern-stack-interview-questions-and-answers/" target="_blank" class="text-blue-600 hover:underline">10. Top 20 MERN Stack Interview Questions and Answers - CodeSquadz</a>
+                </li>
+                <li>
+                  <a href="https://testbook.com/interview/mern-stack-interview-questions" target="_blank" class="text-blue-600 hover:underline">11. MERN Stack Interview Questions - Testbook</a>
+                </li>
+                <li>
+                  <a href="https://www.ambitionbox.com/profiles/mern-full-stack-developer/interview-questions" target="_blank" class="text-blue-600 hover:underline">12. MERN Full Stack Developer Interview Questions - AmbitionBox</a>
+                </li>
+                <li>
+                  <a href="https://blog.imocha.io/mern-stack-developer-interview-questions" target="_blank" class="text-blue-600 hover:underline">13. MERN Stack Developer Interview Questions - Imocha</a>
+                </li>
+                <li>
+                  <a href="https://www.logicraysacademy.com/blog/mern-stack-interview-questions-with-answers/" target="_blank" class="text-blue-600 hover:underline">14. MERN Stack Interview Questions with Answers - LogicRays Academy</a>
+                </li>
+                <li>
+                  <a href="https://www.vcubesoftsolutions.com/mern-stack-interview-questions-for-freshers/" target="_blank" class="text-blue-600 hover:underline">15. MERN Stack Interview Questions for Freshers - VCube Soft Solutions</a>
+                </li >
+                <li>
+                  <a href="https://www.scholarhat.com/tutorial/fullstack/mern-stack-interview-question-answer" target="_blank" class="text-blue-600 hover:underline">16. MERN Stack Interview Question Answer - ScholarHat</a>
+                </li>
+              </ul>
+            </div>
+        </div>
+      </main>
+  
+      <footer class="bg-gradient-to-r from-slate-800 to-slate-900 text-white py-16">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-24">
+                <div class="space-y-6 md:px-12">
+                    <h3 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-500">
+                        LastMinutePrep
+                    </h3>
+                    <p class="text-slate-300 leading-relaxed">
+                        Your go-to platform for last-minute coding interview preparation. Ace your interviews with confidence!
+                    </p>
+                    <a href="index.html" class="inline-block px-6 py-3 rounded-full bg-gradient-to-r from-sky-400 to-blue-500 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                        Get Started
+                    </a>
+                </div>
+                <div class="space-y-6 md:px-12">
+                    <h3 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-500">
+                        About Me
+                    </h3>
+                    <div class="space-y-4">
+                        <p class="text-2xl font-bold">Baba Sahil</p>
+                        <p class="text-slate-300">Aspirant Software Engineer</p>
+                        <p class="text-slate-300">
+                            <a href="mailto:babasahil2628@gmail.com" class="text-sky-400 hover:text-sky-300 transition-colors duration-300">
+                                babasahil2628@gmail.com
+                            </a>
+                        </p>
+                    </div>
+                </div>
+                <div class="space-y-6 md:px-12">
+                    <h3 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-500">
+                       Connect with Me
+                    </h3>
+                    <div class="space-y-4">
+                        <a href="https://www.linkedin.com/profile/in/baba-sahil-153721321/" target="_blank" class="flex items-center text-slate-300 hover:text-white transition-colors duration-300">
+                            <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                            LinkedIn Profile
+                        </a>
+                        <a href="https://github.com/babasahil29" target="_blank" class="flex items-center text-slate-300 hover:text-white transition-colors duration-300">
+                            <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
+                            </svg>
+                            GitHub
+                        </a>
+                        <a href="https://babasahil.my.canva.site/" target="_blank" class="flex items-center text-slate-300 hover:text-white transition-colors duration-300">
+                            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                            Portfolio
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 pt-8 border-t border-slate-700 text-center">
+                <p class="text-slate-400">&copy; 2024 <span class="text-sky-400 font-semibold">BabaSahil</span>. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+      
+    <script type="text/babel">
+        // InterviewSheet component
+        const InterviewSheet = () => {
+          const questions = [
+            {
+              level: "Basic",
+              items: [
+                {
+                  question: "What does MERN stand for?",
+                  answer: "MERN stands for MongoDB, Express.js, React.js, and Node.js."
+                },
+                {
+                  question: "What is MongoDB?",
+                  answer: "MongoDB is a NoSQL database that stores data in JSON-like documents."
+                },
+                {
+                  question: "What is Express.js?",
+                  answer: "Express.js is a web application framework for Node.js, designed for building web applications and APIs."
+                },
+                {
+                  question: "What is Node.js?",
+                  answer: "Node.js is a JavaScript runtime that allows you to run JavaScript on the server side."
+                },
+                {
+                  question: "What is React.js?",
+                  answer: "React.js is a JavaScript library for building user interfaces, particularly single-page applications."
+                },
+                {
+                  question: "What is a package.json file?",
+                  answer: "The package.json file contains metadata about the project and lists the dependencies needed."
+                },
+                {
+                  question: "How do you create a React component?",
+                  answer: "A React component can be created as a function or class that returns JSX."
+                },
+                {
+                  question: "What is JSX?",
+                  answer: "JSX is a syntax extension that allows you to write HTML-like code in JavaScript."
+                },
+                {
+                  question: "What are props in React?",
+                  answer: "Props are arguments passed into React components, allowing data to be passed from one component to another."
+                },
+                {
+                  question: "What is the use of the useState hook in React?",
+                  answer: "The useState hook allows you to add state to functional components."
+                },
+                {
+                  question: "What does the npm command do?",
+                  answer: "npm (Node Package Manager) is used to manage packages in Node.js projects."
+                },
+                {
+                  question: "What is middleware in Express.js?",
+                  answer: "Middleware refers to functions that have access to the request and response objects, used to modify them or terminate the request-response cycle."
+                },
+                {
+                  question: "How can you create a server with Node.js?",
+                  answer: "You can create a server using the http module in Node.js."
+                },
+                {
+                  question: "What is a RESTful API?",
+                  answer: "A RESTful API is an architectural style that uses standard HTTP methods for communication."
+                },
+                {
+                  question: "How do you handle errors in Express.js?",
+                  answer: "You can handle errors using middleware by defining an error-handling function."
+                },
+                {
+                  question: "What is the purpose of npm install?",
+                  answer: "npm install is used to install packages listed in the package.json file."
+                },
+                {
+                  question: "How do you pass data from a parent component to a child component in React?",
+                  answer: "You can pass data using props."
+                },
+                {
+                  question: "What is a virtual DOM in React?",
+                  answer: "The virtual DOM is a lightweight copy of the real DOM that React uses to optimize rendering."
+                },
+                {
+                  question: "What is the difference between a class component and a functional component in React?",
+                  answer: "Class components are ES6 classes, while functional components are functions. Class components can manage state and lifecycle methods, while functional components use hooks."
+                },
+                {
+                  question: "How do you fetch data in a React component?",
+                  answer: "You can fetch data using the fetch API or libraries like Axios, typically in the useEffect hook."
+                }
+                ]
+          },
+          {  
+                    
+              level: "Intermediate",
+              items: [
+                {
+                  question: "What are React hooks?",
+                  answer: "React hooks are functions that let you use state and lifecycle features in functional components."
+                },
+                {
+                  question: "Explain the use of the useEffect hook in React.",
+                  answer: "The useEffect hook allows you to perform side effects in functional components, like fetching data or directly manipulating the DOM."
+                },
+                {
+                  question: "What is the purpose of a Schema in Mongoose?",
+                  answer: "A schema defines the structure of documents within a MongoDB collection, including fields and their data types."
+                },
+                {
+                  question: "How can you implement routing in a React application?",
+                  answer: "You can implement routing using the React Router library."
+                },
+                {
+                  question: "What is the role of async/await in JavaScript?",
+                  answer: "async/await is used to work with asynchronous code, allowing you to write it in a more synchronous fashion."
+                },
+                {
+                  question: "How do you connect a React application to a Node.js backend?",
+                  answer: "You can connect using HTTP requests ( like fetch or Axios) to call API endpoints from the backend."
+                },
+                {
+                  question: "What is CORS, and why is it important?",
+                  answer: "CORS (Cross-Origin Resource Sharing) is a security feature that allows or restricts resources requested from another domain."
+                },
+                {
+                  question: "Explain how to manage state in a React application.",
+                  answer: "State can be managed using useState, Context API, or libraries like Redux."
+                },
+                {
+                  question: "What is a higher-order component (HOC) in React?",
+                  answer: "An HOC is a function that takes a component and returns a new component, allowing for code reuse and enhanced functionality."
+                },
+                {
+                  question: "How can you prevent XSS attacks in a web application?",
+                  answer: "You can prevent XSS by sanitizing user inputs and using proper content security policies."
+                },
+                {
+                  question: "What is the purpose of next() in Express.js?",
+                  answer: "next() is used to pass control to the next middleware function in the stack."
+                },
+                {
+                  question: "Explain the concept of promises in JavaScript.",
+                  answer: "A promise is an object that represents the eventual completion or failure of an asynchronous operation and its resulting value."
+                },
+                {
+                  question: "What are controlled components in React?",
+                  answer: "Controlled components are form elements whose value is controlled by React state."
+                },
+                {
+                  question: "How do you implement form validation in React?",
+                  answer: "You can implement form validation using controlled components and custom validation functions."
+                },
+                {
+                  question: "What is the significance of keys in React?",
+                  answer: "Keys help React identify which items have changed, are added, or are removed, improving performance."
+                },
+                {
+                  question: "How do you handle multiple asynchronous requests in JavaScript?",
+                  answer: "You can handle multiple asynchronous requests using Promise.all() or async/await."
+                },
+                {
+                  question: "Explain how to create and use custom hooks in React.",
+                  answer: "Custom hooks are JavaScript functions that start with use and can call other hooks, allowing you to extract and reuse stateful logic."
+                },
+                {
+                  question: "What is the purpose of the ComponentDidMount lifecycle method?",
+                  answer: "It is called after a component is mounted, making it suitable for data fetching or setup."
+                },
+                {
+                  question: "How can you optimize performance in a React application?",
+                  answer: "You can optimize performance by using memoization, lazy loading, and avoiding unnecessary re-renders."
+                },
+                {
+                  question: "What is the purpose of the body-parser middleware in Express?",
+                  answer: "body-parser parses incoming request bodies and makes the data available in req.body."
+                }
+                ]
+          },
+          {
+                level: "Expert",
+                items: [
+                  {
+                    question: "What are the differences between SQL and NoSQL databases?",
+                    answer: "SQL databases are relational and use structured query language, while NoSQL databases are non-relational and allow for unstructured data storage."
+                  },
+                  {
+                    question: "How do you implement authentication and authorization in a MERN application?",
+                    answer: "Authentication can be implemented using JWT (JSON Web Tokens) or session-based methods, along with middleware for authorization."
+                  },
+                  {
+                    question: "What is Redux, and why is it used in React applications?",
+                    answer: "Redux is a state management library that provides a predictable state container for JavaScript apps, enabling easier management of application state."
+                  },
+                  {
+                    question: "How can you implement server-side rendering (SSR) in a React application?",
+                    answer: "SSR can be implemented using frameworks like Next.js, which allows React components to be rendered on the server before being sent to the client."
+                  },
+                  {
+                    question: "Explain the concept of the event loop in Node.js.",
+                    answer: "The event loop allows Node.js to perform non-blocking I/O operations by offloading operations to the system kernel whenever possible."
+                  },
+                  {
+                    question: "What are some strategies for optimizing the performance of a MERN application?",
+                    answer: "Strategies include code splitting, server-side rendering, caching responses, and optimizing database queries."
+                  },
+                  {
+                    question: "Describe how to use WebSockets in a MERN stack application.",
+                    answer: "WebSockets enable real-time communication and can be implemented using libraries like socket.io for bidirectional event-based communication."
+                  },
+                  {
+                    question: "What are the benefits of using TypeScript with a MERN stack?",
+                    answer: "TypeScript provides type safety, improved code readability, and better tooling support, reducing runtime errors."
+                  },
+                  {
+                    question: "How do you set up a continuous integration/continuous deployment (CI/CD) pipeline for a MERN application?",
+                    answer: "A CI/CD pipeline can be set up using services like GitHub Actions or CircleCI to automate testing and deployment processes."
+                  },
+                  {
+                    question: "What is a service worker, and how is it used in web applications?",
+                    answer: "A service worker is a script that runs in the background, enabling features like caching, background sync, and push notifications to improve the web app experience."
+                  }
+                ]
+              }
+            ]
+          
+            
+            return (
+            <div className="space-y-8">
+              {questions.map((level, index) => (
+                <div key={index}>
+                  <h4 class="text-2xl font-semibold mb-4 text-blue-500">{level.level} Level Questions</h4>
+                  <ol className="list-decimal list-inside space-y-4">
+                    {level.items.map((item, itemIndex) => (
+                      <li key={itemIndex}>
+                        <p className="font-medium">{item.question}</p>
+                        {item.answer && <p className="mt-1">{item.answer}</p>}
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              ))}
+            </div>
+          );
+        };
+      
+        ReactDOM.render(<InterviewSheet />, document.getElementById("interview-sheet-root"));
+      </script>
+<script>
+  const debounce = (func, delay) => {
+let inDebounce;
+return function() {
+  const context = this;
+  const args = arguments;
+  clearTimeout(inDebounce);
+  inDebounce = setTimeout(() => func.apply(context, args), delay);
+};
+};
+
+// Function to show tab
+function showTab(tabName) {
+const allTabs = document.querySelectorAll('.tab-content');
+const allButtons = document.querySelectorAll('.tab-btn');
+const selectedTab = document.getElementById(tabName);
+const clickedButton = document.querySelector(`.tab-btn[onclick*="${tabName}"]`);
+
+allTabs.forEach(tab => tab.classList.add('hidden'));
+allButtons.forEach(btn => {
+  btn.classList.remove('bg-blue-500', 'text-white');
+  btn.classList.add('bg-gray-200', 'text-gray-700');
+});
+
+if (selectedTab) selectedTab.classList.remove('hidden');
+if (clickedButton) {
+  clickedButton.classList.remove('bg-gray-200', 'text-gray-700');
+  clickedButton.classList.add('bg-blue-500', 'text-white');
+}
+
+const languageDropdown = document.getElementById('languageDropdown');
+if (languageDropdown && languageDropdown.classList.contains('show')) {
+  languageDropdown.classList.remove('show');
+}
+}
+
+// Function to download cheat sheet
+function downloadCheatSheet() {
+alert('Downloading Python Cheat Sheet...');
+}
+
+// Function to check if element is in viewport
+function isElementInViewport(el) {
+const rect = el.getBoundingClientRect();
+return (
+  rect.top >= 0 &&
+  rect.left >= 0 &&
+  rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+  rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+);
+}
+
+// Function to handle scroll and reveal sections
+const handleScroll = debounce(() => {
+const sections = document.querySelectorAll('.cheatsheet-section');
+sections.forEach(section => {
+  if (isElementInViewport(section) && !section.classList.contains('visible')) {
+      section.classList.add('visible');
+  }
+});
+}, 100);
+
+// Event listeners
+document.addEventListener('DOMContentLoaded', () => {
+const dropdownBtn = document.getElementById('dropdownBtn');
+const languageDropdown = document.getElementById('languageDropdown');
+
+dropdownBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  languageDropdown.classList.toggle('show');
+});
+
+document.addEventListener('click', (e) => {
+  if (!dropdownBtn.contains(e.target) && !languageDropdown.contains(e.target)) {
+      languageDropdown.classList.remove('show');
+  }
+});
+
+const fadeElements = document.querySelectorAll('.fade-in');
+fadeElements.forEach(element => element.classList.add('visible'));
+
+const easySection = document.querySelector('.cheatsheet-section');
+if (easySection) easySection.classList.add('visible');
+
+handleScroll();
+});
+
+window.addEventListener('scroll', handleScroll);
+window.addEventListener('resize', handleScroll);
+</script>
+  </body>
+  </html>
+      

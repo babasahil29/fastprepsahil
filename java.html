@@ -1,0 +1,1420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastPrepSahil - Java</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&display=swap');
+
+:root {
+  --primary-color: #3b82f6;
+  --secondary-color: #38bdf8;
+  --background-color: #f9f9f9;
+  --text-color: #333;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Manrope', sans-serif;
+  line-height: 1.6;
+  color: var(--text-color);
+}
+
+.hero-section {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/java.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 400px;
+  position: relative;
+  padding: 2rem 1rem;
+}
+
+.hero-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 2px, transparent 2px, transparent 4px);
+  pointer-events: none;
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.btn-animated {
+  transition: all 0.3s ease;
+}
+
+.btn-animated:hover, .btn-animated:focus {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.btn-animated:active {
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: var(--background-color);
+  min-width: 160px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: var(--text-color);
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  transition: all 0.2s ease;
+}
+
+.dropdown-content a:hover, .dropdown-content a:focus {
+  background-color: #f1f1f1;
+  transform: translateX(5px);
+}
+
+.show {
+  display: block;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.code-block {
+  background-color: #f8f8f8;
+  border-left: 4px solid var(--primary-color);
+  padding: 1rem;
+  margin: 1rem 0;
+  font-family: 'Courier New', Courier, monospace;
+  overflow-x: auto;
+}
+
+.interview-sheet-container {
+  background-color: var(--background-color);
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+  background-image: linear-gradient(to right, #1e293b, #0f172a);
+  position: relative;
+  overflow: hidden;
+  padding: 2rem 1rem;
+}
+
+footer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('path/to/subtle-pattern.png') repeat;
+  opacity: 0.05;
+  z-index: 0;
+}
+
+footer > div {
+  position: relative;
+  z-index: 1;
+}
+
+footer h3 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  position: relative;
+  display: inline-block;
+}
+
+footer h3::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 50px;
+  height: 2px;
+  background: linear-gradient(to right, var(--secondary-color), var(--primary-color));
+}
+
+footer p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+footer a:not(.inline-block) {
+  transition: all 0.3s ease;
+}
+
+footer a:not(.inline-block):hover, footer a:not(.inline-block):focus {
+  color: var(--secondary-color);
+  transform: translateX(5px);
+}
+
+footer .inline-block {
+  transition: all 0.3s ease;
+}
+
+footer .inline-block:hover, footer .inline-block:focus {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.social-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.social-icon:hover, .social-icon:focus {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-3px);
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .hero-section {
+    height: 350px;
+  }
+
+  footer .grid {
+    gap: 1.5rem;
+  }
+
+  footer .md\:px-12 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .tab-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tab-btn {
+    flex: 1 1 calc(30% - 0.25rem);
+    font-size: 0.9rem;
+    padding: 0.5rem;
+  }
+
+}@media only screen and (max-width: 768px) {
+  .text-2xl.font-bold.text-blue-600 {
+    display: none;
+  }
+
+}</style>
+</head>
+<body class="bg-gray-100"></body>
+    <header class="bg-white shadow-md fixed w-full z-10">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <img src="images/logo2.jpeg" alt="FastPrepSahil Logo" class="h-12 w-auto mr-3">
+                <h1 class="text-2xl font-bold text-blue-600">FastPrepSahil</h1>
+            </div>
+            <div class="flex flex-wrap items-center gap-2 mb-4">
+                <a href="index.html" class="btn-animated bg-blue-500 text-white px-4 py-2 rounded text-sm">Home</a>
+                <div class="relative inline-block">
+                    <button id="dropdownBtn" class="btn-animated bg-gray-200 text-gray-700 px-4 py-2 rounded text-sm flex items-center">
+                        Select Language
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="languageDropdown" class="dropdown-content">
+                        <a href="python.html">Python</a>
+                        <a href="c.html">C</a>
+                        <a href="java.html">Java</a>
+                        <a href="cpp.html">C++</a>
+                        <a href="html.html">HTML</a>
+                        <a href="css.html">CSS</a>
+                        <a href="javascript.html">JavaScript</a>
+                        <a href="sql.html">SQL</a>
+                        <a href="php.html">PHP</a>
+                        <a href="mern.html">MERN</a>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="hero-section flex items-center justify-center pt-16">
+        <h2 id="language-title" class="text-4xl font-bold text-white text-center">Java Resources</h2>
+    </div>
+
+    <main class="container mx-auto mt-8 p-4">
+        <div class="tab-buttons flex flex-wrap gap-2 mb-6">
+            <button onclick="showTab('snapshot')" class="tab-btn btn-animated bg-blue-500 text-white px-3 py-2 rounded text-sm flex-grow">Language Snapshot</button>
+            <button onclick="showTab('cheatsheet')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Cheat Sheet</button>
+            <button onclick="showTab('cheatsheetpdfs')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Cheat Sheet PDFs</button>
+            <button onclick="showTab('cheatsheetlibrary')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Cheat Sheet Library</button>
+            <button onclick="showTab('interviewsheet')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Interview Sheet</button>
+            <button onclick="showTab('interviewlibrary')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Interview Library</button>
+            <button onclick="showTab('standardcodesnippets')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Standard Code Snippets</button>
+        </div>
+    
+        <div id="tab-content" class="bg-white p-6 rounded-lg shadow-md fade-in">
+            <div id="snapshot" class="tab-content">
+                <h3 class="text-2xl font-bold mb-8 text-blue-600">Language Snapshot</h3>
+                <div id="snapshot-content" class="space-y-8">
+                    <section>
+                        <h4 class="text-xl font-semibold mb-4">Overview</h4>
+                        <ul class="list-disc pl-6 space-y-2">
+                            <li>
+                                <span class="font-medium">Language Type:</span> High-level, class-based, object-oriented
+                            </li>
+                            <li>
+                                <span class="font-medium">Key Features:</span>
+                                <ul class="list-circle pl-6 mt-2 space-y-2">
+                                    <li><span class="font-medium">Object-Oriented:</span> Emphasizes encapsulation, inheritance, polymorphism, and abstraction</li>
+                                    <li><span class="font-medium">Platform Independence:</span> "Write once, run anywhere" principle allows compiled code to run on all platforms that support Java</li>
+                                    <li><span class="font-medium">Robust and Secure:</span> Strong type checking, exception handling, and security features</li>
+                                    <li><span class="font-medium">Multithreaded:</span> Supports concurrent programming for efficient performance</li>
+                                    <li><span class="font-medium">Garbage Collection:</span> Automatic memory management system that handles object lifecycle</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h4 class="text-xl font-semibold mb-4">Invention</h4>
+                        <ul class="list-disc pl-6 space-y-2">
+                            <li><span class="font-medium">Creator:</span> James Gosling at Sun Microsystems (now owned by Oracle)</li>
+                            <li><span class="font-medium">Initial Release:</span> May 23, 1995</li>
+                            <li><span class="font-medium">Latest Stable Version:</span> Java SE 17 (as of September 2021)</li>
+                            <li>
+                                <span class="font-medium">Major Influence:</span> Enterprise-scale applications, Android app development, web applications
+                            </li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h4 class="text-xl font-semibold mb-4">Notable Frameworks and Libraries</h4>
+                        <ul class="list-disc pl-6 space-y-2">
+                            <li><span class="font-medium">Android SDK:</span> For Android app development</li>
+                            <li><span class="font-medium">Spring Framework:</span> For enterprise-level and web applications</li>
+                            <li><span class="font-medium">JavaFX:</span> For desktop application development</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h4 class="text-xl font-semibold mb-4">Common Use Cases</h4>
+                        <ul class="list-disc pl-6 space-y-2">
+                            <li><span class="font-medium">Android App Development:</span> Creating mobile applications for Android devices</li>
+                            <li><span class="font-medium">Enterprise Applications:</span> Building large-scale systems for banking, retail, and other industries</li>
+                            <li><span class="font-medium">Web Applications:</span> Developing backend services using frameworks like Spring</li>
+                            <li><span class="font-medium">Desktop Applications:</span> Creating cross-platform desktop software</li>
+                        </ul>
+                    </section>
+                </div>
+            </div>
+            <div id="cheatsheet" class="tab-content hidden">
+                <h3 class="text-2xl font-bold mb-8 text-blue-600">Cheat Sheet</h3>
+                <section class="cheatsheet-section mb-12">
+                    <h3 class="text-2xl font-semibold mb-4 text-blue-500">Basic Level</h3>
+                
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">1. Variables</h4>
+                        <p class="mb-2">Used to store data values.</p>
+                        <div class="code-block">
+                            <pre>
+            int x = 9;
+            String name = "Sahil";
+                            </pre>
+                        </div>
+                    </div>
+                
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">2. Data Types</h4>
+                        <p class="mb-2">Defines the type of variable.</p>
+                        <div class="code-block">
+                            <pre>
+            int num = 10; // Integer
+            double val = 9.8; // Floating point number
+            boolean flag = true; // Boolean
+                            </pre>
+                        </div>
+                    </div>
+                
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">3. If-Else Statement</h4>
+                        <p class="mb-2">Conditional logic execution.</p>
+                        <div class="code-block">
+                            <pre>
+            if (x > 0) {
+                System.out.println("Positive");
+            } else {
+                System.out.println("Negative");
+            }
+                            </pre>
+                        </div>
+                    </div>
+                
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">4. Loops (For Loop)</h4>
+                        <p class="mb-2">Repeats a block of code.</p>
+                        <div class="code-block">
+                            <pre>
+            for (int i = 0; i < 5; i++) {
+                System.out.println(i);
+            }
+                            </pre>
+                        </div>
+                    </div>
+                
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">5. Methods (Functions)</h4>
+                        <p class="mb-2">Blocks of code that perform a task.</p>
+                        <div class="code-block">
+                            <pre>
+            public static void greet() {
+                System.out.println("Hello, Java!");
+            }
+                            </pre>
+                        </div>
+                    </div>
+                
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">6. Array Declaration</h4>
+                        <p class="mb-2">Holds multiple values of the same type.</p>
+                        <div class="code-block">
+                            <pre>
+            int[] numbers = {1, 2, 3, 4, 5};
+                            </pre>
+                        </div>
+                    </div>
+                
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">7. String Manipulation</h4>
+                        <p class="mb-2">Strings and basic operations.</p>
+                        <div class="code-block">
+                            <pre>
+            String s = "Java";
+            System.out.println(s.length()); // Get length
+                            </pre>
+                        </div>
+                    </div>
+                </section>
+            
+                <section class="cheatsheet-section mb-12">
+                    <h3 class="text-2xl font-semibold mb-4 text-blue-500">Intermediate Level</h3>
+                
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">1. Classes and Objects</h4>
+                        <p class="mb-2">Java is object-oriented; everything revolves around classes and objects.</p>
+                        <div class="code-block">
+                            <pre>
+            class Car {
+                String model = "Honda";
+            }
+            
+            public class Main {
+                public static void main(String[] args) {
+                    Car myCar = new Car(); // Create an object
+                    System.out.println(myCar.model);
+                }
+            }
+                            </pre>
+                        </div>
+                    </div>
+                
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">2. Constructor</h4>
+                        <p class="mb-2">A special method to initialize objects.</p>
+                        <div class="code-block">
+                            <pre>
+            class Car {
+                String model;
+                Car(String modelName) {
+                    model = modelName;
+                }
+            }
+                            </pre>
+                        </div>
+                    </div>
+                
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">3. Inheritance</h4>
+                        <p class="mb-2">Mechanism to acquire properties from a parent class.</p>
+                        <div class="code-block">
+                            <pre>
+            class Vehicle {
+                public void run() {
+                    System.out.println("Vehicle is running");
+                }
+            }
+            
+            class Car extends Vehicle {
+                public void run() {
+                    System.out.println("Car is running");
+                }
+            }
+                            </pre>
+                        </div>
+                    </div>
+                
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">4. Polymorphism</h4>
+                        <p class="mb-2">One action, many forms.</p>
+                        <div class="code-block">
+                            <pre>
+            Vehicle myCar = new Car();
+            myCar.run(); // Outputs "Car is running"
+                            </pre>
+                        </div>
+                    </div>
+                
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">5. Encapsulation</h4>
+                        <p class="mb-2">Restrict access using private fields and public methods.</p>
+                        <div class="code-block">
+                            <pre>
+            class Person {
+                private String name;
+                public String getName() {
+                    return name;
+                }
+                public void setName(String newName) {
+                    name = newName;
+                }
+            }
+                            </pre>
+                        </div>
+                    </div>
+                
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">6. Exception Handling</h4>
+                        <p class="mb-2">Managing runtime errors using try-catch.</p>
+                        <div class="code-block">
+                            <pre>
+            try {
+                int divide = 10 / 0;
+            } catch (ArithmeticException e) {
+                System.out.println("Cannot divide by zero");
+            }
+                            </pre>
+                        </div>
+                    </div>
+                </section>
+            
+                <section class="cheatsheet-section mb-12">
+                    <h3 class="text-2xl font-semibold mb-4 text-blue-500">Expert Level</h3>
+                
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">1. Multithreading</h4>
+                        <p class="mb-2">Running multiple threads simultaneously.</p>
+                        <div class="code-block">
+                            <pre>
+            class MyThread extends Thread {
+                public void run() {
+                    System.out.println("Thread is running");
+                }
+            }
+            
+            public class Main {
+                public static void main(String[] args) {
+                    MyThread thread = new MyThread();
+                    thread.start();
+                }
+            }
+                            </pre>
+                        </div>
+                    </div>
+                
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">2. Lambda Expressions</h4>
+                        <p class="mb-2">Used to provide implementation for a functional interface.</p>
+                        <div class="code-block">
+                            <pre>
+            interface Greeting {
+                String sayHello(String name);
+            }
+            
+            Greeting greet = (name) -> "Hello, " + name;
+                            </pre>
+                        </div>
+                    </div>
+                
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">3. Streams API</h4>
+                        <p class="mb-2">Processing collections of objects.</p>
+                        <div class="code-block">
+                            <pre>
+            List<String> names = Arrays.asList("Java", "Python", "C++");
+            names.stream()
+                .filter(n -> n.startsWith("J"))
+                .forEach(System.out::println);
+                            </pre>
+                        </div>
+                    </div>
+                
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">4. Generics</h4>
+                        <p class="mb-2">Write code that can handle different data types.</p>
+                        <div class="code-block">
+                            <pre>
+            class Box<T> {
+                private T item;
+                public void setItem(T item) {
+                    this.item = item;
+                }
+                public T getItem() {
+                    return item;
+                }
+            }
+                            </pre>
+                        </div>
+                    </div>
+                
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">5. Annotations</h4>
+                        <p class="mb-2">Metadata for classes, methods, and variables.</p>
+                        <div class="code-block">
+                            <pre>
+            @Override
+            public void run() {
+                System.out.println("Running overridden method");
+            }
+                            </pre>
+                        </div>
+                    </div>
+                
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">6. Reflection</h4>
+                        <p class="mb-2">Inspect or modify runtime behavior of classes, methods, and fields.</p>
+                        <div class="code-block">
+                            <pre>
+            Class cls = Class.forName("java.lang.String");
+            Method[] methods = cls.getMethods();
+                            </pre>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div id="cheatsheetpdfs" class="tab-content hidden">
+                <h3 class="text-2xl font-bold mb-8 text-blue-600">Cheat Sheet PDFs</h3>
+                <p class="mb-8">In this section, you'll find downloadable PDF versions of Java language cheatsheets from different sources. Click on the links below to download the cheat sheets directly.</p>
+                <ul class="list-disc pl-5 space-y-4">
+                    <li>
+                        <a href="https://cs2113f18.github.io/java/JavaCheatSheet.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                            1. Java Cheat Sheet (PDF) - CS2113F18
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/jwasham/coding-interview-university/blob/main/extras/cheat%20sheets/Java%20Fundamentals%20Cheatsheet.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                            2. Java Fundamentals Cheat Sheet (PDF) - Coding Interview University
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://www.sci.brooklyn.cuny.edu/~zhou/teaching/cis7124/Java_refcard.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                            3. Java Quick Reference Card (PDF) - Brooklyn College
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://cdn.tgdd.vn/Products/PDF/3/75346/HDSD/Test-ten-co-dau-moi-3.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                            4. Java Test Guide (PDF) - TGDD
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://14.139.161.31/OddSem-0824-1124/jplp/Core_Java_Cheat_Sheet.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                            5. Core Java Cheat Sheet (PDF) - JPLP
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.edureka.co/blog/wp-content/uploads/2018/10/Java-CheatSheet_Edureka.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                            6. Java Cheat Sheet (PDF) - Edureka
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div id="cheatsheetlibrary" class="tab-content hidden">
+                <h3 class="text-2xl font-bold mb-8 text-blue-600">Cheat Sheet Library</h3>
+                <p class="mb-8">In this section, you'll find various links to Java language cheatsheets available on different websites. Click on the links below to explore the resources.</p>
+                <ul class="list-disc pl-5 space-y-4">
+                  <li>
+                    <a href="https://introcs.cs.princeton.edu/java/11cheatsheet/" target="_blank" class="text-blue-600 hover:underline">
+                      1. Princeton University Java Cheatsheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.codewithharry.com/blogpost/java-cheatsheet/" target="_blank" class="text-blue-600 hover:underline">
+                      2. Code with Harry Java Cheatsheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.geeksforgeeks.org/java-cheat-sheet/" target="_blank" class="text-blue-600 hover:underline">
+                      3. GeeksforGeeks Java Cheatsheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://quickref.me/java.html" target="_blank" class="text-blue-600 hover:underline">
+                      4. QuickRef Java Cheatsheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.codecademy.com/resources/cheatsheets/language/java" target="_blank" class="text-blue-600 hover:underline">
+                      5. Codecademy Java Cheatsheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.interviewbit.com/java-cheat-sheet/" target="_blank" class="text-blue-600 hover:underline">
+                      6. InterviewBit Java Cheat Sheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.codecademy.com/learn/java-for-programmers/modules/java-for-programmers-basic-syntax/cheatsheet" target="_blank" class="text-blue-600 hover:underline">
+                      7. Codecademy Java for Programmers Cheatsheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/in28minutes/java-cheat-sheet" target="_blank" class="text-blue-600 hover:underline">
+                      8. In28Minutes Java Cheat Sheet (GitHub)
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            <div id="interviewsheet" class="tab-content hidden">
+                <h3 class="text-2xl font-bold mb-8 text-blue-600">Interview Sheet</h3>
+                
+                  <div id="interview-sheet-root"></div>
+            </div>
+            <div id="standardcodesnippets" class="tab-content hidden">
+                <h3 class="text-2xl font-bold mb-4 text-blue-600">Standard Code Snippets</h3>
+                
+                <section class="cheatsheet-section mb-12">
+                    <h4 class="text-2xl font-semibold mb-4 text-blue-500">Basic Level</h4>
+                    
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Find the Factorial of a Number</h5>
+                        <p class="mb-2">Problem: Calculate the factorial of a given number.</p>
+                        <div class="code-block">
+                            <pre>
+        public class Factorial {
+            public static void main(String[] args) {
+                int num = 5;
+                int result = 1;
+                for (int i = 1; i <= num; i++) {
+                    result *= i;
+                }
+                System.out.println("Factorial of " + num + " is: " + result);
+            }
+        }
+                            </pre>
+                        </div>
+                    </div>
+        
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Check if a Number is Prime</h5>
+                        <p class="mb-2">Problem: Determine if a given number is prime.</p>
+                        <div class="code-block">
+                            <pre>
+        public class PrimeCheck {
+            public static void main(String[] args) {
+                int num = 29;
+                boolean isPrime = true;
+                for (int i = 2; i <= num / 2; i++) {
+                    if (num % i == 0) {
+                        isPrime = false;
+                        break;
+                    }
+                }
+                if (isPrime) {
+                    System.out.println(num + " is a prime number.");
+                } else {
+                    System.out.println(num + " is not a prime number.");
+                }
+            }
+        }
+                            </pre>
+                        </div>
+                    </div>
+        
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Reverse a String</h5>
+                        <p class="mb-2">Problem: Reverse a given string.</p>
+                        <div class="code-block">
+                            <pre>
+        public class ReverseString {
+            public static void main(String[] args) {
+                String str = "Hello";
+                String reversed = new StringBuilder(str).reverse().toString();
+                System.out.println("Reversed string: " + reversed);
+            }
+        }
+                            </pre>
+                        </div>
+                    </div>
+        
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Fibonacci Series</h5>
+                        <p class="mb-2">Problem: Generate Fibonacci series up to n terms.</p>
+                        <div class="code-block">
+                            <pre>
+        public class Fibonacci {
+            public static void main(String[] args) {
+                int n = 10, a = 0, b = 1;
+                System.out.print("Fibonacci Series: ");
+                for (int i = 1; i <= n; i++) {
+                    System.out.print(a + " ");
+                    int next = a + b;
+                    a = b;
+                    b = next;
+                }
+            }
+        }
+                            </pre>
+                        </div>
+                    </div>
+        
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Check for Palindrome String</h5>
+                        <p class="mb-2">Problem: Check if a given string is a palindrome.</p>
+                        <div class="code-block">
+                            <pre>
+        public class Palindrome {
+            public static void main(String[] args) {
+                String str = "madam";
+                String reversed = new StringBuilder(str).reverse().toString();
+                if (str.equals(reversed)) {
+                    System.out.println(str + " is a palindrome.");
+                } else {
+                    System.out.println(str + " is not a palindrome.");
+                }
+            }
+        }
+                            </pre>
+                        </div>
+                    </div>
+                </section>
+        
+                <section class="cheatsheet-section mb-12">
+                    <h4 class="text-2xl font-semibold mb-4 text-blue-500">Intermediate Level</h4>
+                    
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Find the Largest Element in an Array</h5>
+                        <p class="mb-2">Problem: Find the largest element in a given array.</p>
+                        <div class="code-block">
+                            <pre>
+        public class LargestInArray {
+            public static void main(String[] args) {
+                int[] arr = {10, 20, 5, 15};
+                int max = arr[0];
+                for (int i = 1; i < arr.length; i++) {
+                    if (arr[i] > max) {
+                        max = arr[i];
+                    }
+                }
+                System.out.println("Largest element: " + max);
+            }
+        }
+                            </pre>
+                        </div>
+                    </div>
+        
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Check if Two Strings are Anagrams</h5>
+                        <p class="mb-2">Problem: Determine if two given strings are anagrams.</p>
+                        <div class="code-block">
+                            <pre>
+        import java.util.Arrays;
+        
+        public class AnagramCheck {
+            public static void main(String[] args) {
+                String str1 = "listen";
+                String str2 = "silent";
+        
+                char[] arr1 = str1.toCharArray();
+                char[] arr2 = str2.toCharArray();
+        
+                Arrays.sort(arr1);
+                Arrays.sort(arr2);
+        
+                if (Arrays.equals(arr1, arr2)) {
+                    System.out.println("Strings are anagrams.");
+                } else {
+                    System.out.println("Strings are not anagrams.");
+                }
+            }
+        }
+                            </pre>
+                        </div>
+                    </div>
+        
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Remove Duplicates from an Array</h5>
+                        <p class="mb-2">Problem: Remove duplicate elements from an array.</p>
+                        <div class="code-block">
+                            <pre>
+        import java.util.HashSet;
+        
+        public class RemoveDuplicates {
+            public static void main(String[] args) {
+                int[] arr = {1, 2, 3, 1, 2, 4, 5};
+                HashSet<Integer> set = new HashSet<>();
+        
+                for (int num : arr) {
+                    set.add(num);
+                }
+        
+                System.out.println("Array without duplicates: " + set);
+            }
+        }
+                            </pre>
+                        </div>
+                    </div>
+        
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Find the Second Largest Element in an Array</h5>
+                        <p class="mb-2">Problem: Find the second largest element in a given array.</p>
+                        <div class="code-block">
+                            <pre>
+        public class SecondLargest {
+            public static void main(String[] args) {
+                int[] arr = {5, 9, 11, 2, 8};
+                int first = Integer.MIN_VALUE, second = Integer.MIN_VALUE;
+        
+                for (int num : arr) {
+                    if (num > first) {
+                        second = first;
+                        first = num;
+                    } else if (num > second && num != first) {
+                        second = num;
+                    }
+                }
+        
+                System.out.println("Second largest element: " + second);
+            }
+        }
+                            </pre>
+                        </div>
+                    </div>
+        
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Check for Armstrong Number</h5>
+                        <p class="mb-2">Problem: Check if a given number is an Armstrong number.</p>
+                        <div class="code-block">
+                            <pre>
+        public class ArmstrongCheck {
+            public static void main(String[] args) {
+                int num = 153;
+                int originalNum = num, result = 0;
+        
+                while (originalNum != 0) {
+                    int remainder = originalNum % 10;
+                    result += Math.pow(remainder, 3);
+                    originalNum /= 10;
+                }
+        
+                if (result == num) {
+                    System.out.println(num + " is an Armstrong number.");
+                } else {
+                    System.out.println(num + " is not an Armstrong number.");
+                }
+            }
+        }
+                            </pre>
+                        </div>
+                    </div>
+                </section>
+        
+                <section class="cheatsheet-section mb-12">
+                    <h4 class="text-2xl font-semibold mb-4 text-blue-500">Expert Level</h4>
+                    
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Find All Permutations of a String</h5>
+                        <p class="mb-2">Problem: Generate all permutations of a given string.</p>
+                        <div class="code-block">
+                            <pre>
+        public class Permutations {
+            public static void main(String[] args) {
+                String str = "ABC";
+                permute(str, 0, str.length() - 1);
+            }
+        
+            private static void permute(String str, int l, int r) {
+                if (l == r) {
+                    System.out.println(str);
+                } else {
+                    for (int i = l; i <= r; i++) {
+                        str = swap(str, l, i);
+                        permute(str, l + 1, r);
+                        str = swap(str, l, i); // backtrack
+                    }
+                }
+            }
+        
+            public static String swap(String a, int i, int j) {
+                char[] charArray = a.toCharArray();
+                char temp = charArray[i];
+                charArray[i] = charArray[j];
+                charArray[j] = temp;
+                return String.valueOf(charArray);
+            }
+        }
+                            </pre>
+                        </div>
+                    </div>
+        
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Implement a Binary Search Algorithm</h5>
+                        <p class="mb-2">Problem: Implement binary search algorithm to find an element in a sorted array.</p>
+                        <div class="code-block">
+                            <pre>
+        public class BinarySearch {
+            public static int binarySearch(int[] arr, int left, int right, int key) {
+                if (right >= left) {
+                    int mid = left + (right - left) / 2;
+        
+                    if (arr[mid] == key)
+                        return mid;
+        
+                    if (arr[mid] > key)
+                        return binarySearch(arr, left, mid - 1, key);
+        
+                    return binarySearch(arr, mid + 1, right, key);
+                }
+        
+                return -1;
+            }
+        
+            public static void main(String[] args) {
+                int[] arr = {2, 3, 4, 10, 40};
+                int key = 10;
+                int result = binarySearch(arr, 0, arr.length - 1, key);
+                if (result == -1)
+                    System.out.println("Element not present");
+                else
+                    System.out.println("Element found at index " + result);
+            }
+        }
+                            </pre>
+                        </div>
+                    </div>
+        
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Find the Longest Substring Without Repeating Characters</h5>
+                        <p class="mb-2">Problem: Find the longest substring without repeating characters in a given string.</p>
+                        <div class="code-block">
+                            <pre>
+        import java.util.HashSet;
+        
+        public class LongestSubstring {
+            public static void main(String[] args) {
+                String str = "abcabcbb";
+                System.out.println("Longest Substring Without Repeating Characters: " + findLongestSubstring(str));
+            }
+        
+            public static int findLongestSubstring(String str) {
+                int n = str.length();
+                int result = 0;
+        
+                for (int i = 0; i < n; i++) {
+                    HashSet<Character> set = new HashSet<>();
+                    for (int j = i; j < n; j++) {
+                        if (set.contains(str.charAt(j)))
+                            break;
+                        set.add(str.charAt(j));
+                        result = Math.max(result, j - i + 1);
+                    }
+                }
+                return result;
+            }
+        }
+                            </pre>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div id="interviewlibrary" class="tab-content hidden">
+                <h3 class="text-2xl font-bold mb-8 text-blue-600">Interview Library</h3>
+                <p class="mb-8">In this section, you'll find links to Java interview question resources from various sources. Click the links below to access these resources and prepare for your Java interviews.</p>
+                <ul class="list-disc pl-5 space-y-4">
+                    <li>
+                        <a href="https://www.interviewbit.com/java-interview-questions/" target="_blank" class="text-blue-600 hover:underline">1. Java Interview Questions - InterviewBit</a>
+                    </li>
+                    <li>
+                        <a href="https://www.geeksforgeeks.org/java-interview-questions/" target="_blank" class="text-blue-600 hover:underline">2. Java Interview Questions - GeeksforGeeks</a>
+                    </li>
+                    <li>
+                        <a href="https://www.javatpoint.com/corejava-interview-questions" target="_blank" class="text-blue-600 hover:underline">3. Core Java Interview Questions - JavaTpoint</a>
+                    </li>
+                    <li>
+                        <a href="https://www.guvi.in/blog/40-java-interview-questions-for-freshers/" target="_blank" class="text-blue-600 hover:underline">4. Java Interview Questions for Freshers - Guvi</a>
+                    </li>
+                    <li>
+                        <a href="https://arc.dev/talent-blog/java-interview-questions/" target="_blank" class="text-blue-600 hover:underline">5. Java Interview Questions - Arc</a>
+                    </li>
+                    <li>
+                        <a href="https://www.scholarhat.com/tutorial/java/java-interview-questions-and-answers" target="_blank" class="text-blue-600 hover:underline">6. Java Interview Questions and Answers - ScholarHat</a>
+                    </li>
+                    <li>
+                        <a href="https://www.simplilearn.com/tutorials/java-tutorial/java-interview-questions" target="_blank" class="text-blue-600 hover:underline">7. Java Interview Questions - Simplilearn</a>
+                    </li>
+                    <li>
+                        <a href="https://www.crsinfosolutions.com/scenario-based-java-interview-questions/" target="_blank" class="text-blue-600 hover:underline">8. Scenario-Based Java Interview Questions - CRS Info Solutions</a>
+                    </li>
+                    <li>
+                        <a href="https://distantjob.com/blog/interview-questions-entry-java-developer/" target="_blank" class="text-blue-600 hover:underline">9. Interview Questions for Entry-Level Java Developers - DistantJob</a>
+                    </li>
+                    <li>
+                        <a href="https://www.digitalocean.com/community/tutorials/java-programming-interview-questions" target="_blank" class="text-blue-600 hover:underline">10. Java Programming Interview Questions - DigitalOcean</a>
+                    </li>
+                    <li>
+                        <a href="https://www.greenstechnologys.com/core-java-interview-questions-and-answers.html" target="_blank" class="text-blue-600 hover:underline">11. Core Java Interview Questions and Answers - Greens Technology</a>
+                    </li>
+                    <li>
+                        <a href="https://dev.to/somadevtoo/50-java-interview-questions-for-practice-1c96" target="_blank" class="text-blue-600 hover:underline">12. 50 Java Interview Questions for Practice - DEV Community</a>
+                    </li>
+                </ul>
+            </div>
+          </div>
+      </main>
+  
+      <footer class="bg-gradient-to-r from-slate-800 to-slate-900 text-white py-16">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-24">
+                <div class="space-y-6 md:px-12">
+                    <h3 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-500">
+                        LastMinutePrep
+                    </h3>
+                    <p class="text-slate-300 leading-relaxed">
+                        Your go-to platform for last-minute coding interview preparation. Ace your interviews with confidence!
+                    </p>
+                    <a href="index.html" class="inline-block px-6 py-3 rounded-full bg-gradient-to-r from-sky-400 to-blue-500 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                        Get Started
+                    </a>
+                </div>
+                <div class="space-y-6 md:px-12">
+                    <h3 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-500">
+                        About Me
+                    </h3>
+                    <div class="space-y-4">
+                        <p class="text-2xl font-bold">Baba Sahil</p>
+                        <p class="text-slate-300">Aspirant Software Engineer</p>
+                        <p class="text-slate-300">
+                            <a href="mailto:babasahil2628@gmail.com" class="text-sky-400 hover:text-sky-300 transition-colors duration-300">
+                                babasahil2628@gmail.com
+                            </a>
+                        </p>
+                    </div>
+                </div>
+                <div class="space-y-6 md:px-12">
+                    <h3 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-500">
+                       Connect with Me
+                    </h3>
+                    <div class="space-y-4">
+                        <a href="https://www.linkedin.com/profile/in/baba-sahil-153721321/" target="_blank" class="flex items-center text-slate-300 hover:text-white transition-colors duration-300">
+                            <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                            LinkedIn Profile
+                        </a>
+                        <a href="https://github.com/babasahil29" target="_blank" class="flex items-center text-slate-300 hover:text-white transition-colors duration-300">
+                            <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
+                            </svg>
+                            GitHub
+                        </a>
+                        <a href="https://babasahil.my.canva.site/" target="_blank" class="flex items-center text-slate-300 hover:text-white transition-colors duration-300">
+                            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                            Portfolio
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 pt-8 border-t border-slate-700 text-center">
+                <p class="text-slate-400">&copy; 2024 <span class="text-sky-400 font-semibold">BabaSahil</span>. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+      
+    <script type="text/babel">
+      // InterviewSheet component
+      const InterviewSheet = () => {
+  const questions = [
+    {
+      level: "Basic",
+      items: [
+        {
+          question: "What is Java?",
+          answer: "Java is a high-level, object-oriented programming language designed to be platform-independent."
+        },
+        {
+          question: "What are the features of Java?",
+          answer: "Simple, Object-Oriented, Portable, Platform-independent, Secured, Robust, Multithreaded, and High-Performance."
+        },
+        {
+          question: "What is a Class in Java?",
+          answer: "A class is a blueprint or template from which objects are created."
+        },
+        {
+          question: "What is an Object in Java?",
+          answer: "An object is an instance of a class that holds data and behavior."
+        },
+        {
+          question: "Explain the difference between JDK, JRE, and JVM.",
+          answer: "JDK is the Java Development Kit, JRE is the Java Runtime Environment, and JVM is the Java Virtual Machine that runs Java bytecode."
+        },
+        {
+          question: "What are constructors in Java?",
+          answer: "Constructors are special methods used to initialize objects."
+        },
+        {
+          question: "What is inheritance in Java?",
+          answer: "Inheritance allows one class to inherit fields and methods from another class."
+        },
+        {
+          question: "What is encapsulation?",
+          answer: "Encapsulation is the concept of wrapping data and methods into a single unit (class), and controlling access to the data using access modifiers."
+        },
+        {
+          question: "What is polymorphism?",
+          answer: "Polymorphism allows one interface to be used for a general class of actions, where different actions are executed based on the object."
+        },
+        {
+          question: "What are access modifiers in Java?",
+          answer: "Public, private, protected, and default are the access modifiers that control the visibility of class members."
+        }
+      ]
+    },
+    {
+      level: "Intermediate",
+      items: [
+        {
+          question: "Explain the difference between method overloading and method overriding.",
+          answer: "Overloading allows multiple methods with the same name but different parameters. Overriding allows a subclass to provide a specific implementation of a method already defined in its superclass."
+        },
+        {
+          question: "What is an interface in Java?",
+          answer: "An interface is a blueprint of a class that contains abstract methods. A class that implements the interface provides implementations for all the abstract methods."
+        },
+        {
+          question: "What is an abstract class in Java?",
+          answer: "An abstract class is a class that cannot be instantiated and may contain abstract methods that must be implemented by subclasses."
+        },
+        {
+          question: "What is multithreading in Java?",
+          answer: "Multithreading allows concurrent execution of two or more threads for maximum CPU utilization."
+        },
+        {
+          question: "What is the difference between 'throw' and 'throws' in Java?",
+          answer: "throw is used to explicitly throw an exception. throws is used in the method declaration to indicate that the method can throw exceptions."
+        },
+        {
+          question: "What are checked and unchecked exceptions in Java?",
+          answer: "Checked exceptions are checked at compile-time (e.g., IOException), while unchecked exceptions are checked at runtime (e.g., NullPointerException)."
+        },
+        {
+          question: "What is the difference between HashMap and Hashtable?",
+          answer: "HashMap is non-synchronized and allows one null key, while Hashtable is synchronized and doesn't allow any null keys."
+        },
+        {
+          question: "What is garbage collection in Java?",
+          answer: "Garbage collection is the process by which Java programs perform automatic memory management by reclaiming the memory used by objects that are no longer needed."
+        },
+        {
+          question: "What are Lambda Expressions in Java?",
+          answer: "Lambda expressions are used to provide a clear and concise way to represent one method interface using an expression."
+        },
+        {
+          question: "What is Serialization in Java?",
+          answer: "Serialization is the process of converting an object into a byte stream for storage or transmission."
+        }
+      ]
+    },
+    {
+      level: "Expert",
+      items: [
+        {
+          question: "What is a Singleton class?",
+          answer: "A Singleton class restricts the instantiation of a class to one object."
+        },
+        {
+          question: "What is reflection in Java?",
+          answer: "Reflection is the ability to inspect and modify the runtime behavior of an application, accessing methods, and fields at runtime."
+        },
+        {
+          question: "What is dependency injection?",
+          answer: "Dependency Injection is a design pattern that allows a class to receive its dependencies from an external source rather than creating them."
+        },
+        {
+          question: "What is JIT compilation?",
+          answer: "Just-In-Time (JIT) compilation improves performance by converting Java bytecode into native machine code at runtime."
+        },
+        {
+          question: "What is the difference between Comparable and Comparator in Java?",
+          answer: "Comparable is used to define the natural ordering of an object, while Comparator is used to define custom ordering."
+        },
+        {
+          question: "What is the Executor Framework in Java?",
+          answer: "The Executor framework provides a high-level API for managing threads and concurrency."
+        },
+        {
+          question: "Explain deadlock in multithreading.",
+          answer: "A deadlock occurs when two or more threads are blocked forever, waiting for each other to release resources."
+        },
+        {
+          question: "What is a memory leak in Java?",
+          answer: "A memory leak occurs when objects are no longer needed but still referenced, preventing garbage collection."
+        },
+        {
+          question: "What is Aspect-Oriented Programming (AOP)?",
+          answer: "AOP is a programming paradigm that increases modularity by allowing the separation of cross-cutting concerns."
+        },
+        {
+          question: "What are annotations in Java?",
+          answer: "Annotations provide metadata for the Java compiler and runtime, allowing additional functionalities such as suppressing warnings or marking methods for overriding."
+        }
+      ]
+    }
+  ];
+
+  return (
+    <div className="space-y-8">
+      {questions.map((level, index) => (
+        <div key={index}>
+            <h4 class="text-2xl font-semibold mb-4 text-blue-500">{level.level} Level Questions</h4>
+          <ol className="list-decimal list-inside space-y-4">
+            {level.items.map((item, itemIndex) => (
+              <li key={itemIndex}>
+                <p className="font-medium">{item.question}</p>
+                {item.answer && <p className="mt-1">{item.answer}</p>}
+                {item.code && (
+                  <pre className="bg-gray-100 p-2 rounded mt-2 overflow-x-auto">
+                    <code>{item.code.trim()}</code>
+                  </pre>
+                )}
+              </li>
+            ))}
+          </ol>
+        </div>
+      ))}
+    </div>
+  );
+};
+      // Render the InterviewSheet component
+      ReactDOM.render(<InterviewSheet />, document.getElementById("interview-sheet-root"));
+    </script>
+  
+      <script>
+        const debounce = (func, delay) => {
+    let inDebounce;
+    return function() {
+        const context = this;
+        const args = arguments;
+        clearTimeout(inDebounce);
+        inDebounce = setTimeout(() => func.apply(context, args), delay);
+    };
+};
+
+// Function to show tab
+function showTab(tabName) {
+    const allTabs = document.querySelectorAll('.tab-content');
+    const allButtons = document.querySelectorAll('.tab-btn');
+    const selectedTab = document.getElementById(tabName);
+    const clickedButton = document.querySelector(`.tab-btn[onclick*="${tabName}"]`);
+
+    allTabs.forEach(tab => tab.classList.add('hidden'));
+    allButtons.forEach(btn => {
+        btn.classList.remove('bg-blue-500', 'text-white');
+        btn.classList.add('bg-gray-200', 'text-gray-700');
+    });
+
+    if (selectedTab) selectedTab.classList.remove('hidden');
+    if (clickedButton) {
+        clickedButton.classList.remove('bg-gray-200', 'text-gray-700');
+        clickedButton.classList.add('bg-blue-500', 'text-white');
+    }
+
+    const languageDropdown = document.getElementById('languageDropdown');
+    if (languageDropdown && languageDropdown.classList.contains('show')) {
+        languageDropdown.classList.remove('show');
+    }
+}
+
+// Function to download cheat sheet
+function downloadCheatSheet() {
+    alert('Downloading Python Cheat Sheet...');
+}
+
+// Function to check if element is in viewport
+function isElementInViewport(el) {
+    const rect = el.getBoundingClientRect();
+    return (
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+    );
+}
+
+// Function to handle scroll and reveal sections
+const handleScroll = debounce(() => {
+    const sections = document.querySelectorAll('.cheatsheet-section');
+    sections.forEach(section => {
+        if (isElementInViewport(section) && !section.classList.contains('visible')) {
+            section.classList.add('visible');
+        }
+    });
+}, 100);
+
+// Event listeners
+document.addEventListener('DOMContentLoaded', () => {
+    const dropdownBtn = document.getElementById('dropdownBtn');
+    const languageDropdown = document.getElementById('languageDropdown');
+
+    dropdownBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        languageDropdown.classList.toggle('show');
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!dropdownBtn.contains(e.target) && !languageDropdown.contains(e.target)) {
+            languageDropdown.classList.remove('show');
+        }
+    });
+
+    const fadeElements = document.querySelectorAll('.fade-in');
+    fadeElements.forEach(element => element.classList.add('visible'));
+
+    const easySection = document.querySelector('.cheatsheet-section');
+    if (easySection) easySection.classList.add('visible');
+
+    handleScroll();
+});
+
+window.addEventListener('scroll', handleScroll);
+window.addEventListener('resize', handleScroll);
+      </script>
+  </body>
+  </html>
+      

@@ -1,0 +1,1880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastPrepSahil - PHP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&display=swap');
+
+:root {
+--primary-color: #3b82f6;
+--secondary-color: #38bdf8;
+--background-color: #f9f9f9;
+--text-color: #333;
+}
+
+* {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+}
+
+body {
+font-family: 'Manrope', sans-serif;
+line-height: 1.6;
+color: var(--text-color);
+}
+
+.hero-section {
+background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/php.jpg');
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+height: 400px;
+position: relative;
+padding: 2rem 1rem;
+}
+
+.hero-section::before {
+content: "";
+position: absolute;
+inset: 0;
+background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 2px, transparent 2px, transparent 4px);
+pointer-events: none;
+}
+
+.fade-in {
+opacity: 0;
+transform: translateY(20px);
+transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.fade-in.visible {
+opacity: 1;
+transform: translateY(0);
+}
+
+.btn-animated {
+transition: all 0.3s ease;
+}
+
+.btn-animated:hover, .btn-animated:focus {
+transform: translateY(-3px) scale(1.05);
+box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.btn-animated:active {
+transform: translateY(-1px) scale(1.02);
+box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.dropdown-content {
+display: none;
+position: absolute;
+background-color: var(--background-color);
+min-width: 160px;
+box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+z-index: 1;
+}
+
+.dropdown-content a {
+color: var(--text-color);
+padding: 12px 16px;
+text-decoration: none;
+display: block;
+transition: all 0.2s ease;
+}
+
+.dropdown-content a:hover, .dropdown-content a:focus {
+background-color: #f1f1f1;
+transform: translateX(5px);
+}
+
+.show {
+display: block;
+animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+from { opacity: 0; }
+to { opacity: 1; }
+}
+
+.code-block {
+background-color: #f8f8f8;
+border-left: 4px solid var(--primary-color);
+padding: 1rem;
+margin: 1rem 0;
+font-family: 'Courier New', Courier, monospace;
+overflow-x: auto;
+}
+
+.interview-sheet-container {
+background-color: var(--background-color);
+padding: 20px;
+border: 1px solid #ddd;
+border-radius: 10px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+background-image: linear-gradient(to right, #1e293b, #0f172a);
+position: relative;
+overflow: hidden;
+padding: 2rem 1rem;
+}
+
+footer::before {
+content: '';
+position: absolute;
+inset: 0;
+background: url('path/to/subtle-pattern.png') repeat;
+opacity: 0.05;
+z-index: 0;
+}
+
+footer > div {
+position: relative;
+z-index: 1;
+}
+
+footer h3 {
+font-size: 1.25rem;
+margin-bottom: 1rem;
+position: relative;
+display: inline-block;
+}
+
+footer h3::after {
+content: '';
+position: absolute;
+left: 0;
+bottom: -5px;
+width: 50px;
+height: 2px;
+background: linear-gradient(to right, var(--secondary-color), var(--primary-color));
+}
+
+footer p {
+font-size: 0.9rem;
+line-height: 1.6;
+}
+
+footer a:not(.inline-block) {
+transition: all 0.3s ease;
+}
+
+footer a:not(.inline-block):hover, footer a:not(.inline-block):focus {
+color: var(--secondary-color);
+transform: translateX(5px);
+}
+
+footer .inline-block {
+transition: all 0.3s ease;
+}
+
+footer .inline-block:hover, footer .inline-block:focus {
+transform: translateY(-3px);
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.social-icon {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+width: 40px;
+height: 40px;
+border-radius: 50%;
+background: rgba(255, 255, 255, 0.1);
+transition: all 0.3s ease;
+}
+
+.social-icon:hover, .social-icon:focus {
+background: rgba(255, 255, 255, 0.2);
+transform: translateY(-3px);
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+.hero-section {
+  height: 350px;
+}
+
+footer .grid {
+  gap: 1.5rem;
+}
+
+footer .md\:px-12 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.tab-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tab-btn {
+  flex: 1 1 calc(30% - 0.25rem);
+  font-size: 0.9rem;
+  padding: 0.5rem;
+}
+
+}@media only screen and (max-width: 768px) {
+.text-2xl.font-bold.text-blue-600 {
+  display: none;
+}
+
+}</style>
+</head>
+<body class="bg-gray-100"></body>
+    <header class="bg-white shadow-md fixed w-full z-10">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+          <div class="flex items-center">
+            <img src="images/logo2.jpeg" alt="FastPrepSahil Logo" class="h-12 w-auto mr-3">
+            <h1 class="text-2xl font-bold text-blue-600">FastPrepSahil</h1>
+        </div>
+            <div class="flex items-center space-x-2">
+            
+              <button onclick="window.location.href='index.html'" id="searchBtn" class="btn-animated bg-blue-500 text-white px-4 py-2 rounded">Home</button>
+                <div class="relative inline-block">
+                    <button id="dropdownBtn" class="btn-animated bg-gray-200 text-gray-700 px-4 py-2 rounded">
+                        Select Language <i class="fas fa-caret-down ml-1"></i>
+                    </button>
+                    <div id="languageDropdown" class="dropdown-content">
+                        <a href="python.html">Python</a>
+                        <a href="c.html">C</a>
+                        <a href="java.html">Java</a>
+                        <a href="cpp.html">C++</a>
+                        <a href="html.html">HTML</a>
+                        <a href="css.html">CSS</a>
+                        <a href="javascript.html">JavaScript</a>
+                        <a href="sql.html">SQL</a>
+                        <a href="php.html">PHP</a>
+                        <a href="mern.html">MERN</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="hero-section flex items-center justify-center pt-16">
+        <h2 id="language-title" class="text-4xl font-bold text-white text-center">PHP Resources</h2>
+    </div>
+
+    <main class="container mx-auto mt-8 p-4">
+      <div class="tab-buttons flex flex-wrap gap-2 mb-6">
+        <button onclick="showTab('snapshot')" class="tab-btn btn-animated bg-blue-500 text-white px-3 py-2 rounded text-sm flex-grow">Language Snapshot</button>
+        <button onclick="showTab('cheatsheet')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Cheat Sheet</button>
+        <button onclick="showTab('cheatsheetpdfs')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Cheat Sheet PDFs</button>
+        <button onclick="showTab('cheatsheetlibrary')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Cheat Sheet Library</button>
+        <button onclick="showTab('interviewsheet')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Interview Sheet</button>
+        <button onclick="showTab('interviewlibrary')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Interview Library</button>
+        <button onclick="showTab('standardcodesnippets')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Standard Code Snippets</button>
+    </div>
+        <div id="tab-content" class="bg-white p-6 rounded-lg shadow-md fade-in">
+          <div id="snapshot" class="tab-content">
+            <h3 class="text-2xl font-bold mb-8 text-blue-600">Language Snapshot</h3>
+            <div id="snapshot-content" class="space-y-8">
+              <section>
+                <h4 class="text-xl font-semibold mb-4">Introduction to PHP</h4>
+                <ul class="list-disc pl-6 space-y-2">
+                  <li>
+                    <span class="font-medium">Language:</span> PHP (Hypertext Preprocessor)
+                  </li>
+                  <li>
+                    <span class="font-medium">Invented By:</span> Rasmus Lerdorf
+                  </li>
+                  <li>
+                    <span class="font-medium">Year:</span> 1994
+                  </li>
+                  <li>
+                    <span class="font-medium">Overview:</span> PHP is a widely-used open-source server-side scripting language designed for web development but also used as a general-purpose programming language. PHP is embedded in HTML, and it interacts with databases, making it a powerful tool for dynamic website development.
+                  </li>
+                </ul>
+              </section>
+          
+              <section>
+                <h4 class="text-xl font-semibold mb-4">Key Features</h4>
+                <ul class="list-disc pl-6 space-y-2">
+                  <li>
+                    <span class="font-medium">Server-Side Language:</span> Executes on the server, producing dynamic content on web pages.
+                  </li>
+                  <li>
+                    <span class="font-medium">Cross-Platform:</span> Works on various platforms (Windows, Linux, macOS).
+                  </li>
+                  <li>
+                    <span class="font-medium">Database Interaction:</span> Supports various databases like MySQL, PostgreSQL, SQLite.
+                  </li>
+                  <li>
+                    <span class="font-medium">Embedded in HTML:</span> PHP code is executed on the server, generating HTML to display in the browser.
+                  </li>
+                  <li>
+                    <span class="font-medium">Open Source:</span> Free to use and constantly improved by a global community of developers.
+                  </li>
+                  <li>
+                    <span class="font-medium">Loosely Typed:</span> PHP doesn’t require variable type declarations, making it easier to write flexible code.
+                  </li>
+                </ul>
+              </section>
+          
+              <section>
+                <h4 class="text-xl font-semibold mb-4">Common Use Cases</h4>
+                <ul class="list-disc pl-6 space-y-2">
+                  <li>
+                    <span class="font-medium">Dynamic Website Development:</span> Creating pages that display different data each time they are loaded.
+                  </li>
+                  <li>
+                    <span class="font-medium">Content Management Systems (CMS):</span> Popular systems like WordPress, Drupal, and Joomla are written in PHP.
+                  </li>
+                  <li>
+                    <span class="font-medium">Form Handling:</span> Processing user input from forms, such as login information or data submission.
+                  </li>
+                  <li>
+                    <span class="font-medium">E-commerce Platforms:</span> Used in back-end development for online stores, like WooCommerce.
+                  </li>
+                  <li>
+                    <span class="font-medium">Web Applications:</span> Supporting a wide range of web apps that rely on real-time data or interactions with databases.
+                  </li>
+                </ul>
+              </section>
+          
+              <section>
+                <h4 class="text-xl font-semibold mb-4">Popular Frameworks</h4>
+                <ul class="list-disc pl-6 space-y-2">
+                  <li>
+                    <span class="font-medium">Laravel:</span> A modern PHP framework known for its elegant syntax and ease of use.
+                  </li>
+                  <li>
+                    <span class="font-medium">Symfony:</span> A robust framework ideal for large-scale web applications.
+                  </li>
+                  <li>
+                    <span class="font-medium">CodeIgniter:</span> Lightweight and fast for simple, scalable applications.
+                  </li>
+                  <li>
+                    <span class="font-medium">Zend Framework:</span> A robust, secure, and scalable PHP framework for enterprise applications.
+                  </li>
+                  <li>
+                    <span class="font-medium">CakePHP:</span> Provides a quick and flexible way to build web applications with minimal setup.
+                  </li>
+                </ul>
+              </section>
+          
+              <section>
+                <h4 class="text-xl font-semibold mb-4">PHP Versions</h4>
+                <ul class="list-disc pl-6 space-y-2">
+                  <li>
+                    <span class="font-medium">PHP 4 (2000):</ span> Introduced object-oriented programming (OOP) features.
+                  </li>
+                  <li>
+                    <span class="font-medium">PHP 5 (2004):</span> Expanded OOP support, added exception handling, and enhanced performance.
+                  </li>
+                  <li>
+                    <span class="font-medium">PHP 7 (2015):</span> Drastically improved performance, memory usage, and introduced scalar type hints.
+                  </li>
+                  <li>
+                    <span class="font-medium">PHP 8 (2020):</span> Added JIT compilation for better performance and new language features like union types and named arguments.
+                  </li>
+                </ul>
+              </section>
+          
+              <section>
+                <h4 class="text-xl font-semibold mb-4">Key PHP Functions</h4>
+                <ul class="list-disc pl-6 space-y-2">
+                  <li>
+                    <span class="font-medium">echo():</span> Outputs strings, numbers, and HTML.
+                  </li>
+                  <li>
+                    <span class="font-medium">isset():</span> Checks if a variable is set and not null.
+                  </li>
+                  <li>
+                    <span class="font-medium">empty():</span> Determines if a variable is empty.
+                  </li>
+                  <li>
+                    <span class="font-medium">array():</span> Creates an array in PHP.
+                  </li>
+                  <li>
+                    <span class="font-medium">include() and require():</span> Includes the content of one PHP file into another.
+                  </li>
+                </ul>
+              </section>
+          
+              <section>
+                <h4 class="text-xl font-semibold mb-4">PHP in the Real World</h4>
+                <p>PHP powers some of the most popular websites in the world, including Facebook, WordPress, and Wikipedia. It is especially favored for its ease of use, flexibility, and its ability to integrate with databases, making it a perfect choice for web development. The language continues to evolve, adapting to modern web standards, and remains one of the most used server-side languages in the world.</p>
+              </section>
+            </div>
+          </div>
+          <div id="cheatsheet" class="tab-content hidden">
+            <h3 class="text-2xl font-bold mb-8 text-blue-600">Cheat Sheet</h3>
+            
+            <section class="cheatsheet-section mb-12">
+                <h3 class="text-2xl font-semibold mb-4 text-blue-500">Basic Level</h3>
+                
+                <div class="mb-6">
+                    <h4 class="text-xl font-medium mb-2">1. Variables:</h4>
+                    <p class="mb-2">In PHP, variables are declared with a $ symbol.</p>
+                    <div class="code-block">
+                        <pre>
+                            $name = "Sahil";
+                            $age = 23;
+                        </pre>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="text-xl font-medium mb-2">2. Echo Statement:</h4>
+                    <p class="mb-2">Used to output strings, numbers, or HTML.</p>
+                    <div class="code-block">
+                        <pre>
+                            echo "Hello, World!";
+                        </pre>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="text-xl font-medium mb-2">3. Concatenation:</h4>
+                    <p class="mb-2">Combine strings using the dot . operator.</p>
+                    <div class="code-block">
+                        <pre>
+                            echo "Hello, " . $name;
+                        </pre>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="text-xl font-medium mb-2">4. If-Else Statements:</h4>
+                    <p class="mb-2">Basic conditional logic.</p>
+                    <div class="code-block">
+                        <pre>
+                            if ($age > 18) {
+                                echo "Adult";
+                            } else {
+                                echo "Minor";
+                            }
+                        </pre>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="text-xl font-medium mb-2">5. Arrays:</h4>
+                    <p class="mb-2">Create indexed arrays.</p>
+                    <div class="code-block">
+                        <pre>
+                            $fruits = array("Apple", "Banana", "Orange");
+                            echo $fruits[0]; // Outputs "Apple"
+                        </pre>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="text-xl font-medium mb-2">6. Associative Arrays:</h4>
+                    <p class="mb-2">Arrays with key-value pairs.</p>
+                    <div class="code-block">
+                        <pre>
+                            $person = array("name" => "Sahil", "age" => 23);
+                            echo $person['name']; // Outputs "Sahil"
+                        </pre>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="text-xl font-medium mb-2">7. Loops:</h4>
+                    <p class="mb-2">Basic for loop.</p>
+                    <div class="code-block">
+                        <pre>
+                            for ($i = 0; $i < 5; $i++) {
+                                echo $i;
+                            }
+                        </pre>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="text-xl font-medium mb-2">8. Functions:</h4>
+                    <p class="mb-2">Declare simple functions.</p>
+                    <div class="code-block">
+                        <pre>
+                            function greet($name) {
+                                echo "Hello, " . $name;
+                            }
+                            greet("Sahil");
+                        </pre>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="text-xl font-medium mb-2">9. Include & Require:</h4>
+                    <p class="mb-2">Include external files.</p>
+                    <div class="code-block">
+                        <pre>
+                            include 'header.php';
+                            require 'config.php';
+                        </pre>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="text-xl font-medium mb-2">10. Form Handling:</h4>
+                    <p class="mb-2">Get form data with $_POST.</p>
+                    <div class="code-block">
+                        <pre>
+                            $name = $_POST['name'];
+                            echo "Welcome, " . $name;
+                        </pre >
+                    </div>
+                </div>
+            </section>
+            
+            <section class="cheatsheet-section mb-12">
+                <h3 class="text-2xl font-semibold mb-4 text-blue-500">Intermediate Level</h3>
+                
+                <div class="mb-6">
+                    <h4 class="text-xl font-medium mb-2">1. Switch Statement:</h4>
+                    <p class="mb-2">Alternative to multiple if-else blocks.</p>
+                    <div class="code-block">
+                        <pre>
+                            $day = "Monday";
+                            switch ($day) {
+                                case "Monday":
+                                    echo "Start of the week";
+                                    break;
+                                case "Friday":
+                                    echo "End of the week";
+                                    break;
+                                default:
+                                    echo "Midweek";
+                            }
+                        </pre>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="text-xl font-medium mb-2">2. Associative Array Loops:</h4>
+                    <p class="mb-2">Loop through associative arrays.</p>
+                    <div class="code-block">
+                        <pre>
+                            foreach ($person as $key => $value) {
+                                echo $key . ": " . $value;
+                            }
+                        </pre>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="text-xl font-medium mb-2">3. Multidimensional Arrays:</h4>
+                    <p class="mb-2">Arrays within arrays.</p>
+                    <div class="code-block">
+                        <pre>
+                            $students = array(
+                                array("name" => "Sahil", "age" => 23),
+                                array("name" => "John", "age" => 24)
+                            );
+                            echo $students[0]['name']; // Outputs "Sahil"
+                        </pre>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="text-xl font-medium mb-2">4. String Functions:</h4>
+                    <p class="mb-2">Common string operations.</p>
+                    <div class="code-block">
+                        <pre>
+                            $str = "Hello World";
+                            echo strlen($str); // Outputs 11
+                            echo str_replace("World", "PHP", $str); // Replaces "World" with "PHP"
+                        </pre>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="text-xl font-medium mb-2">5. Date Functions:</h4>
+                    <p class="mb-2">Get and format the current date.</p>
+                    <div class="code-block">
+                        <pre>
+                            echo date("Y-m-d"); // Outputs current date in "YYYY-MM-DD" format
+                        </pre>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="text-xl font-medium mb-2">6. File Handling:</h4>
+                    <p class="mb-2">Read and write to files.</p>
+                    <div class="code-block">
+                        <pre>
+                            $file = fopen("data.txt", "r");
+                            echo fread($file, filesize("data.txt"));
+                            fclose($file);
+                        </pre>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="text-xl font-medium mb-2">7. Cookies:</h4>
+                    <p class="mb-2">Set and retrieve cookies.</p>
+                    <div class="code-block">
+                        <pre>
+                            setcookie("user", "Sahil", time() + (86400 * 30)); // 30 days
+                            echo $_COOKIE['user']; // Outputs "Sahil"
+                        </pre>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="text-xl font-medium mb-2">8. Sessions:</h4>
+                    <p class="mb-2">Start and use sessions.</p>
+                    <div class="code-block">
+                        <pre>
+                            session_start();
+                            $_SESSION['username'] = "Sahil";
+                            echo $_SESSION['username']; // Outputs "Sahil"
+                        </pre>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="text-xl font-medium mb-2">9. Error Handling:</h4>
+                    <p class="mb-2">Use try-catch for exceptions.</p>
+                    <div class="code-block">
+                        <pre>
+                            try {
+                                // Some code
+                                throw new Exception("Error occurred");
+                            } catch (Exception $e) {
+                                echo $e->getMessage();
+                            }
+                        </pre>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="text-xl font-medium mb-2">10. Filters:</h4>
+                    <p class="mb-2">Validate input data.</p>
+                    <div class="code-block">
+                        <pre>
+                            $email = "test@example.com";
+                            if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                                echo "Valid email";
+                            } else {
+                                echo "Invalid email";
+                            }
+                        </pre>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="cheatsheet-section mb-12">
+                <h3 class="text-2xl font-semibold mb-4 text-blue-500">Expert Level</h3>
+                
+                <div class="mb-6">
+                    <h4 class="text-xl font-medium mb-2">1. Object-Oriented Programming:</h4>
+                    <p class="mb-2">Create classes and objects.</p>
+                    <div class="code-block">
+                        <pre>
+                            class Car {
+                                public $brand;
+                                public function __construct($brand) {
+                                    $this->brand = $brand;
+                                }
+                                public function getBrand() {
+                                    return $this->brand;
+                                }
+                            }
+                            $car = new Car("Tesla");
+                            echo $car->getBrand(); // Outputs "Tesla"
+                        </pre>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="text-xl font-medium mb-2">2. Inheritance:</h4>
+                    <p class="mb-2">Extend classes.</p>
+                    <div class="code-block">
+                        <pre>
+                            class ElectricCar extends Car {
+                                public $batteryRange;
+                                public function __construct($brand, $batteryRange) {
+                                    parent::__construct($brand);
+                                    $this->batteryRange = $batteryRange;
+                                }
+                            }
+                            $myCar = new ElectricCar("Tesla", 300);
+                            echo $myCar->getBrand(); // Outputs "Tesla"
+                        </pre>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="text-xl font-medium mb-2">3. Namespaces:</h4>
+                    <p class="mb-2">Avoid name conflicts.</p>
+                    <div class="code-block">
+                        <pre>
+                            namespace Vehicles;
+                            class Car {
+                                // Class code
+                            }
+                        </pre>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="text-xl font-medium mb-2">4. Interfaces:</h4>
+                    <p class="mb-2">Define a contract for classes.</p>
+                    <div class="code-block">
+                        <pre>
+                            interface Vehicle {
+                                public function drive();
+                            }
+                            class Bike implements Vehicle {
+                                public function drive() {
+                                    echo "Bike is driving";
+                                }
+                            }
+                        </pre>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="text-xl font-medium mb-2">5. Abstract Classes:</h4>
+                    <p class="mb-2">Blueprint for subclasses.</p>
+                    <div class="code-block">
+                        <pre>
+                            abstract class Animal {
+                                abstract public function sound();
+                            }
+                            class Dog extends Animal {
+                                public function sound() {
+                                    echo "Bark";
+                                }
+                            }
+                        </pre>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="text-xl font-medium mb-2">6. Traits:</h4>
+                    <p class="mb-2">Reuse code across classes.</p>
+                    <div class="code-block">
+                        <pre>
+                            trait Logger {
+                                public function log($message) {
+                                    echo $message;
+                                }
+                            }
+                            class App {
+                                use Logger;
+                            }
+                            $app = new App();
+                            $app->log("Logging in PHP");
+                        </pre>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="text-xl font-medium mb-2">7. Regular Expressions:</h4>
+                    <p class="mb-2">Match patterns in strings.</p>
+                    <div class="code-block">
+                        <pre>
+                            $pattern = "/php/i";
+                            $text = "I love PHP";
+                            echo preg_match($pattern, $text); // Outputs 1 (true)
+                        </pre>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="text-xl font-medium mb-2">8. PDO for Database:</h4>
+                    <p class="mb-2">Secure database interaction.</p>
+                    <div class="code-block">
+                        <pre>
+                            $pdo = new PDO('mysql:host=localhost;dbname=test', 'user', 'password');
+                            $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
+                            $stmt->execute([1]);
+                            $user = $stmt->fetch();
+                        </pre>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="text-xl font-medium mb-2">9. Dependency Injection:</h4>
+                    <p class="mb-2">Inject dependencies into objects.</p>
+                    <div class="code-block">
+                        <pre>
+                            class Car {
+                                protected $engine;
+                                public function __construct(Engine $engine) {
+                                    $this->engine = $engine;
+                                }
+                            }
+                        </pre>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="text-xl font-medium mb-2">10. Design Patterns:</h4>
+                    <p class="mb-2">Implement common design patterns like Singleton.</p>
+                    <div class="code-block">
+                        <pre>
+                            class Singleton {
+                                private static $instance;
+                                private function __construct() {}
+                                public static function getInstance() {
+                                    if (self::$instance == null) {
+                                        self::$instance = new Singleton();
+                                    }
+                                    return self::$instance;
+                                }
+                            }
+                        </pre>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div id="cheatsheetpdfs" class="tab-content hidden">
+          <h3 class="text-2xl font-bold mb-8 text-blue-600">Cheat Sheet PDFs</h3>
+          <p class="mb-8">In this section, you'll find downloadable PDF versions of PHP cheatsheets from different sources. Click on the links below to download the cheat sheets directly.</p>
+          <ul class="list-disc pl-5 space-y-4">
+            <li>
+              <a href="https://codemy.com/php-sheet.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                1. PHP Cheat Sheet (PDF) - CodeMy
+              </a>
+            </li>
+            <li>
+              <a href="https://courses.cs.washington.edu/courses/cse154/19sp/resources/assets/cheatsheets/php-cheatsheet.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                2. PHP Cheat Sheet (PDF) - University of Washington
+              </a>
+            </li>
+            <li>
+              <a href="https://htmlcheatsheet.com/php/phpcheatsheet.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                3. PHP Cheat Sheet (PDF) - HTML Cheat Sheet
+              </a>
+            </li>
+            <li>
+              <a href="https://websitesetup.org/wp-content/uploads/2020/09/PHP-Cheat-Sheet.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                4. PHP Cheat Sheet (PDF) - Website Setup
+              </a>
+            </li>
+            <li>
+              <a href="https://assets.ctfassets.net/nkydfjx48olf/5qFMF3mvitLMahX67i7iOb/028229996c13cbc27a0538f055a41b46/php_cookbook.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                5. PHP Cookbook (PDF) - CTF Assets
+              </a>
+            </li>
+            <li>
+              <a href="http://www.cheat-sheets.org/saved-copy/HTML_CSS_PHP_cheat_sheet.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                6. HTML, CSS, PHP Cheat Sheet (PDF) - Cheat Sheets
+              </a>
+            </li>
+          </ul>
+        </div>
+              <div id="cheatsheetlibrary" class="tab-content hidden">
+                <h3 class="text-2xl font-bold mb-8 text-blue-600">Cheat Sheet Library</h3>
+                <p class="mb-8">In this section, you'll find various links to PHP cheatsheets available on different websites. Click on the links below to explore the resources.</p>
+                <ul class="list-disc pl-5 space-y-4">
+                  <li>
+                    <a href="https://www.codewithharry.com/blogpost/php-cheatsheet/" target="_blank" class="text-blue-600 hover:underline">
+                      1. CodeWithHarry PHP Cheat Sheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://websitesetup.org/php-cheat-sheet/" target="_blank" class="text-blue-600 hover:underline">
+                      2. WebsiteSetup PHP Cheat Sheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://gist.github.com/SoftwareDevPro/1cf7cd31bcdeb311604a7dddd742ea6d" target="_blank" class="text-blue-600 hover:underline">
+                      3. GitHub Gist PHP Cheat Sheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://quickref.me/php.html" target="_blank" class="text-blue-600 hover:underline">
+                      4. QuickRef.me PHP Cheat Sheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://overapi.com/php" target="_blank" class="text-blue-600 hover:underline">
+                      5. OverAPI PHP Cheat Sheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://cheatography.com/tag/php/" target="_blank" class="text-blue-600 hover:underline">
+                      6. Cheatography PHP Cheat Sheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.codecademy.com/learn/learn-php/modules/getting-started-with-php/cheatsheet" target="_blank" class="text-blue-600 hover:underline">
+                      7. Codecademy PHP Cheat Sheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.keycdn.com/blog/php-cheat-sheet" target="_blank" class="text-blue-600 hover:underline">
+                      8. KeyCDN PHP Cheat Sheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.codecademy.com/resources/cheatsheets/language/php" target="_blank" class="text-blue-600 hover:underline">
+                      9. Codecademy PHP Language Cheat Sheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://dev.to/ericchapman/php-cheat-sheet-updated-to-php-81-3o4p" target="_blank" class="text-blue-600 hover:underline">
+                      10. Dev.to PHP Cheat Sheet updated to PHP 8.1
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            <div id="interviewsheet" class="tab-content hidden">
+                <h3 class="text-2xl font-bold mb-8 text-blue-600">Interview Sheet</h3>
+                
+                  <div id="interview-sheet-root"></div>
+              </div>
+              <div id="standardcodesnippets" class="tab-content hidden">
+                <h3 class="text-2xl font-bold mb-4 text-blue-600">Standard Code Snippets</h3>
+            
+                <section class="cheatsheet-section mb-12">
+                    <h4 class="text-2xl font-semibold mb-4 text-blue-500">Basic Level</h4>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Basic PHP Syntax</h5>
+                        <p class="mb-2">Basic PHP syntax to print "Hello, World!".</p>
+                        <div class="code-block">
+                            <pre>
+            &lt;?php
+            echo "Hello, World!";
+            ?&gt;
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Variable Declaration</h5>
+                        <p class="mb-2">Declare and print variables in PHP.</p>
+                        <div class="code-block">
+                            <pre>
+            &lt;?php
+            $name = "Sahil";
+            $age = 22;
+            echo "Name: $name, Age: $age";
+            ?&gt;
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">If-Else Statement</h5>
+                        <p class="mb-2">Use if-else statement to check conditions.</p>
+                        <div class="code-block">
+                            <pre>
+            &lt;?php
+            $number = 10;
+            if ($number > 0) {
+                echo "Positive number";
+            } else {
+                echo "Negative number";
+            }
+            ?&gt;
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Switch Statement</h5>
+                        <p class="mb-2">Use switch statement to check multiple conditions.</p>
+                        <div class="code-block">
+                            <pre>
+            &lt;?php
+            $day = 2;
+            switch ($day) {
+                case 1:
+                    echo "Monday";
+                    break;
+                case 2:
+                    echo "Tuesday";
+                    break;
+                default:
+                    echo "Invalid day";
+            }
+            ?&gt;
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">For Loop</h5>
+                        <p class="mb-2">Use for loop to iterate over a range of values.</p>
+                        <div class="code-block">
+                            <pre>
+            &lt;?php
+            for ($i = 1; $i <= 5; $i++) {
+                echo $i;
+            }
+            ?&gt;
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">While Loop</h5>
+                        <p class="mb-2">Use while loop to iterate over a range of values.</p>
+                        <div class="code-block">
+                            <pre>
+            &lt;?php
+            $i = 1;
+            while ($i <= 5) {
+                echo $i;
+                $i++;
+            }
+            ?&gt;
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Function Declaration</h5>
+                        <p class="mb-2">Declare a function to perform a specific task.</p>
+                        <div class="code-block">
+                            <pre>
+            &lt;?php
+            function greet($name) {
+                return "Hello, $name!";
+            }
+            echo greet("Sahil");
+            ?&gt;
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Array Declaration</h5>
+                        <p class="mb-2">Declare an array to store multiple values.</p>
+                        <div class="code-block">
+                            <pre>
+            &lt;?php
+            $colors = array("Red", "Green", "Blue");
+            echo $colors[0]; // Outputs Red
+            ?&gt;
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Foreach Loop (Array Traversal)</h5>
+                        <p class="mb-2">Use foreach loop to iterate over an array.</p>
+                        <div class="code-block">
+                            <pre>
+            &lt;?php
+            $fruits = array("Apple", "Banana", "Cherry");
+            foreach ($fruits as $fruit) {
+                echo $fruit;
+            }
+            ?&gt;
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Form Handling (GET)</h5>
+                        <p class="mb-2">Handle form data using GET method.</p>
+                        <div class="code-block">
+                            <pre>
+            &lt;form method="GET"&gt;
+                &lt;input type="text" name="name"&gt;
+                &lt;input type="submit"&gt;
+            &lt;/form&gt;
+            
+            &lt;?php
+            if (isset($_GET['name'])) {
+                echo "Hello, " . $_GET['name'];
+            }
+            ?&gt;
+                            </pre>
+                        </div>
+                    </div>
+                </section>
+            
+                <section class="cheatsheet-section mb-12">
+                    <h4 class="text-2xl font-semibold mb-4 text-blue-500">Intermediate Level</h4>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Database Connection (MySQLi)</h5>
+                        <p class="mb-2">Connect to a MySQL database using MySQLi.</p>
+                        <div class="code-block">
+                            <pre>
+            &lt;?php
+            $conn = new mysqli("localhost", "username", "password", "database");
+            if ($conn-&gt;connect_error) {
+                die("Connection failed: " . $conn-&gt;connect_error);
+            }
+            echo "Connected successfully";
+            ?&gt;
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Prepared Statement (MySQLi)</h5>
+                        <p class="mb-2">Use prepared statement to prevent SQL injection.</p>
+                        <div class="code-block">
+                            <pre>
+            &lt;?php
+            $stmt = $conn-&gt;prepare("INSERT INTO users (name, email) VALUES (?, ?)");
+            $stmt-&gt;bind_param("ss", $name, $email);
+            $name = "Sahil";
+            $email = "sahil@example.com";
+            $stmt-&gt;execute();
+            ?&gt;
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">File Upload</h5>
+                        <p class="mb-2">Upload a file using PHP.</p>
+                        <div class="code-block">
+                            <pre>
+            &lt;form action="upload.php" method="POST" enctype="multipart/form-data"&gt;
+                &lt;input type="file" name="fileToUpload"&gt;
+                &lt;input type="submit" value="Upload"&gt;
+            &lt;/form&gt;
+            
+            &lt;?php
+            $target_dir = "uploads/";
+            $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+            if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+                echo "The file has been uploaded.";
+            } else {
+                echo "Sorry, there was an error uploading your file.";
+            }
+            ?&gt;
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Session Management</h5>
+                        <p class="mb-2">Manage user sessions using PHP.</p>
+                        <div class="code-block">
+                            <pre>
+            &lt;?php
+            session_start();
+            $_SESSION["username"] = "Sahil";
+            echo "Session started for user: " . $_SESSION["username"];
+            ?&gt;
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Cookie Setting</h5>
+                        <p class="mb-2">Set and retrieve cookies using PHP.</p>
+                        <div class="code-block">
+                            <pre>
+            &lt;?php
+            setcookie("username", "Sahil", time() + (86400 * 30), "/");
+            if (isset($_COOKIE["username"])) {
+                echo "Welcome back, " . $_COOKIE["username"];
+            }
+            ?&gt;
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Redirect to Another Page</h5>
+                        <p class="mb-2">Redirect to another page using PHP.</p>
+                        <div class="code-block">
+                            <pre>
+            &lt;?php header("Location: newpage.php");
+            exit();
+            ?&gt;
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Date and Time Handling</h5>
+                        <p class="mb-2">Get the current date and time using PHP.</p>
+                        <div class="code-block">
+                            <pre>
+            &lt;?php
+            echo "Current Date and Time: " . date("Y-m-d H:i:s");
+            ?&gt;
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Basic File Handling (Read a File)</h5>
+                        <p class="mb-2">Read a file using PHP.</p>
+                        <div class="code-block">
+                            <pre>
+            &lt;?php
+            $file = fopen("example.txt", "r") or die("Unable to open file!");
+            echo fread($file, filesize("example.txt"));
+            fclose($file);
+            ?&gt;
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Simple JSON Encode/Decode</h5>
+                        <p class="mb-2">Encode and decode JSON data using PHP.</p>
+                        <div class="code-block">
+                            <pre>
+            &lt;?php
+            $arr = array("name" =&gt; "Sahil", "age" =&gt; 22);
+            echo json_encode($arr);
+            
+            $json = '{"name": "Sahil", "age": 22}';
+            $obj = json_decode($json);
+            echo $obj-&gt;name;
+            ?&gt;
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Simple Email Sending</h5>
+                        <p class="mb-2">Send an email using PHP.</p>
+                        <div class="code-block">
+                            <pre>
+            &lt;?php
+            $to = "example@example.com";
+            $subject = "Test Email";
+            $message = "Hello, this is a test email!";
+            $headers = "From: webmaster@example.com";
+            mail($to, $subject, $message, $headers);
+            ?&gt;
+                            </pre>
+                        </div>
+                    </div>
+                </section>
+            
+                <section class="cheatsheet-section mb-12">
+                    <h4 class="text-2xl font-semibold mb-4 text-blue-500">Expert Level</h4>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Error Handling (Try-Catch Block)</h5>
+                        <p class="mb-2">Handle errors using try-catch block in PHP.</p>
+                        <div class="code-block">
+                            <pre>
+            &lt;?php
+            try {
+                if (!file_exists("file.txt")) {
+                    throw new Exception("File not found.");
+                }
+            } catch (Exception $e) {
+                echo $e-&gt;getMessage();
+            }
+            ?&gt;
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Creating and Using Classes (OOP in PHP)</h5>
+                        <p class="mb-2">Create and use classes in PHP for object-oriented programming.</p>
+                        <div class="code-block">
+                            <pre>
+            &lt;?php
+            class User {
+                public $name;
+                public function __construct($name) {
+                    $this-&gt;name = $name;
+                }
+                public function greet() {
+                    return "Hello, " . $this-&gt;name;
+                }
+            }
+            $user = new User("Sahil");
+            echo $user-&gt;greet();
+            ?&gt;
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Singleton Pattern</h5>
+                        <p class="mb-2">Implement the singleton pattern in PHP.</p>
+                        <div class="code-block">
+                            <pre>
+            &lt;?php
+            class Singleton {
+                private static $instance;
+                private function __construct() {}
+                public static function getInstance() {
+                    if (self::$instance === null) {
+                        self::$instance = new Singleton();
+                    }
+                    return self::$instance;
+                }
+            }
+            $singleton = Singleton::getInstance();
+            ?&gt;
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Dependency Injection Example</h5 >
+                        <p class="mb-2">Implement dependency injection in PHP.</p>
+                        <div class="code-block">
+                            <pre>
+            &lt;?php
+            class Database {
+                private $connection;
+                public function __construct($dbConnection) {
+                    $this-&gt;connection = $dbConnection;
+                }
+            }
+            class UserController {
+                private $db;
+                public function __construct(Database $db) {
+                    $this-&gt;db = $db;
+                }
+            }
+            ?&gt;
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Trait Usage in PHP</h5>
+                        <p class="mb-2">Use traits in PHP to reuse code.</p>
+                        <div class="code-block">
+                            <pre>
+            &lt;?php
+            trait Logger {
+                public function log($message) {
+                    echo "Log message: $message";
+                }
+            }
+            class Application {
+                use Logger;
+            }
+            $app = new Application();
+            $app-&gt;log("This is a log message.");
+            ?&gt;
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Using Namespaces</h5>
+                        <p class="mb-2">Use namespaces in PHP to organize code.</p>
+                        <div class="code-block">
+                            <pre>
+            &lt;?php
+            namespace MyApp\Controllers;
+            class HomeController {
+                public function index() {
+                    echo "Welcome to the home page!";
+                }
+            }
+            $home = new \MyApp\Controllers\HomeController();
+            $home-&gt;index();
+            ?&gt;
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">PDO Database Connection</h5>
+                        <p class="mb-2">Connect to a database using PDO.</p>
+                        <div class="code-block">
+                            <pre>
+            &lt;?php
+            try {
+                $pdo = new PDO("mysql:host=localhost;dbname=testdb", "username", "password");
+                $pdo-&gt;setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                echo "Connected successfully";
+            } catch (PDOException $e) {
+                echo "Connection failed: " . $e-&gt;getMessage();
+            }
+            ?&gt;
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Recursive Function</h5>
+                        <p class="mb-2">Use recursive functions in PHP to solve complex problems.</p>
+                        <div class="code-block">
+                            <pre>
+            &lt;?php
+            function factorial($number) {
+                if ($number &lt;= 1) {
+                    return 1;
+                }
+                return $number * factorial($number - 1);
+            }
+            echo factorial(5); // Outputs 120
+            ?&gt;
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Regex Pattern Matching</h5>
+                        <p class="mb-2">Use regular expressions in PHP to match patterns.</p>
+                        <div class="code-block">
+                            <pre>
+            &lt;?php
+            $pattern = "/[a-zA-Z]+/";
+            $string = "PHP is great!";
+            if (preg_match($pattern, $string)) {
+                echo "Pattern matches!";
+            }
+            ?&gt;
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">File Download with PHP</h5>
+                        <p class="mb-2">Force download a file using PHP.</p>
+                        <div class="code-block">
+                            <pre>
+            &lt;?php
+            $file = "path/to/file.txt";
+            if (file_exists($file)) {
+                header('Content-Description: File Transfer');
+                header('Content-Type: application/octet-stream');
+                header('Content-Disposition: attachment; filename="'.basename($file).'"');
+                readfile($file);
+            }
+            ?&gt;
+                            </pre>
+                        </div>
+                    </div>
+                </section>
+            </div>
+                
+            <div id="interviewlibrary" class="tab-content hidden">
+              <h3 class="text-2xl font-bold mb-8 text-blue-600">Interview Library</h3>
+              <p class="mb-8">In this section, you'll find links to interview question sheets for PHP from various sources. Click the links below to access these resources and prepare for your interviews.</p>
+              <ul class="list-disc pl-5 space-y-4">
+                <li>
+                  <a href="https://www.interviewbit.com/php-interview-questions/" target="_blank" class="text-blue-600 hover:underline">1. PHP Interview Questions - InterviewBit</a>
+                </li>
+                <li>
+                  <a href="https://www.geeksforgeeks.org/php-interview-questions-and-answers/" target="_blank" class="text-blue-600 hover:underline">2. PHP Interview Questions and Answers - GeeksforGeeks</a>
+                </li>
+                <li>
+                  <a href="https://www.simplilearn.com/php-interview-questions-article" target="_blank" class="text-blue-600 hover:underline">3. PHP Interview Questions - Simplilearn</a>
+                </li>
+                <li>
+                  <a href="https://www.javatpoint.com/php-interview-questions" target="_blank" class="text-blue-600 hover:underline">4. PHP Interview Questions - JavaTpoint</a>
+                </li>
+                <li>
+                  <a href="https://www.naukri.com/code360/library/php-interview-questions" target="_blank" class="text-blue-600 hover:underline">5. PHP Interview Questions - Naukri</a>
+                </li>
+                <li>
+                  <a href="https://www.toptal.com/php/interview-questions" target="_blank" class="text-blue-600 hover:underline">6. PHP Interview Questions - Toptal</a>
+                </li>
+                <li>
+                  <a href="https://www.etatvasoft.com/blog/php-interview-questions/" target="_blank" class="text-blue-600 hover:underline">7. PHP Interview Questions - Etatvasoft</a>
+                </li>
+                <li>
+                  <a href="https://adevait.com/php/interview-questions" target="_blank" class="text-blue-600 hover:underline">8. PHP Interview Questions - Adevait</a>
+                </li>
+                <li>
+                  <a href="https://intellipaat.com/blog/interview-question/php-interview-questions/" target="_blank" class="text-blue-600 hover:underline">9. PHP Interview Questions - Intellipaat</a>
+                </li>
+                <li>
+                  <a href="https://blog.imocha.io/php-interview-questions-and-answers" target="_blank" class="text-blue-600 hover:underline">10. PHP Interview Questions and Answers - Imocha</a>
+                </li>
+                <li>
+                  <a href="https://arc.dev/talent-blog/php-interview-questions/" target="_blank" class="text-blue-600 hover:underline">11. PHP Interview Questions - Arc.dev</a>
+                </li>
+                <li>
+                  <a href="https://youteam.io/blog/senior-php-developer-interview-questions-and-answers/" target="_blank" class="text-blue-600 hover:underline">12. Senior PHP Developer Interview Questions and Answers - Youteam</a>
+                </li>
+                <li>
+                  <a href="https://www.adaface.com/blog/php-interview-questions/" target="_blank" class="text-blue-600 hover:underline">13. PHP Interview Questions - Adaface</a>
+                </li>
+                <li>
+                  <a href="https://www.testgorilla.com/blog/php-interview-questions/" target="_blank" class="text-blue-600 hover:underline">14. PHP Interview Questions - Testgorilla</a>
+                </li>
+                <li>
+                  <a href="https://www.turing.com/interview-questions/php" target="_blank" class="text-blue-600 hover:underline">15. PHP Interview Questions - Turing</a>
+                </li>
+                <li>
+                  <a href="https://www.tutorialspoint.com/php/php_interview_questions.htm" target="_blank" class="text-blue-600 hover:underline">16. PHP Interview Questions - Tutorials Point</a>
+                </li>
+              </ul>
+            </div>
+      </main>
+  
+      <footer class="bg-gradient-to-r from-slate-800 to-slate-900 text-white py-16">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-24">
+                <div class="space-y-6 md:px-12">
+                    <h3 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-500">
+                        LastMinutePrep
+                    </h3>
+                    <p class="text-slate-300 leading-relaxed">
+                        Your go-to platform for last-minute coding interview preparation. Ace your interviews with confidence!
+                    </p>
+                    <a href="index.html" class="inline-block px-6 py-3 rounded-full bg-gradient-to-r from-sky-400 to-blue-500 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                        Get Started
+                    </a>
+                </div>
+                <div class="space-y-6 md:px-12">
+                    <h3 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-500">
+                        About Me
+                    </h3>
+                    <div class="space-y-4">
+                        <p class="text-2xl font-bold">Baba Sahil</p>
+                        <p class="text-slate-300">Aspirant Software Engineer</p>
+                        <p class="text-slate-300">
+                            <a href="mailto:babasahil2628@gmail.com" class="text-sky-400 hover:text-sky-300 transition-colors duration-300">
+                                babasahil2628@gmail.com
+                            </a>
+                        </p>
+                    </div>
+                </div>
+                <div class="space-y-6 md:px-12">
+                    <h3 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-500">
+                       Connect with Me
+                    </h3>
+                    <div class="space-y-4">
+                        <a href="https://www.linkedin.com/profile/in/baba-sahil-153721321/" target="_blank" class="flex items-center text-slate-300 hover:text-white transition-colors duration-300">
+                            <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                            LinkedIn Profile
+                        </a>
+                        <a href="https://github.com/babasahil29" target="_blank" class="flex items-center text-slate-300 hover:text-white transition-colors duration-300">
+                            <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
+                            </svg>
+                            GitHub
+                        </a>
+                        <a href="https://babasahil.my.canva.site/" target="_blank" class="flex items-center text-slate-300 hover:text-white transition-colors duration-300">
+                            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                            Portfolio
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 pt-8 border-t border-slate-700 text-center">
+                <p class="text-slate-400">&copy; 2024 <span class="text-sky-400 font-semibold">BabaSahil</span>. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+      
+    <script type="text/babel">
+      // InterviewSheet component
+      const InterviewSheet = () => {
+        const questions = [
+          {
+            level: "Basic",
+            items: [
+              {
+                question: "What is PHP?",
+                answer: "PHP (Hypertext Preprocessor) is a server-side scripting language used for web development."
+              },
+              {
+                question: "How do you declare a variable in PHP?",
+                answer: "Variables are declared using a $ symbol, followed by the variable name. $variable = 'value';"
+              },
+              {
+                question: "What is the difference between echo and print in PHP?",
+                answer: "echo can output multiple strings, while print returns 1 and works like a function."
+              },
+              {
+                question: "What are PHP data types?",
+                answer: "PHP supports data types like strings, integers, floats, arrays, objects, and booleans."
+              },
+              {
+                question: "What is an array in PHP?",
+                answer: "An array is a data structure that holds multiple values in a single variable."
+              },
+              {
+                question: "How can you concatenate two strings in PHP?",
+                answer: "Strings are concatenated using the dot (.) operator. $string1 . $string2;"
+              },
+              {
+                question: "What are superglobals in PHP?",
+                answer: "Superglobals like $_GET, $_POST, $_SESSION, and $_COOKIE are predefined arrays accessible from anywhere in the script."
+              },
+              {
+                question: "What is the difference between GET and POST methods in PHP?",
+                answer: "GET sends data via the URL, while POST sends data invisibly in the HTTP request body."
+              },
+              {
+                question: "How do you create a function in PHP?",
+                answer: "Functions are declared using the function keyword. function myFunction() { // Code here }"
+              },
+              {
+                question: "What is a session in PHP?",
+                answer: "A session is a way to store information (variables) to be used across multiple pages."
+              },
+              {
+                question: "How do you start a session in PHP?",
+                answer: "A session is started with session_start(). session_start();"
+              },
+              {
+                question: "What are cookies in PHP?",
+                answer: "Cookies are small files stored on the user’s computer to track data over time."
+              },
+              {
+                question: "How can you set a cookie in PHP?",
+                answer: "Cookies are set using the setcookie() function. setcookie('user', 'Sahil', time() + (86400 * 30), '/');"
+              },
+              {
+                question: "What is the difference between include and require?",
+                answer: "include continues script execution if the file is not found, while require stops execution."
+              },
+              {
+                question: "What is isset() in PHP?",
+                answer: "isset() checks if a variable is set and not null."
+              },
+              {
+                question: "What is empty() in PHP?",
+                answer: "empty() checks if a variable is empty."
+              },
+              {
+                question: "How do you define a constant in PHP?",
+                answer: "Constants are defined using define(). define('SITE_NAME', 'My Website');"
+              },
+              {
+                question: "What is the purpose of header() in PHP?",
+                answer: "header() is used to send raw HTTP headers to the browser. header('Location: login.php');"
+              },
+              {
+                question: "How can you redirect a page in PHP?",
+                answer: "Page redirection is done using the header() function. header('Location: anotherPage.php');"
+              },
+              {
+                question: "What is the use of die() in PHP?",
+                answer: "die() stops the script execution and outputs a message. die('Error occurred');"
+              }
+            ]
+          },
+          {
+            level: "Intermediate",
+            items: [
+              {
+                question: "What are magic methods in PHP?",
+                answer: "Magic methods are special methods that start with double underscores like __construct(), __destruct(), __get(), __set(), etc."
+              },
+              {
+                question: "Explain the difference between == and === in PHP.",
+                answer: "== compares values, while === compares both values and data types."
+              },
+              {
+                question: "What is the difference between include_once and include?",
+                answer: "include_once ensures the file is included only once, preventing multiple inclusions."
+              },
+              {
+                question: "What are traits in PHP?",
+                answer: "Traits are used to share methods between different classes without inheritance."
+              },
+              {
+                question: "What is PDO in PHP?",
+                answer: "PDO (PHP Data Objects) is a database access layer providing a uniform interface to work with multiple databases."
+              },
+              {
+                question: "How do you handle exceptions in PHP?",
+                answer: "Exceptions are handled using try, catch, and throw blocks. try { // Code that may throw an exception } catch (Exception $e) { echo $e->getMessage(); }"
+              },
+              {
+                question: "What is the difference between unlink() and unset() in PHP?",
+                answer: "unlink() deletes a file, while unset() destroys a variable."
+              },
+              {
+                question: "What is a namespace in PHP?",
+                answer: "Namespaces prevent name conflicts by grouping classes, interfaces, functions, and constants."
+              },
+              {
+                question: "Explain the MVC pattern in PHP.",
+                answer: "MVC (Model-View-Controller) separates the application logic into three components: Model (data), View (UI), and Controller (logic)."
+              },
+              {
+                question: "How do you connect to a MySQL database in PHP?",
+                answer: "You can connect to MySQL using mysqli_connect() or PDO. $conn = new mysqli('localhost', 'username', 'password', 'database');"
+              },
+              {
+                question: "How do you prevent SQL Injection in PHP?",
+                answer: "Use prepared statements with bound parameters to avoid SQL Injection."
+              },
+              {
+                question: "What is json_encode() and json_decode()?",
+                answer: "json_encode() converts PHP arrays into JSON format, and json_decode() converts JSON into PHP arrays or objects."
+              },
+              {
+                question: "What is explode() and implode()?",
+                answer: "explode() splits a string by a delimiter into an array, and implode() joins an array into a string. $arr = explode(',', 'one,two,three'); $str = implode('-', $arr);"
+              },
+              {
+                question: "What is file_get_contents()?",
+                answer: "It reads an entire file into a string. $content = file_get_contents('file.txt');"
+              },
+              {
+                question: "What are closures in PHP?",
+                answer: "Closures are anonymous functions that can capture variables from the surrounding scope. $sum = function($a, $b) { return $a + $b; };"
+              },
+              {
+                question: "How do you create a session timeout in PHP?",
+                answer: "Set session expiration with session.gc_maxlifetime and custom code to handle inactive users."
+              },
+              {
+                question: "How do you destroy a session in PHP?",
+                answer: "Use session_destroy() to end a session. session_destroy();"
+              },
+              {
+                question: "What is the use of ob_start() in PHP?",
+                answer: "It turns on output buffering, allowing you to control when content is sent to the browser."
+              },
+              {
+                question: "What are abstract classes in PHP?",
+                answer: "Abstract classes define abstract methods, which must be implemented by derived classes."
+              },
+              {
+                question: "What is the difference between $this and self in PHP?",
+                answer: "$this refers to the current instance, while self refers to the class itself."
+              }
+            ]
+          },
+          {
+            level: "Expert",
+            items: [
+              {
+                question: "What is Dependency Injection in PHP?",
+                answer: "Dependency Injection is a design pattern where an object receives its dependencies from an external source rather than creating them."
+              },
+              {
+                question: "What are design patterns, and can you name some common ones used in PHP?",
+                answer: "Design patterns are reusable solutions to common problems. Examples include Singleton, Factory, and Observer patterns."
+              },
+              {
+                question: "Explain the SOLID principles in object-oriented PHP programming.",
+                answer: "SOLID principles are five design principles for better code: Single Responsibility, Open-Closed, Liskov Substitution, Interface Segregation, and Dependency Inversion."
+              },
+              {
+                question: "What is the difference between static and non-static methods in PHP?",
+                answer: "Static methods belong to the class and are called using the class name, while non-static methods are called on an instance of the class."
+              },
+              {
+                question: "What is the use of the final keyword in PHP?",
+                answer: "The final keyword prevents classes from being extended and methods from being overridden."
+              },
+              {
+                question: "How does the spl_autoload_register() function work?",
+                answer: "It registers a function to be called automatically when a class is instantiated, making autoloading of classes possible."
+              },
+              {
+                question: "What is polymorphism in PHP?",
+                answer: "Polymorphism allows objects of different classes to be treated as objects of a common superclass."
+              },
+              {
+                question: "How do you handle multiple exceptions in PHP?",
+                answer: "Multiple exceptions can be handled by using multiple catch blocks. try { // code } catch (ExceptionType1 $e) { // Handle Exception 1 } catch (ExceptionType2 $e) { // Handle Exception 2 }"
+              },
+              {
+                question: "Explain the Singleton pattern in PHP.",
+                answer: "The Singleton pattern ensures that a class has only one instance and provides a global access point to that instance."
+              },
+              {
+                question: "How do you implement caching in PHP?",
+                answer: "Caching in PHP can be implemented using mechanisms like Memcached, APC, or file-based"
+              }
+            ]
+          }
+        ];
+    
+        return (
+            <div className="space-y-8">
+              {questions.map((level, index) => (
+                <div key={index}>
+                  <h4 class="text-2xl font-semibold mb-4 text-blue-500">{level.level} Level Questions</h4>
+                  <ol className="list-decimal list-inside space-y-4">
+                    {level.items.map((item, itemIndex) => (
+                      <li key={itemIndex}>
+                        <p className="font-medium">{item.question}</p>
+                        {item.answer && <p className="mt-1">{item.answer}</p>}
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              ))}
+            </div>
+          );
+        };
+      
+        ReactDOM.render(<InterviewSheet />, document.getElementById("interview-sheet-root"));
+      </script>
+       <script>
+        const debounce = (func, delay) => {
+    let inDebounce;
+    return function() {
+        const context = this;
+        const args = arguments;
+        clearTimeout(inDebounce);
+        inDebounce = setTimeout(() => func.apply(context, args), delay);
+    };
+};
+
+// Function to show tab
+function showTab(tabName) {
+    const allTabs = document.querySelectorAll('.tab-content');
+    const allButtons = document.querySelectorAll('.tab-btn');
+    const selectedTab = document.getElementById(tabName);
+    const clickedButton = document.querySelector(`.tab-btn[onclick*="${tabName}"]`);
+
+    allTabs.forEach(tab => tab.classList.add('hidden'));
+    allButtons.forEach(btn => {
+        btn.classList.remove('bg-blue-500', 'text-white');
+        btn.classList.add('bg-gray-200', 'text-gray-700');
+    });
+
+    if (selectedTab) selectedTab.classList.remove('hidden');
+    if (clickedButton) {
+        clickedButton.classList.remove('bg-gray-200', 'text-gray-700');
+        clickedButton.classList.add('bg-blue-500', 'text-white');
+    }
+
+    const languageDropdown = document.getElementById('languageDropdown');
+    if (languageDropdown && languageDropdown.classList.contains('show')) {
+        languageDropdown.classList.remove('show');
+    }
+}
+
+// Function to download cheat sheet
+function downloadCheatSheet() {
+    alert('Downloading Python Cheat Sheet...');
+}
+
+// Function to check if element is in viewport
+function isElementInViewport(el) {
+    const rect = el.getBoundingClientRect();
+    return (
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+    );
+}
+
+// Function to handle scroll and reveal sections
+const handleScroll = debounce(() => {
+    const sections = document.querySelectorAll('.cheatsheet-section');
+    sections.forEach(section => {
+        if (isElementInViewport(section) && !section.classList.contains('visible')) {
+            section.classList.add('visible');
+        }
+    });
+}, 100);
+
+// Event listeners
+document.addEventListener('DOMContentLoaded', () => {
+    const dropdownBtn = document.getElementById('dropdownBtn');
+    const languageDropdown = document.getElementById('languageDropdown');
+
+    dropdownBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        languageDropdown.classList.toggle('show');
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!dropdownBtn.contains(e.target) && !languageDropdown.contains(e.target)) {
+            languageDropdown.classList.remove('show');
+        }
+    });
+
+    const fadeElements = document.querySelectorAll('.fade-in');
+    fadeElements.forEach(element => element.classList.add('visible'));
+
+    const easySection = document.querySelector('.cheatsheet-section');
+    if (easySection) easySection.classList.add('visible');
+
+    handleScroll();
+});
+
+window.addEventListener('scroll', handleScroll);
+window.addEventListener('resize', handleScroll);
+      </script>
+  </body>
+  </html>
+      

@@ -1,0 +1,1544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastPrepSahil - c++</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&display=swap');
+
+:root {
+--primary-color: #3b82f6;
+--secondary-color: #38bdf8;
+--background-color: #f9f9f9;
+--text-color: #333;
+}
+
+* {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+}
+
+body {
+font-family: 'Manrope', sans-serif;
+line-height: 1.6;
+color: var(--text-color);
+}
+
+.hero-section {
+background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/c++.jpg');
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+height: 400px;
+position: relative;
+padding: 2rem 1rem;
+}
+
+.hero-section::before {
+content: "";
+position: absolute;
+inset: 0;
+background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 2px, transparent 2px, transparent 4px);
+pointer-events: none;
+}
+
+.fade-in {
+opacity: 0;
+transform: translateY(20px);
+transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.fade-in.visible {
+opacity: 1;
+transform: translateY(0);
+}
+
+.btn-animated {
+transition: all 0.3s ease;
+}
+
+.btn-animated:hover, .btn-animated:focus {
+transform: translateY(-3px) scale(1.05);
+box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.btn-animated:active {
+transform: translateY(-1px) scale(1.02);
+box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.dropdown-content {
+display: none;
+position: absolute;
+background-color: var(--background-color);
+min-width: 160px;
+box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+z-index: 1;
+}
+
+.dropdown-content a {
+color: var(--text-color);
+padding: 12px 16px;
+text-decoration: none;
+display: block;
+transition: all 0.2s ease;
+}
+
+.dropdown-content a:hover, .dropdown-content a:focus {
+background-color: #f1f1f1;
+transform: translateX(5px);
+}
+
+.show {
+display: block;
+animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+from { opacity: 0; }
+to { opacity: 1; }
+}
+
+.code-block {
+background-color: #f8f8f8;
+border-left: 4px solid var(--primary-color);
+padding: 1rem;
+margin: 1rem 0;
+font-family: 'Courier New', Courier, monospace;
+overflow-x: auto;
+}
+
+.interview-sheet-container {
+background-color: var(--background-color);
+padding: 20px;
+border: 1px solid #ddd;
+border-radius: 10px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+background-image: linear-gradient(to right, #1e293b, #0f172a);
+position: relative;
+overflow: hidden;
+padding: 2rem 1rem;
+}
+
+footer::before {
+content: '';
+position: absolute;
+inset: 0;
+background: url('path/to/subtle-pattern.png') repeat;
+opacity: 0.05;
+z-index: 0;
+}
+
+footer > div {
+position: relative;
+z-index: 1;
+}
+
+footer h3 {
+font-size: 1.25rem;
+margin-bottom: 1rem;
+position: relative;
+display: inline-block;
+}
+
+footer h3::after {
+content: '';
+position: absolute;
+left: 0;
+bottom: -5px;
+width: 50px;
+height: 2px;
+background: linear-gradient(to right, var(--secondary-color), var(--primary-color));
+}
+
+footer p {
+font-size: 0.9rem;
+line-height: 1.6;
+}
+
+footer a:not(.inline-block) {
+transition: all 0.3s ease;
+}
+
+footer a:not(.inline-block):hover, footer a:not(.inline-block):focus {
+color: var(--secondary-color);
+transform: translateX(5px);
+}
+
+footer .inline-block {
+transition: all 0.3s ease;
+}
+
+footer .inline-block:hover, footer .inline-block:focus {
+transform: translateY(-3px);
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.social-icon {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+width: 40px;
+height: 40px;
+border-radius: 50%;
+background: rgba(255, 255, 255, 0.1);
+transition: all 0.3s ease;
+}
+
+.social-icon:hover, .social-icon:focus {
+background: rgba(255, 255, 255, 0.2);
+transform: translateY(-3px);
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+.hero-section {
+  height: 350px;
+}
+
+footer .grid {
+  gap: 1.5rem;
+}
+
+footer .md\:px-12 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.tab-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tab-btn {
+  flex: 1 1 calc(30% - 0.25rem);
+  font-size: 0.9rem;
+  padding: 0.5rem;
+}
+
+}@media only screen and (max-width: 768px) {
+.text-2xl.font-bold.text-blue-600 {
+  display: none;
+}
+
+}</style>
+</head>
+<body class="bg-gray-100"></body>
+    <header class="bg-white shadow-md fixed w-full z-10">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+          <div class="flex items-center">
+            <img src="images/logo2.jpeg" alt="FastPrepSahil Logo" class="h-12 w-auto mr-3">
+            <h1 class="text-2xl font-bold text-blue-600">FastPrepSahil</h1>
+        </div>
+            <div class="flex items-center space-x-2">
+            
+              <button onclick="window.location.href='index.html'" id="searchBtn" class="btn-animated bg-blue-500 text-white px-4 py-2 rounded">Home</button>
+                <div class="relative inline-block">
+                    <button id="dropdownBtn" class="btn-animated bg-gray-200 text-gray-700 px-4 py-2 rounded">
+                        Select Language <i class="fas fa-caret-down ml-1"></i>
+                    </button>
+                    <div id="languageDropdown" class="dropdown-content">
+                        <a href="python.html">Python</a>
+                        <a href="c.html">C</a>
+                        <a href="java.html">Java</a>
+                        <a href="cpp.html">C++</a>
+                        <a href="html.html">HTML</a>
+                        <a href="css.html">CSS</a>
+                        <a href="javascript.html">JavaScript</a>
+                        <a href="sql.html">SQL</a>
+                        <a href="php.html">PHP</a>
+                        <a href="mern.html">MERN</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="hero-section flex items-center justify-center pt-16">
+        <h2 id="language-title" class="text-4xl font-bold text-white text-center">C++ Resources</h2>
+    </div>
+
+    <main class="container mx-auto mt-8 p-4">
+      <div class="tab-buttons flex flex-wrap gap-2 mb-6">
+        <button onclick="showTab('snapshot')" class="tab-btn btn-animated bg-blue-500 text-white px-3 py-2 rounded text-sm flex-grow">Language Snapshot</button>
+        <button onclick="showTab('cheatsheet')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Cheat Sheet</button>
+        <button onclick="showTab('cheatsheetpdfs')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Cheat Sheet PDFs</button>
+        <button onclick="showTab('cheatsheetlibrary')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Cheat Sheet Library</button>
+        <button onclick="showTab('interviewsheet')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Interview Sheet</button>
+        <button onclick="showTab('interviewlibrary')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Interview Library</button>
+        <button onclick="showTab('standardcodesnippets')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Standard Code Snippets</button>
+    </div>
+    
+        <div id="tab-content" class="bg-white p-6 rounded-lg shadow-md fade-in">
+            <div id="snapshot" class="tab-content">
+                <h3 class="text-2xl font-bold mb-8 text-blue-600">Language Snapshot</h3>
+                <div id="snapshot-content" class="space-y-8">
+                    <section>
+                        <h4 class="text-xl font-semibold mb-4">Overview</h4>
+                        <ul class="list-disc pl-6 space-y-2">
+                            <li>
+                                <span class="font-medium">Language Type:</span> General-purpose, multi-paradigm
+                            </li>
+                            <li>
+                                <span class="font-medium">Key Features:</span>
+                                <ul class="list-circle pl-6 mt-2 space-y-2">
+                                    <li><span class="font-medium">Object-Oriented:</span> Supports encapsulation, inheritance, and polymorphism</li>
+                                    <li><span class="font-medium">Generic Programming:</span> Enables writing code that works with any data type</li>
+                                    <li><span class="font-medium">Standard Template Library (STL):</span> Provides reusable components for common data structures and algorithms</li>
+                                    <li><span class="font-medium">Low-Level Memory Manipulation:</span> Allows direct memory access and pointer arithmetic</li>
+                                    <li><span class="font-medium">High Performance:</span> Optimized for system-level programming and resource-constrained environments</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h4 class="text-xl font-semibold mb-4">Invention</h4>
+                        <ul class="list-disc pl-6 space-y-2">
+                            <li><span class="font-medium">Creator:</span> Bjarne Stroustrup</li>
+                            <li><span class="font-medium">Year Created:</span> 1979</li>
+                            <li>
+                                <span class="font-medium">Major Influence:</span> Object-oriented programming, generic programming, systems programming
+                            </li>
+                            <li>
+                                <span class="font-medium">Influenced Languages:</span> Java, C#, D
+                            </li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h4 class="text-xl font-semibold mb-4">Notable Frameworks and Libraries</h4>
+                        <ul class="list-disc pl-6 space-y-2">
+                            <li><span class="font-medium">GUI:</span> Qt, wxWidgets</li>
+                            <li><span class="font-medium">Game Development:</span> Unreal Engine, SFML</li>
+                            <li><span class="font-medium">Networking:</span> Boost.Asio, POCO</li>
+                            <li><span class="font-medium">Machine Learning:</span> TensorFlow, OpenCV</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h4 class="text-xl font-semibold mb-4">Common Use Cases</h4>
+                        <ul class="list-disc pl-6 space-y-2">
+                            <li><span class="font-medium">System Software:</span> Operating systems, device drivers</li>
+                            <li><span class="font-medium">Game Development:</span> High-performance game engines and applications</li>
+                            <li><span class="font-medium">Financial Systems:</span> High-frequency trading platforms</li>
+                            <li><span class="font-medium">Embedded Systems:</span> IoT devices, real-time systems</li>
+                        </ul>
+                    </section>
+                </div>
+            </div>
+            
+            <div id="cheatsheet" class="tab-content hidden">
+              <h3 class="text-2xl font-bold mb-8 text-blue-600">Cheat Sheet</h3>
+              <section class="cheatsheet-section mb-12">
+                <h3 class="text-2xl font-semibold mb-4 text-blue-500">Basic Level</h3>
+                <div class="mb-6">
+                  <h4 class="text-xl font-medium mb-2">1. Basic Syntax</h4>
+                  <p class="mb-2">#include &lt;iostream&gt;: Include standard library for input/output.</p>
+                  <p class="mb-2">using namespace std;: Avoid prefixing std:: before standard functions.</p>
+                  <p class="mb-2">int main(): Entry point of the C++ program.</p>
+                  <p class="mb-2">cout: Output stream to print text.</p>
+                  <p class="mb-2">Example: cout &lt;&lt; "Hello, World!";</p>
+                  <p class="mb-2">cin: Input stream to get user input.</p>
+                  <p class="mb-2">Example: cin &gt;&gt; variable;</p>
+                </div>
+                <div class="mb-6">
+                  <h4 class="text-xl font-medium mb-2">2. Data Types</h4>
+                  <p class="mb-2">int, float, double, char, bool</p>
+                  <p class="mb-2">Example: int a = 10;</p>
+                </div>
+                <div class="mb-6">
+                  <h4 class="text-xl font-medium mb-2">3. Operators</h4>
+                  <p class="mb-2">Arithmetic Operators: +, -, *, /, %</p>
+                  <p class="mb-2">Comparison Operators: ==, !=, &lt;, &gt;</p>
+                  <p class="mb-2">Logical Operators: &&, ||, !</p>
+                </div>
+                <div class="mb-6">
+                  <h4 class="text-xl font-medium mb-2">4. Control Flow</h4>
+                  <p class="mb-2">if-else: Conditional statements.</p>
+                  <div class="code-block">
+                    <pre>
+            if (condition) {
+              // code
+            } else {
+              // code
+            }
+                    </pre>
+                  </div>
+                  <p class="mb-2">for, while, do-while: Loops.</p>
+                  <div class="code-block">
+                    <pre>
+            for (int i = 0; i &lt; 10; i++) {
+              cout &lt;&lt; i;
+            }
+                    </pre>
+                  </div>
+                </div>
+                <div class="mb-6">
+                  <h4 class="text-xl font-medium mb-2">5. Functions</h4>
+                  <p class="mb-2">Defining and calling functions.</p>
+                  <div class="code-block">
+                    <pre>
+            int add(int a, int b) {
+              return a + b;
+            }
+                    </pre>
+                  </div>
+                </div>
+              </section>
+              <section class="cheatsheet-section mb-12">
+                <h3 class="text-2xl font-semibold mb-4 text-blue-500">Intermediate Level</h3>
+                <div class="mb-6">
+                  <h4 class="text-xl font-medium mb-2">1. Arrays</h4>
+                  <p class="mb-2">Fixed-size collection of elements.</p>
+                  <div class="code-block">
+                    <pre>
+            int arr[5] = {1, 2, 3, 4, 5};
+                    </pre>
+                  </div>
+                </div>
+                <div class="mb-6">
+                  <h4 class="text-xl font-medium mb-2">2. Pointers</h4>
+                  <p class="mb-2">Store memory address of variables.</p>
+                  <div class="code-block">
+                    <pre>
+            int a = 10;
+            int *ptr = &a;
+                    </pre>
+                  </div>
+                </div>
+                <div class="mb-6">
+                  <h4 class="text-xl font-medium mb-2">3. Structures</h4>
+                  <p class="mb-2">Custom data types.</p>
+                  <div class="code-block">
+                    <pre>
+            struct Student {
+              string name;
+              int age;
+            };
+                    </pre>
+                  </div>
+                </div>
+                <div class="mb-6">
+                  <h4 class="text-xl font-medium mb-2">4. File I/O</h4>
+                  <p class="mb-2">Read from and write to files.</p>
+                  <div class="code-block">
+                    <pre>
+            ofstream myFile("example.txt");
+            myFile &lt;&lt; "Hello!";
+                    </pre>
+                  </div>
+                </div>
+                <div class="mb-6">
+                  <h4 class="text-xl font-medium mb-2">5. Object-Oriented Programming (OOP)</h4>
+                  <p class="mb-2">Classes and Objects: Blueprint of an object.</p>
+                  <div class="code-block">
+                    <pre>
+            class Car {
+              public:
+                string brand;
+                int speed;
+            };
+                    </pre>
+                  </div>
+                </div>
+                <div class="mb-6">
+                  <h4 class="text-xl font-medium mb-2">6. Inheritance</h4>
+                  <p class="mb-2">One class inherits properties from another class.</p>
+                  <div class="code-block">
+                    <pre>
+            class Vehicle {
+              public:
+                int wheels;
+            };
+            
+            class Car : public Vehicle {
+              public:
+                string brand;
+            };
+                    </pre>
+                  </div>
+                </div>
+              </section>
+              <section class="cheatsheet-section mb-12">
+                <h3 class="text-2xl font-semibold mb-4 text-blue-500">Expert Level</h3>
+                <div class="mb-6">
+                  <h4 class="text-xl font-medium mb-2">1. Dynamic Memory Allocation</h4>
+                  <p class="mb-2">Use of new and delete to allocate and free memory.</p>
+                  <div class="code-block">
+                    <pre>
+            int* ptr = new int;
+            delete ptr;
+                    </pre>
+                  </div>
+                </div>
+                <div class="mb-6">
+                  <h4 class="text-xl font-medium mb-2">2. Operator Overloading</h4>
+                  <p class="mb-2">Overload operators to work with custom objects.</p>
+                  <div class="code-block">
+                    <pre>
+            class Complex {
+              public:
+                int real, imag;
+                Complex operator + (Complex const &obj) {
+                  Complex res;
+                  res.real = real + obj.real;
+                  res.imag = imag + obj.imag;
+                  return res;
+                }
+            };
+                    </pre>
+                  </div>
+                </div>
+                <div class="mb-6">
+                  <h4 class="text-xl font-medium mb-2">3. Templates</h4>
+                  <p class="mb-2">Generalized functions and classes.</p>
+                  <div class="code-block">
+                    <pre>
+            template &lt;typename T&gt;
+            T add(T a, T b) {
+              return a + b;
+            }
+                    </pre>
+                  </div>
+                </div>
+                <div class="mb-6">
+                  <h4 class="text-xl font-medium mb-2">4. Exception Handling</h4>
+                  <p class="mb-2">Use try, catch, and throw to handle exceptions.</p>
+                  <div class="code-block">
+                    <pre>
+            try {
+              throw 404;
+            } catch (int e) {
+              cout &lt;&lt; "Error: " &lt;&lt; e;
+            }
+                    </pre>
+                  </div>
+                </div>
+                <div class="mb-6">
+                  <h4 class="text-xl font-medium mb-2">5. Standard Template Library (STL)</h4>
+                  <p class="mb-2">Vectors: Dynamic arrays.</p>
+                  <div class="code-block">
+                    <pre>
+            vector&lt;int&gt; v = {1, 2, 3};
+            v.push_back(4);
+                    </pre>
+                  </div>
+                  <p class="mb-2">Maps: Key-value pairs.</p>
+                  <div class="code-block">
+                    <pre>
+            map&lt;string, int&gt; m;
+            m["apple"] = 1;
+                    </pre>
+                  </div>
+                </div>
+                <div class="mb-6">
+                  <h4 class="text-xl font-medium mb-2">6. Multithreading</h4>
+                  <p class="mb-2">Running multiple threads simultaneously.</p>
+                  <div class="code-block">
+                    <pre>
+            #include &lt;thread&gt;
+            void function1() {
+              cout &lt;&lt; "Thread 1";
+            }
+            
+            int main() {
+              thread t1(function1);
+              t1.join();
+            }
+                    </pre>
+                  </div>
+                </div>
+              </section>
+            </div>
+              <div id="cheatsheetpdfs" class="tab-content hidden">
+                <h3 class="text-2xl font-bold mb-8 text-blue-600">Cheat Sheet PDFs</h3>
+                <p class="mb-8">In this section, you'll find downloadable PDF versions of C++ language cheatsheets from different sources. Click on the links below to download the cheat sheets directly.</p>
+                <ul class="list-disc pl-5 space-y-4">
+                    <li>
+                        <a href="https://hackr.io/blog/cpp-cheat-sheet-pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                            1. C++ Cheat Sheet (PDF) - Hackr.io
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.ifi.uzh.ch/dam/jcr:ffffffff-d71d-8eb0-0000-000057ee0323/C_plus_plusRef_Card.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                            2. C++ Reference Card (PDF) - University of Zurich
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/ayeujjawalsingh/Cheat-Sheet/blob/master/C%2B%2B%20Cheatsheet%20-%20CodeWithHarry.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                            3. C++ Cheatsheet - CodeWithHarry (PDF) - GitHub
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://person.dibris.unige.it/moggi-eugenio/PG1-13/Cpp_reference.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                            4. C++ Reference (PDF) - University of Genoa
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.studocu.com/in/document/mbm-engineering-college/computer-science-and-engineering/c-cheat-sheet-for-quick-references-download-pdf/66785050" target="_blank" class="text-blue-600 hover:underline" download>
+                            5. C++ Cheat Sheet for Quick References (PDF) - Studocu
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://dl.icdst.org/pdfs/files4/9abfcbc1450d6669cae5edbc89fbd110.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                            6. C++ Cheat Sheet (PDF) - ICDST
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div id="cheatsheetlibrary" class="tab-content hidden">
+                <h3 class="text-2xl font-bold mb-8 text-blue-600">Cheat Sheet Library</h3>
+                <p class="mb-8">In this section, you'll find various links to C++ language cheatsheets available on different websites. Click on the links below to explore the resources.</p>
+                <ul class="list-disc pl-5 space-y-4">
+                  <li>
+                    <a href="https://www.codewithharry.com/blogpost/cpp-cheatsheet/" target="_blank" class="text-blue-600 hover:underline">
+                      1. Code with Harry C++ Cheatsheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.geeksforgeeks.org/cpp-cheatsheet/" target="_blank" class="text-blue-600 hover:underline">
+                      2. GeeksforGeeks C++ Cheatsheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://quickref.me/cpp.html" target="_blank" class="text-blue-600 hover:underline">
+                      3. QuickRef C++ Cheatsheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/mortennobel/cpp-cheatsheet" target="_blank" class="text-blue-600 hover:underline">
+                      4. Morten Nobel's C++ Cheatsheet (GitHub)
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.codecademy.com/resources/cheatsheets/language/c-plus-plus" target="_blank" class="text-blue-600 hover:underline">
+                      5. Codecademy C++ Cheatsheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.interviewbit.com/cpp-cheat-sheet/" target="_blank" class="text-blue-600 hover:underline">
+                      6. InterviewBit C++ Cheat Sheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://hackingcpp.com/cpp/cheat_sheets.html" target="_blank" class="text-blue-600 hover:underline">
+                      7. Hacking C++ Cheat Sheets
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://programiz.pro/resources/cpp-cheat-sheet/" target="_blank" class="text-blue-600 hover:underline">
+                      8. Programiz C++ Cheat Sheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.tutorialspoint.com/cplusplus/cpp_language_cheatsheet.htm" target="_blank" class="text-blue-600 hover:underline">
+                      9. TutorialsPoint C++ Language Cheatsheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/gibsjose/cpp-cheat-sheet/blob/master/Data%20Structures%20and%20Algorithms.md" target="_blank" class="text-blue-600 hover:underline">
+                      10. C++ Data Structures and Algorithms Cheat Sheet (GitHub)
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.codecademy.com/learn/c-plus-plus-for-programmers/modules/object-oriented-programming-in-cpp/cheatsheet" target="_blank" class="text-blue-600 hover:underline">
+                      11. Codecademy C++ Object-Oriented Programming Cheatsheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://resources.codewithmosh.com/cpp-cheat-sheet/" target="_blank" class="text-blue-600 hover:underline">
+                      12. Code with Mosh C++ Cheat Sheet
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            <div id="interviewsheet" class="tab-content hidden">
+                <h3 class="text-2xl font-bold mb-8 text-blue-600">Interview Sheet</h3>
+                
+                  <div id="interview-sheet-root"></div>
+            </div>
+
+            <div id="standardcodesnippets" class="tab-content hidden">
+                <h3 class="text-2xl font-bold mb-4 text-blue-600">Standard Code Snippets</h3>
+        
+                <section class="cheatsheet-section mb-12">
+                    <h4 class="text-2xl font-semibold mb-4 text-blue-500">Basic Level</h4>
+        
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Hello World Program</h5>
+                        <p class="mb-2">Problem: Write a simple C++ program to print "Hello, World!".</p>
+                        <div class="code-block">
+                            <pre>
+        #include &lt;iostream&gt;
+        using namespace std;
+        int main() {
+            cout << "Hello, World!" << endl;
+            return 0;
+        }
+                            </pre>
+                        </div>
+                    </div>
+        
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Sum of Two Numbers</h5>
+                        <p class="mb-2">Problem: Write a program to take two numbers as input and print their sum.</p>
+                        <div class="code-block">
+                            <pre>
+        #include &lt;iostream&gt;
+        using namespace std;
+        int main() {
+            int a, b;
+            cout << "Enter two numbers: ";
+            cin >> a >> b;
+            cout << "Sum: " << a + b << endl;
+            return 0;
+        }
+                            </pre>
+                        </div>
+                    </div>
+        
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Check Odd or Even</h5>
+                        <p class="mb-2">Problem: Write a program to check if a given number is odd or even.</p>
+                        <div class="code-block">
+                            <pre>
+        #include &lt;iostream&gt;
+        using namespace std;
+        int main() {
+            int num;
+            cout << "Enter a number: ";
+            cin >> num;
+            if (num % 2 == 0)
+                cout << num << " is even." << endl;
+            else
+                cout << num << " is odd." << endl;
+            return 0;
+        }
+                            </pre>
+                        </div>
+                    </div>
+        
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Factorial of a Number</h5>
+                        <p class="mb-2">Problem: Write a program to calculate the factorial of a given number.</p>
+                        <div class="code-block">
+                            <pre>
+        #include &lt;iostream&gt;
+        using namespace std;
+        int main() {
+            int n, factorial = 1;
+            cout << "Enter a number: ";
+            cin >> n;
+            for (int i = 1; i <= n; ++i) {
+                factorial *= i;
+            }
+            cout << "Factorial: " << factorial << endl;
+            return 0;
+        }
+                            </pre>
+                        </div>
+                    </div>
+        
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Simple Array Traversal</h5>
+                        <p class="mb-2">Problem: Write a program to traverse and print the elements of an array.</p>
+                        <div class="code-block">
+                            <pre>
+        #include &lt;iostream&gt;
+        using namespace std;
+        int main() {
+            int arr[5] = {1, 2, 3, 4, 5};
+            cout << "Array elements: ";
+            for (int i = 0; i < 5; ++i) {
+                cout << arr[i] << " ";
+            }
+            cout << endl;
+            return 0;
+        }
+                            </pre>
+                        </div>
+                    </div>
+                </section>
+        
+                <section class="cheatsheet-section mb-12">
+                    <h4 class="text-2xl font-semibold mb-4 text-blue-500">Intermediate Level</h4>
+        
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Palindrome Check</h5>
+                        <p class="mb-2">Problem: Write a program to check if a given string is a palindrome.</p>
+                        <div class="code-block">
+                            <pre>
+        #include &lt;iostream&gt;
+        using namespace std;
+        
+        bool isPalindrome(string str) {
+            int start = 0;
+            int end = str.length() - 1;
+            while (start < end) {
+                if (str[start] != str[end]) return false;
+                start++;
+                end--;
+            }
+            return true;
+        }
+        
+        int main() {
+            string str;
+            cout << "Enter a string: ";
+            cin >> str;
+            cout << (isPalindrome(str) ? "Palindrome" : "Not a palindrome") << endl;
+            return 0;
+        }
+                            </pre>
+                        </div>
+                    </div>
+        
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Bubble Sort</h5>
+                        <p class="mb-2">Problem: Write a program to implement the Bubble Sort algorithm.</p>
+                        <div class="code-block">
+                            <pre>
+        #include &lt;iostream&gt;
+        using namespace std;
+        
+        void bubbleSort(int arr[], int n) {
+            for (int i = 0; i < n-1; i++)
+                for (int j = 0; j < n-i-1; j++)
+                    if (arr[j] > arr[j+1])
+                        swap(arr[j], arr[j+1]);
+        }
+        
+        int main() {
+            int arr[] = {64, 34, 25, 12, 22};
+            int n = sizeof(arr)/sizeof(arr[0]);
+            bubbleSort(arr, n);
+            cout << "Sorted array: ";
+            for (int i = 0; i < n; i++)
+                cout << arr[i] << " ";
+            cout << endl;
+            return 0;
+        }
+                            </pre>
+                        </div>
+                    </div>
+        
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Fibonacci Series Using Recursion</h5>
+                        <p class="mb-2">Problem: Write a program to generate the Fibonacci series using recursion.</p>
+                        <div class="code-block">
+                            <pre>
+        #include &lt;iostream&gt;
+        using namespace std;
+        
+        int fibonacci(int n) {
+            if (n <= 1)
+                return n;
+            return fibonacci(n - 1) + fibonacci(n - 2);
+        }
+        
+        int main() {
+            int n;
+            cout << "Enter the number of terms: ";
+            cin >> n;
+            cout << "Fibonacci Series: ";
+            for (int i = 0; i < n; i++) {
+                cout << fibonacci(i) << " ";
+            }
+            cout << endl;
+            return 0;
+        }
+                            </pre>
+                        </div>
+                    </div>
+        
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Finding the Largest Element in an Array</h5>
+                        <p class="mb-2">Problem: Write a program to find the largest element in a given array.</p>
+                        <div class="code-block">
+                            <pre>
+        #include &lt;iostream&gt;
+        using namespace std;
+        int main() {
+            int arr[5] = {12, 34, 56, 1, 89};
+            int max = arr[0];
+            for (int i = 1; i < 5; i++) {
+                if (arr[i] > max) max = arr[i];
+            }
+            cout << "Largest element: " << max << endl;
+            return 0;
+        }
+                            </pre>
+                        </div>
+                    </div>
+        
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Simple Class Implementation</h5>
+                        <p class="mb-2">Problem: Write a simple C++ class to represent a Rectangle.</p>
+                        <div class="code-block">
+                            <pre>
+        #include &lt;iostream&gt;
+        using namespace std;
+        
+        class Rectangle {
+        public:
+            int width, height;
+            void setDimensions(int w, int h) {
+                width = w;
+                height = h;
+            }
+            int area() {
+                return width * height;
+            }
+        };
+        
+        int main() {
+            Rectangle rect;
+            rect.setDimensions(5, 10);
+            cout << "Area: " << rect.area() << endl;
+            return 0;
+        }
+                            </pre>
+                        </div>
+                    </div>
+                </section>
+        
+                <section class="cheatsheet-section mb-12">
+                    <h4 class="text-2xl font-semibold mb-4 text-blue-500">Expert Level</h4>
+        
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Merge Sort</h5>
+                        <p class="mb-2">Problem: Write a program to implement the Merge Sort algorithm.</p>
+                        <div class="code-block">
+                            <pre>
+        #include &lt;iostream&gt;
+        using namespace std;
+        
+        void merge(int arr[], int left, int mid, int right) {
+            int i, j, k;
+            int n1 = mid - left + 1;
+            int n2 = right - mid;
+            int L[n1], R[n2];
+        
+            for (i = 0; i < n1; i++)
+                L[i] = arr[left + i];
+            for (j = 0; j < n2; j++)
+                R[j] = arr[mid + 1 + j];
+        
+            i = 0;
+            j = 0;
+            k = left;
+        
+            while (i < n1 && j < n2) {
+                if (L[i] <= R[j]) {
+                    arr[k] = L[i];
+                    i++;
+                } else {
+                    arr[k] = R[j];
+                    j++;
+                }
+                k++;
+            }
+        
+            while (i < n1) {
+                arr[k] = L[i];
+                i++;
+                k++;
+            }
+        
+            while (j < n2) {
+                arr[k] = R[j];
+                j++;
+                k++;
+            }
+        }
+        
+        void mergeSort(int arr[], int left, int right) {
+            if (left < right) {
+                int mid = left + (right - left) / 2;
+                mergeSort(arr, left, mid);
+                mergeSort(arr, mid + 1, right);
+                merge(arr, left, mid, right);
+            }
+        }
+        
+        int main() {
+            int arr[] = {38, 27, 43, 3, 9, 82, 10};
+            int n = sizeof(arr) / sizeof(arr[0]);
+            mergeSort(arr, 0, n - 1);
+            cout << "Sorted array: ";
+            for (int i = 0; i < n; i++)
+                cout << arr[i] << " ";
+            cout << endl;
+            return 0;
+        }
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Binary Search</h5>
+                        <p class="mb-2">Problem: Write a program to implement the Binary Search algorithm.</p>
+                        <div class="code-block">
+                            <pre>
+        #include &lt;iostream&gt;
+        using namespace std;
+        
+        int binarySearch(int arr[], int size, int target) {
+            int left = 0, right = size - 1;
+            while (left <= right) {
+                int mid = left + (right - left) / 2;
+                if (arr[mid] == target)
+                    return mid;
+                if (arr[mid] < target)
+                    left = mid + 1;
+                else
+                    right = mid - 1;
+            }
+            return -1;
+        }
+        
+        int main() {
+            int arr[] = {2, 3, 4, 10, 40};
+            int n = sizeof(arr) / sizeof(arr[0]);
+            int target = 10;
+            int result = binarySearch(arr, n, target);
+            if (result != -1)
+                cout << "Element found at index: " << result << endl;
+            else
+                cout << "Element not found" << endl;
+            return 0;
+        }
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Depth First Search (DFS) for a Graph</h5>
+                        <p class="mb-2">Problem: Write a program to implement the Depth First Search (DFS) algorithm on a graph.</p>
+                        <div class="code-block">
+                            <pre>
+        #include &lt;iostream&gt;
+        #include &lt;vector&gt;
+        using namespace std;
+        
+        void DFS(int node, vector&lt;bool&gt; &visited, const vector&lt;vector&lt;int&gt;&gt; &adj) {
+            visited[node] = true;
+            cout << node << " ";
+        
+            for (int neighbor : adj[node]) {
+                if (!visited[neighbor]) {
+                    DFS(neighbor, visited, adj);
+                }
+            }
+        }
+        
+        int main() {
+            int n = 5;
+            vector&lt;vector&lt;int&gt;&gt; adj(n);
+            adj[0] = {1, 2};
+            adj[1] = {0, 3};
+            adj[2] = {0, 4};
+            adj[3] = {1};
+            adj[4] = {2};
+        
+            vector&lt;bool&gt; visited(n, false);
+            cout << "DFS traversal: ";
+            DFS(0, visited, adj);
+            cout << endl;
+            return 0;
+        }
+                            </pre>
+                        </div>
+                    </div>     
+                    <div class="mb-6">
+                        <h5 class="text-xl font-medium mb-2">Simple Exception Handling</h5>
+                        <p class="mb-2">Problem: Write a program to demonstrate simple exception handling in C++.</p>
+                        <div class="code-block">
+                            <pre>
+        #include &lt;iostream&gt;
+        using namespace std;
+        
+        double divide(int a, int b) {
+            if (b == 0) throw runtime_error("Division by zero");
+            return (double)a / b;
+        }
+        
+        int main() {
+            int x = 10, y = 0;
+            try {
+                cout << "Result:
+            } catch (const runtime_error &e) {
+                cout << "Error: " << e.what() << endl;
+            }
+            return 0;
+        }
+    </pre>
+    </div>
+                    </div>
+
+                  </section>
+          </div>
+            <div id="interviewlibrary" class="tab-content hidden">
+                <h3 class="text-2xl font-bold mb-8 text-blue-600">Interview Sheet Library</h3>
+                <p class="mb-8">In this section, you'll find links to interview question sheets for C++ language from various sources. Click the links below to access these resources and prepare for your interviews.</p>
+                <ul class="list-disc pl-5 space-y-4">
+                  <li>
+                    <a href="https://www.geeksforgeeks.org/cpp-interview-questions/" target="_blank" class="text-blue-600 hover:underline">1. C++ Interview Questions - GeeksforGeeks</a>
+                  </li>
+                  <li>
+                    <a href="https://www.interviewbit.com/cpp-interview-questions/" target="_blank" class="text-blue-600 hover:underline">2. C++ Interview Questions - InterviewBit</a>
+                  </li>
+                  <li>
+                    <a href="https://www.simplilearn.com/tutorials/cpp-tutorial/cpp-interview-questions" target="_blank" class="text-blue-600 hover:underline">3. C++ Interview Questions - Simplilearn</a>
+                  </li>
+                  <li>
+                    <a href="https://www.javatpoint.com/cpp-interview-questions" target="_blank" class="text-blue-600 hover:underline">4. C++ Interview Questions - JavaTpoint</a>
+                  </li>
+                  <li>
+                    <a href="https://www.turing.com/interview-questions/c-plus-plus" target="_blank" class="text-blue-600 hover:underline">5. C++ Interview Questions - Turing</a>
+                  </li>
+                  <li>
+                    <a href="https://www.testgorilla.com/blog/cpp-interview-questions-sample-answers/" target="_blank" class="text-blue-600 hover:underline">6. C++ Interview Questions with Sample Answers - TestGorilla</a>
+                  </li>
+                  <li>
+                    <a href="https://www.scholarhat.com/tutorial/cpp/cpp-interview-questions-answers" target="_blank" class="text-blue-600 hover:underline">7. C++ Interview Questions - ScholarHat</a>
+                  </li>
+                  <li>
+                    <a href="https://www.naukri.com/code360/library/cpp-interview-questions" target="_blank" class="text-blue-600 hover:underline">8. C++ Interview Questions - Naukri</a>
+                  </li>
+                  <li>
+                    <a href="https://www.tutorialspoint.com/cplusplus/cpp_interview_questions.htm" target="_blank" class="text-blue-600 hover:underline">9. C++ Interview Questions - TutorialsPoint</a>
+                  </li>
+                  <li>
+                    <a href="https://www.mygreatlearning.com/blog/cpp-interview-questions/" target="_blank" class="text-blue-600 hover:underline">10. C++ Interview Questions - My Great Learning</a>
+                  </li>
+                  <li>
+                    <a href="https://www.codechef.com/practice/cpp-interview-questions" target="_blank" class="text-blue-600 hover:underline">11. C++ Interview Questions - CodeChef</a>
+                  </li>
+                  <li>
+                    <a href="https://coderpad.io/interview-questions/cpp-interview-questions/" target="_blank" class="text-blue-600 hover:underline">12. C++ Interview Questions - CoderPad</a>
+                  </li>
+                  <li>
+                    <a href="https://www.adaface.com/blog/cpp-interview-questions/" target="_blank" class="text-blue-600 hover:underline">13. C++ Interview Questions - Adaface</a>
+                  </li>
+                  <li>
+                    <a href="https://in.indeed.com/career-advice/interviewing/c-plus-plus-interview-questions" target="_blank" class="text-blue-600 hover:underline">14. C++ Interview Questions - Indeed</a>
+                  </li>
+                  <li>
+                    <a href="https://www.codingame.com/work/cpp-interview-questions" target="_blank" class="text-blue-600 hover:underline">15. C++ Interview Questions - CodinGame</a>
+                  </li>
+                  <li>
+                    <a href="https://logicmojo.com/cpp-interview-question/" target="_blank" class="text-blue-600 hover:underline">16. C++ Interview Questions - LogicMojo</a>
+                  </li>
+                </ul>
+              </div>
+      </main>
+  
+      <footer class="bg-gradient-to-r from-slate-800 to-slate-900 text-white py-16">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-24">
+                <div class="space-y-6 md:px-12">
+                    <h3 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-500">
+                        LastMinutePrep
+                    </h3>
+                    <p class="text-slate-300 leading-relaxed">
+                        Your go-to platform for last-minute coding interview preparation. Ace your interviews with confidence!
+                    </p>
+                    <a href="index.html" class="inline-block px-6 py-3 rounded-full bg-gradient-to-r from-sky-400 to-blue-500 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                        Get Started
+                    </a>
+                </div>
+                <div class="space-y-6 md:px-12">
+                    <h3 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-500">
+                        About Me
+                    </h3>
+                    <div class="space-y-4">
+                        <p class="text-2xl font-bold">Baba Sahil</p>
+                        <p class="text-slate-300">Aspirant Software Engineer</p>
+                        <p class="text-slate-300">
+                            <a href="mailto:babasahil2628@gmail.com" class="text-sky-400 hover:text-sky-300 transition-colors duration-300">
+                                babasahil2628@gmail.com
+                            </a>
+                        </p>
+                    </div>
+                </div>
+                <div class="space-y-6 md:px-12">
+                    <h3 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-500">
+                       Connect with Me
+                    </h3>
+                    <div class="space-y-4">
+                        <a href="https://www.linkedin.com/profile/in/baba-sahil-153721321/" target="_blank" class="flex items-center text-slate-300 hover:text-white transition-colors duration-300">
+                            <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                            LinkedIn Profile
+                        </a>
+                        <a href="https://github.com/babasahil29" target="_blank" class="flex items-center text-slate-300 hover:text-white transition-colors duration-300">
+                            <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
+                            </svg>
+                            GitHub
+                        </a>
+                        <a href="https://babasahil.my.canva.site/" target="_blank" class="flex items-center text-slate-300 hover:text-white transition-colors duration-300">
+                            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                            Portfolio
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 pt-8 border-t border-slate-700 text-center">
+                <p class="text-slate-400">&copy; 2024 <span class="text-sky-400 font-semibold">BabaSahil</span>. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+      
+    <script type="text/babel">
+      // InterviewSheet component
+      const InterviewSheet = () => {
+      const questions = [
+        {
+          level: "Basic",
+          items: [
+            {
+              question: "What is C++?",
+              answer: "C++ is a high-level programming language that supports both procedural and object-oriented programming, developed as an enhancement to C."
+            },
+            {
+              question: "What are the key features of C++?",
+              answer: "Key features include object-oriented programming, encapsulation, inheritance, polymorphism, and the Standard Template Library (STL)."
+            },
+            {
+              question: "What is a class and an object?",
+              answer: "A class is a blueprint for creating objects, while an object is an instance of a class."
+            },
+            {
+              question: "What is a constructor?",
+              answer: "A constructor is a special member function that is called when an object is instantiated. It initializes the object."
+            },
+            {
+              question: "What is the difference between struct and class?",
+              answer: "In C++, members of a struct are public by default, while members of a class are private by default."
+            },
+            {
+              question: "What is inheritance?",
+              answer: "Inheritance is a mechanism in which one class inherits properties and behaviors (methods) from another class."
+            },
+            {
+              question: "What is encapsulation?",
+              answer: "Encapsulation is the bundling of data and methods that operate on that data within a single unit or class, restricting direct access to some of the object's components."
+            },
+            {
+              question: "What is a destructor?",
+              answer: "A destructor is a special member function that is called when an object is destroyed, used to free resources."
+            },
+            {
+              question: "What are access specifiers in C++?",
+              answer: "Access specifiers (public, private, protected) determine the accessibility of class members."
+            },
+            {
+              question: "What is function overloading?",
+              answer: "Function overloading allows multiple functions to have the same name but different parameters."
+            },
+            {
+              question: "What is polymorphism?",
+              answer: "Polymorphism allows methods to do different things based on the object that it is acting upon. It can be achieved through method overloading and overriding."
+            },
+            {
+              question: "What are templates in C++?",
+              answer: "Templates allow functions and classes to operate with generic types, enabling code reuse for different data types."
+            },
+            {
+              question: "What is the difference between a pointer and a reference?",
+              answer: "A pointer can be reassigned and can point to null, while a reference must be initialized when created and cannot be changed."
+            },
+            {
+              question: "What is the purpose of the virtual keyword?",
+              answer: "The virtual keyword is used to declare a method that can be overridden in derived classes, enabling dynamic polymorphism."
+            },
+            {
+              question: "Explain the concept of RAII.",
+              answer: "Resource Acquisition Is Initialization (RAII) is a programming idiom that ensures resources are properly released when objects go out of scope."
+            },
+            {
+              question: "What are smart pointers?",
+              answer: "Smart pointers manage memory automatically, helping to prevent memory leaks. Examples include std::unique_ptr, std::shared_ptr, and std::weak_ptr."
+            },
+            {
+              question: "What is the significance of the const keyword?",
+              answer: "The const keyword indicates that a variable's value cannot be modified after its initialization."
+            },
+            {
+              question: "What is operator overloading?",
+              answer: "Operator overloading allows developers to define custom behavior for operators, enabling intuitive interactions with user-defined types."
+            },
+            {
+              question: "What are namespaces in C++?",
+              answer: "Namespaces are used to organize code and prevent name collisions by allowing the same name to exist in different contexts."
+            },
+            {
+              question: "What is the purpose of the friend keyword?",
+              answer: "The friend keyword allows a function or another class to access private and protected members of the class that declares it as a friend."
+            }
+          ]
+        },
+        {
+          level: "Intermediate",
+          items: [
+            {
+              question: "What is the difference between new and malloc?",
+              answer: "new allocates memory for an object and calls its constructor, while malloc simply allocates raw memory without calling any constructor."
+            },
+            {
+              question: "What is an abstract class?",
+              answer: "An abstract class is a class that cannot be instantiated and is used to define a common interface for derived classes."
+            },
+            {
+              question: "What is a pure virtual function?",
+              answer: "A pure virtual function is a function declared in a base class that has no implementation and must be overridden in derived classes."
+            },
+            {
+              question: "What is the difference between shallow copy and deep copy?",
+              answer: "A shallow copy copies the object but not the objects it references, while a deep copy copies the object and all objects it references."
+            },
+            {
+              question: "What is a stack and a heap?",
+              answer: "The stack is a memory region for static memory allocation, while the heap is used for dynamic memory allocation."
+            },
+            {
+              question: "Explain the concept of multiple inheritance.",
+              answer: "Multiple inheritance is a feature where a class can inherit from more than one base class, allowing for a more flexible design."
+            },
+            {
+              question: "What is an iterator?",
+              answer: "An iterator is an object that enables traversal through elements of a container (like arrays or vectors) without exposing the underlying representation."
+            },
+            {
+              question: "What are the C++ Standard Library functions?",
+              answer: "The C++ Standard Library provides a rich set of functions and classes for data structures (like std::vector, std::list), algorithms, and input/output."
+            },
+            {
+              question: "What is a lambda function?",
+              answer: "A lambda function is an anonymous function defined directly within the code, often used for short-lived operations."
+            },
+            {
+              question: "What are exceptions in C++?",
+              answer: "Exceptions are runtime errors that can be handled using try, catch, and throw blocks, providing a way to manage errors gracefully."
+            },
+            {
+              question: "What is the use of the static keyword?",
+              answer: "The static keyword is used to declare static variables, which retain their value between function calls, or to declare static member variables, shared across all instances of a class."
+            },
+            {
+              question: "What is the role of the this pointer?",
+              answer: "The this pointer is an implicit pointer available within non-static member functions, referring to the object invoking the function."
+            },
+            {
+              question: "What is typecasting?",
+              answer: "Typecasting is converting a variable from one data type to another, which can be done using static_cast, dynamic_cast, const_cast, and reinterpret_cast."
+            },
+            {
+              question: "What is a data member and a member function?",
+              answer: "A data member is a variable that holds data within a class, while a member function is a function that operates on the data members of a class."
+            },
+            {
+              question: "What is the purpose of a copy constructor?",
+              answer: "A copy constructor initializes a new object as a copy of an existing object, ensuring a proper copy is made for classes that manage dynamic resources."
+            }
+          ]
+        },
+        {
+          level: "Expert",
+          items: [
+            {
+              question: "What is the difference between function overloading and overriding?",
+              answer: "Function overloading is defining multiple functions with the same name but different signatures in the same scope, while overriding is redefining a base class function in a derived class."
+            },
+            {
+              question: "What is the use of the volatile keyword?",
+              answer: "The volatile keyword indicates that a variable may change unexpectedly, preventing the compiler from optimizing accesses to it."
+            },
+            {
+              question: "What are inline functions?",
+              answer: "Inline functions are functions defined with the inline keyword, suggesting to the compiler to expand them at the point of call to reduce function call overhead."
+            },
+            {
+              question: "What is the significance of #include?",
+              answer: "#include is a preprocessor directive used to include header files, allowing the use of functions and classes defined in those files."
+            },
+            {
+              question: "What is a segmentation fault?",
+              answer: "A segmentation fault occurs when a program attempts to access a memory segment that it's not allowed to access, often leading to a crash."
+            },
+            {
+              question: "What are C++11 features?",
+              answer: "C++11 introduced features like auto keyword, range-based for loops, nullptr, smart pointers, and lambda expressions."
+            },
+            {
+              question: "Explain the concept of move semantics.",
+              answer: "Move semantics allows resources to be moved from one object to another, enhancing performance by eliminating unnecessary copying."
+            },
+            {
+              question: "What is the purpose of reinterpret_cast?",
+              answer: "reinterpret_cast is used for low-level casting, converting one pointer type to another without type checking."
+            },
+            {
+              question: "What is a race condition?",
+              answer: "A race condition occurs in multi-threaded programs when two or more threads attempt to modify shared data concurrently, leading to unpredictable results."
+            },
+            {
+              question: "What is dynamic binding?",
+              answer: "Dynamic binding occurs when the method to be invoked is determined at runtime, enabling polymorphic behavior."
+            },
+            {
+              question: "What is a reference variable?",
+              answer: "A reference variable is an alias for another variable, allowing direct access to the original variable without copying it."
+            },
+            {
+              question: "What is a function pointer?",
+              answer: "A function pointer is a pointer that points to a function, allowing the function to be called indirectly."
+            },
+            {
+              question: "What is the difference between an array and a pointer?",
+              answer: "An array is a collection of elements of the same type, while a pointer holds the memory address of a single variable."
+            },
+            {
+              question: "What are std::vector and std::list?",
+              answer: "std::vector is a dynamic array that allows fast access and dynamic resizing, while std::list is a doubly linked list that allows efficient insertions and deletions."
+            },
+            {
+              question: "What is the purpose of the using keyword?",
+              answer: "The using keyword allows the introduction of a namespace or a type name into the current scope, simplifying code readability."
+            }
+          ]
+        }
+      ];
+
+      return (
+        <div className="space-y-8">
+          {questions.map((level, index) => (
+            <div key={index}>
+              <h4 class="text-2xl font-semibold mb-4 text-blue-500">{level.level} Level Questions</h4>
+              <ol className="list-decimal list-inside space-y-4">
+                {level.items.map((item, itemIndex) => (
+                  <li key={itemIndex}>
+                    <p className="font-medium">{item.question}</p>
+                    {item.answer && <p className="mt-1">{item.answer}</p>}
+                    {item.code && (
+                      <pre className="bg-gray-100 p-2 rounded mt-2 overflow-x-auto">
+                        <code>{item.code.trim()}</code>
+                      </pre>
+                    )}
+                  </li>
+                ))}
+              </ol>
+            </div>
+          ))}
+        </div>
+      );
+    };
+      // Render the InterviewSheet component
+      ReactDOM.render(<InterviewSheet />, document.getElementById("interview-sheet-root"));
+    </script>
+  
+  <script>
+    const debounce = (func, delay) => {
+let inDebounce;
+return function() {
+    const context = this;
+    const args = arguments;
+    clearTimeout(inDebounce);
+    inDebounce = setTimeout(() => func.apply(context, args), delay);
+};
+};
+
+// Function to show tab
+function showTab(tabName) {
+const allTabs = document.querySelectorAll('.tab-content');
+const allButtons = document.querySelectorAll('.tab-btn');
+const selectedTab = document.getElementById(tabName);
+const clickedButton = document.querySelector(`.tab-btn[onclick*="${tabName}"]`);
+
+allTabs.forEach(tab => tab.classList.add('hidden'));
+allButtons.forEach(btn => {
+    btn.classList.remove('bg-blue-500', 'text-white');
+    btn.classList.add('bg-gray-200', 'text-gray-700');
+});
+
+if (selectedTab) selectedTab.classList.remove('hidden');
+if (clickedButton) {
+    clickedButton.classList.remove('bg-gray-200', 'text-gray-700');
+    clickedButton.classList.add('bg-blue-500', 'text-white');
+}
+
+const languageDropdown = document.getElementById('languageDropdown');
+if (languageDropdown && languageDropdown.classList.contains('show')) {
+    languageDropdown.classList.remove('show');
+}
+}
+
+// Function to download cheat sheet
+function downloadCheatSheet() {
+alert('Downloading Python Cheat Sheet...');
+}
+
+// Function to check if element is in viewport
+function isElementInViewport(el) {
+const rect = el.getBoundingClientRect();
+return (
+    rect.top >= 0 &&
+    rect.left >= 0 &&
+    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+);
+}
+
+// Function to handle scroll and reveal sections
+const handleScroll = debounce(() => {
+const sections = document.querySelectorAll('.cheatsheet-section');
+sections.forEach(section => {
+    if (isElementInViewport(section) && !section.classList.contains('visible')) {
+        section.classList.add('visible');
+    }
+});
+}, 100);
+
+// Event listeners
+document.addEventListener('DOMContentLoaded', () => {
+const dropdownBtn = document.getElementById('dropdownBtn');
+const languageDropdown = document.getElementById('languageDropdown');
+
+dropdownBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    languageDropdown.classList.toggle('show');
+});
+
+document.addEventListener('click', (e) => {
+    if (!dropdownBtn.contains(e.target) && !languageDropdown.contains(e.target)) {
+        languageDropdown.classList.remove('show');
+    }
+});
+
+const fadeElements = document.querySelectorAll('.fade-in');
+fadeElements.forEach(element => element.classList.add('visible'));
+
+const easySection = document.querySelector('.cheatsheet-section');
+if (easySection) easySection.classList.add('visible');
+
+handleScroll();
+});
+
+window.addEventListener('scroll', handleScroll);
+window.addEventListener('resize', handleScroll);
+  </script>
+  </body>
+  </html>
+      

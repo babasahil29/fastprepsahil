@@ -1,0 +1,1638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastPrepSahil - C</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&display=swap');
+
+:root {
+--primary-color: #3b82f6;
+--secondary-color: #38bdf8;
+--background-color: #f9f9f9;
+--text-color: #333;
+}
+
+* {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+}
+
+body {
+font-family: 'Manrope', sans-serif;
+line-height: 1.6;
+color: var(--text-color);
+}
+
+.hero-section {
+background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/c.jpg');
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+height: 400px;
+position: relative;
+padding: 2rem 1rem;
+}
+
+.hero-section::before {
+content: "";
+position: absolute;
+inset: 0;
+background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 2px, transparent 2px, transparent 4px);
+pointer-events: none;
+}
+
+.fade-in {
+opacity: 0;
+transform: translateY(20px);
+transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.fade-in.visible {
+opacity: 1;
+transform: translateY(0);
+}
+
+.btn-animated {
+transition: all 0.3s ease;
+}
+
+.btn-animated:hover, .btn-animated:focus {
+transform: translateY(-3px) scale(1.05);
+box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.btn-animated:active {
+transform: translateY(-1px) scale(1.02);
+box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.dropdown-content {
+display: none;
+position: absolute;
+background-color: var(--background-color);
+min-width: 160px;
+box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+z-index: 1;
+}
+
+.dropdown-content a {
+color: var(--text-color);
+padding: 12px 16px;
+text-decoration: none;
+display: block;
+transition: all 0.2s ease;
+}
+
+.dropdown-content a:hover, .dropdown-content a:focus {
+background-color: #f1f1f1;
+transform: translateX(5px);
+}
+
+.show {
+display: block;
+animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+from { opacity: 0; }
+to { opacity: 1; }
+}
+
+.code-block {
+background-color: #f8f8f8;
+border-left: 4px solid var(--primary-color);
+padding: 1rem;
+margin: 1rem 0;
+font-family: 'Courier New', Courier, monospace;
+overflow-x: auto;
+}
+
+.interview-sheet-container {
+background-color: var(--background-color);
+padding: 20px;
+border: 1px solid #ddd;
+border-radius: 10px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+background-image: linear-gradient(to right, #1e293b, #0f172a);
+position: relative;
+overflow: hidden;
+padding: 2rem 1rem;
+}
+
+footer::before {
+content: '';
+position: absolute;
+inset: 0;
+background: url('path/to/subtle-pattern.png') repeat;
+opacity: 0.05;
+z-index: 0;
+}
+
+footer > div {
+position: relative;
+z-index: 1;
+}
+
+footer h3 {
+font-size: 1.25rem;
+margin-bottom: 1rem;
+position: relative;
+display: inline-block;
+}
+
+footer h3::after {
+content: '';
+position: absolute;
+left: 0;
+bottom: -5px;
+width: 50px;
+height: 2px;
+background: linear-gradient(to right, var(--secondary-color), var(--primary-color));
+}
+
+footer p {
+font-size: 0.9rem;
+line-height: 1.6;
+}
+
+footer a:not(.inline-block) {
+transition: all 0.3s ease;
+}
+
+footer a:not(.inline-block):hover, footer a:not(.inline-block):focus {
+color: var(--secondary-color);
+transform: translateX(5px);
+}
+
+footer .inline-block {
+transition: all 0.3s ease;
+}
+
+footer .inline-block:hover, footer .inline-block:focus {
+transform: translateY(-3px);
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.social-icon {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+width: 40px;
+height: 40px;
+border-radius: 50%;
+background: rgba(255, 255, 255, 0.1);
+transition: all 0.3s ease;
+}
+
+.social-icon:hover, .social-icon:focus {
+background: rgba(255, 255, 255, 0.2);
+transform: translateY(-3px);
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+.hero-section {
+  height: 350px;
+}
+
+footer .grid {
+  gap: 1.5rem;
+}
+
+footer .md\:px-12 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.tab-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tab-btn {
+  flex: 1 1 calc(30% - 0.25rem);
+  font-size: 0.9rem;
+  padding: 0.5rem;
+}
+
+}@media only screen and (max-width: 768px) {
+.text-2xl.font-bold.text-blue-600 {
+  display: none;
+}
+
+}</style>
+</head>
+<body class="bg-gray-100"></body>
+    <header class="bg-white shadow-md fixed w-full z-10">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+          <div class="flex items-center">
+            <img src="images/logo2.jpeg" alt="FastPrepSahil Logo" class="h-12 w-auto mr-3">
+            <h1 class="text-2xl font-bold text-blue-600">FastPrepSahil</h1>
+        </div>
+            <div class="flex items-center space-x-2 flex-wrap justify-center">
+            
+                <button onclick="window.location.href='index.html'" id="searchBtn" class="btn-animated bg-blue-500 text-white px-4 py-2 rounded"> Home </button>
+                <div class="relative inline-block">
+                    <button id="dropdownBtn" class="btn-animated bg-gray-200 text-gray-700 px-4 py-2 rounded">
+                        Select Language <i class="fas fa-caret-down ml-1"></i>
+                    </button>
+                    <div id="languageDropdown" class="dropdown-content">
+                        <a href="python.html">Python</a>
+                        <a href="c.html">C</a>
+                        <a href="java.html">Java</a>
+                        <a href="cpp.html">C++</a>
+                        <a href="html.html">HTML</a>
+                        <a href="css.html">CSS</a>
+                        <a href="javascript.html">JavaScript</a>
+                        <a href="sql.html">SQL</a>
+                        <a href="php.html">PHP</a>
+                        <a href="mern.html">MERN</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="hero-section flex items-center justify-center pt-16">
+        <h2 id="language-title" class="text-4xl font-bold text-white text-center">C Resources</h2>
+    </div>
+
+    <main class="container mx-auto mt-8 p-4">
+      <div class="tab-buttons flex flex-wrap gap-2 mb-6">
+        <button onclick="showTab('snapshot')" class="tab-btn btn-animated bg-blue-500 text-white px-3 py-2 rounded text-sm flex-grow">Language Snapshot</button>
+        <button onclick="showTab('cheatsheet')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Cheat Sheet</button>
+        <button onclick="showTab('cheatsheetpdfs')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Cheat Sheet PDFs</button>
+        <button onclick="showTab('cheatsheetlibrary')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Cheat Sheet Library</button>
+        <button onclick="showTab('interviewsheet')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Interview Sheet</button>
+        <button onclick="showTab('interviewlibrary')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Interview Library</button>
+        <button onclick="showTab('standardcodesnippets')" class="tab-btn btn-animated bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm flex-grow">Standard Code Snippets</button>
+    </div>
+    
+        <div id="tab-content" class="bg-white p-6 rounded-lg shadow-md fade-in">
+            <div id="snapshot" class="tab-content">
+              <h3 class="text-2xl font-bold mb-8 text-blue-600">Language Snapshot</h3>
+                <div id="snapshot-content" class="space-y-8">
+    <section>
+        <h4 class="text-xl font-semibold mb-4">Overview</h4>
+        <ul class="list-disc pl-6 space-y-2">
+            <li>
+                <span class="font-medium">Language Type:</span> General-purpose, procedural
+            </li>
+            <li>
+                <span class="font-medium">Key Features:</span>
+                <ul class="list-circle pl-6 mt-2 space-y-2">
+                    <li><span class="font-medium">Procedural Language:</span> Emphasizes procedures and functions for structured programming</li>
+                    <li><span class="font-medium">Low-Level Access:</span> Supports direct manipulation of memory using pointers</li>
+                    <li><span class="font-medium">Portable:</span> Programs written in C can be easily moved across different platforms</li>
+                    <li><span class="font-medium">Fast and Efficient:</span> Ideal for applications that require direct hardware interaction and optimized performance</li>
+                    <li><span class="font-medium">Rich Library Support:</span> Extensive standard library functions for input/output, string manipulation, math, and more</li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+
+    <section>
+        <h4 class="text-xl font-semibold mb-4">Invention</h4>
+        <ul class="list-disc pl-6 space-y-2">
+            <li><span class="font-medium">Creator:</span> Dennis Ritchie</li>
+            <li><span class="font-medium">Year Created:</span> 1972</li>
+            <li>
+                <span class="font-medium">Major Influence:</span> System programming, particularly the development of Unix
+            </li>
+            <li>
+                <span class="font-medium">Influenced Languages:</span> C++, C#, Java, Python
+            </li>
+        </ul>
+    </section>
+
+    <section>
+        <h4 class="text-xl font-semibold mb-4">Notable Frameworks and Libraries</h4>
+        <ul class="list-disc pl-6 space-y-2">
+            <li><span class="font-medium">Operating Systems:</span> Unix, Linux</li>
+            <li><span class="font-medium">Compilers:</span> GCC, Clang</li>
+        </ul>
+    </section>
+
+    <section>
+        <h4 class="text-xl font-semibold mb-4">Common Use Cases</h4>
+        <ul class="list-disc pl-6 space-y-2">
+            <li><span class="font-medium">System Programming:</span> Writing operating systems and drivers</li>
+            <li><span class="font-medium">Embedded Systems:</span> Programming hardware with limited resources</li>
+            <li><span class="font-medium">Performance-Critical Applications:</span> Applications that require optimized performance</li>
+            <li><span class="font-medium">Game Development:</span> Low-level programming for high-performance game engines</li>
+        </ul>
+    </section>
+                </div>
+            </div>
+            <div id="cheatsheet" class="tab-content hidden">
+                <h3 class="text-2xl font-bold mb-8 text-blue-600">Cheat Sheet</h3>
+                <section class="cheatsheet-section mb-12">
+                    <h3 class="text-2xl font-semibold mb-4 text-blue-500">Basic Level</h3>
+                
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">1. Hello, World!</h4>
+                        <p class="mb-2">This is the simplest program that prints "Hello, World!" to the screen.</p>
+                        <div class="code-block">
+                            <pre>
+                #include &lt;stdio.h&gt;
+                
+                int main() {
+                    printf("Hello, World!");
+                    return 0;
+                }
+                            </pre>
+                        </div>
+                    </div>
+                
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">2. Basic Data Types</h4>
+                        <p class="mb-2">Defines and demonstrates the basic data types in C: int, float, char, and double.</p>
+                        <div class="code-block">
+                            <pre>
+                int a = 10;
+                float b = 3.14;
+                char c = 'A';
+                double d = 2.718;
+                            </pre>
+                        </div>
+                    </div>
+                
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">3. Basic Input/Output</h4>
+                        <p class="mb-2">This program takes an integer input from the user and displays it.</p>
+                        <div class="code-block">
+                            <pre>
+                #include &lt;stdio.h&gt;
+                
+                int main() {
+                    int num;
+                    printf("Enter an integer: ");
+                    scanf("%d", &num);
+                    printf("You entered: %d", num);
+                    return 0;
+                }
+                            </pre>
+                        </div>
+                    </div>
+                
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">4. If-Else Statement</h4>
+                        <p class="mb-2">Uses the if-else statement to conditionally execute code based on a comparison.</p>
+                        <div class="code-block">
+                            <pre>
+                int main() {
+                    int a = 10;
+                    if (a > 5) {
+                        printf("a is greater than 5\n");
+                    } else {
+                        printf("a is less than or equal to 5\n");
+                    }
+                    return 0;
+                }
+                            </pre>
+                        </div>
+                    </div>
+                
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">5. For Loop</h4>
+                        <p class="mb-2">Demonstrates a for loop that iterates from 0 to 4 and prints the value of the loop variable.</p>
+                        <div class="code-block">
+                            <pre>
+                #include &lt;stdio.h&gt;
+                
+                int main() {
+                    for (int i = 0; i < 5; i++) {
+                        printf("%d\n", i);
+                    }
+                    return 0;
+                }
+                            </pre>
+                        </div>
+                    </div>
+                
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">6. While Loop</h4>
+                        <p class="mb-2">Illustrates a while loop that prints numbers from 0 to 4 until a condition is met.</p>
+                        <div class="code-block">
+                            <pre>
+                int main() {
+                    int i = 0;
+                    while (i < 5) {
+                        printf("%d\n", i);
+                        i++;
+                    }
+                    return 0;
+                }
+                            </pre>
+                        </div>
+                    </div>
+                
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">7. Functions in C</h4>
+                        <p class="mb-2">This program shows how to define and use a simple function to add two numbers.</p>
+                        <div class="code-block">
+                            <pre>
+                #include &lt;stdio.h&gt;
+                
+                int add(int a, int b) {
+                    return a + b;
+                }
+                
+                int main() {
+                    int sum = add(5, 10);
+                    printf("Sum: %d", sum);
+                    return 0;
+                }
+                            </pre>
+                        </div>
+                    </div>
+                
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-2">8. Switch Statement</h4>
+                        <p class="mb-2">Demonstrates how a switch statement works to execute different code based on the value of a variable.</p>
+                        <div class="code-block">
+                            <pre>
+                #include &lt;stdio.h&gt;
+                
+                int main() {
+                    int day = 3;
+                    switch (day) {
+                        case 1:
+                            printf("Monday");
+                            break;
+                        case 2:
+                            printf("Tuesday");
+                            break;
+                        case 3:
+                            printf("Wednesday");
+                            break;
+                        default:
+                            printf("Invalid day");
+                    }
+                    return 0;
+                }
+                            </pre>
+                        </div>
+                    </div>
+                </section>
+                
+  
+  <!-- Intermediate Level -->
+                <section class="cheatsheet-section mb-12">
+    <h3 class="text-2xl font-semibold mb-4 text-blue-500">Intermediate Level</h3>
+
+    <div class="mb-6">
+        <h4 class="text-xl font-medium mb-2">1. Arrays</h4>
+        <p class="mb-2">An array is a collection of elements stored at contiguous memory locations.</p>
+        <div class="code-block">
+            <pre>
+            #include <stdio.h>
+
+            int main() {
+                int numbers[5] = {1, 2, 3, 4, 5};
+                for (int i = 0; i < 5; i++) {
+                    printf("%d\n", numbers[i]);
+                }
+                return 0;
+            }
+            </pre>
+        </div>
+    </div>
+
+    <div class="mb-6">
+        <h4 class="text-xl font-medium mb-2">2. Pointers</h4>
+        <p class="mb-2">Pointers store the memory address of a variable, allowing for indirect access to data.</p>
+        <div class="code-block">
+            <pre>
+            #include <stdio.h>
+
+            int main() {
+                int a = 10;
+                int *p = &a;
+                printf("Value of a: %d\n", a);
+                printf("Value using pointer: %d\n", *p);
+                return 0;
+            }
+            </pre>
+        </div>
+    </div>
+
+    <div class="mb-6">
+        <h4 class="text-xl font-medium mb-2">3. Strings</h4>
+        <p class="mb-2">A string in C is an array of characters terminated by a null character ('\\0').</p>
+        <div class="code-block">
+            <pre>
+            #include <stdio.h>
+
+            int main() {
+                char str[] = "Hello, World!";
+                printf("%s\n", str);
+                return 0;
+            }
+            </pre>
+        </div>
+    </div>
+
+    <div class="mb-6">
+        <h4 class="text-xl font-medium mb-2">4. Structures</h4>
+        <p class="mb-2">Structures group different data types under a single name, forming a custom data type.</p>
+        <div class="code-block">
+            <pre>
+            #include <stdio.h>
+
+            struct Person {
+                char name[50];
+                int age;
+            };
+
+            int main() {
+                struct Person person1;
+                printf("Enter name: ");
+                scanf("%s", person1.name);
+                printf("Enter age: ");
+                scanf("%d", &person1.age);
+                printf("Name: %s, Age: %d\n", person1.name, person1.age);
+                return 0;
+            }
+            </pre>
+        </div>
+    </div>
+
+    <div class="mb-6">
+        <h4 class="text-xl font-medium mb-2">5. Dynamic Memory Allocation</h4>
+        <p class="mb-2">Dynamically allocates memory during runtime using the malloc function.</p>
+        <div class="code-block">
+            <pre>
+            #include <stdio.h>
+            #include <stdlib.h>
+
+            int main() {
+                int *arr = (int *)malloc(5 * sizeof(int));
+                for (int i = 0; i < 5; i++) {
+                    arr[i] = i + 1;
+                }
+                for (int i = 0; i < 5; i++) {
+                    printf("%d ", arr[i]);
+                }
+                free(arr);
+                return 0;
+            }
+            </pre>
+        </div>
+    </div>
+
+    <div class="mb-6">
+        <h4 class="text-xl font-medium mb-2">6. Recursion</h4>
+        <p class="mb-2">Recursion is a process in which a function calls itself to solve smaller instances of the same problem.</p>
+        <div class="code-block">
+            <pre>
+            #include <stdio.h>
+
+            int factorial(int n) {
+                if (n == 0) {
+                    return 1;
+                } else {
+                    return n * factorial(n - 1);
+                }
+            }
+
+            int main() {
+                int num = 5;
+                printf("Factorial of %d is %d\n", num, factorial(num));
+                return 0;
+            }
+            </pre>
+        </div>
+    </div>
+
+    <div class="mb-6">
+        <h4 class="text-xl font-medium mb-2">7. File Handling</h4>
+        <p class="mb-2">C provides file I/O functions to read and write files.</p>
+        <div class="code-block">
+            <pre>
+            #include <stdio.h>
+
+            int main() {
+                FILE *file;
+                file = fopen("test.txt", "w");
+                fprintf(file, "Hello, File!\n");
+                fclose(file);
+                return 0;
+            }
+            </pre>
+        </div>
+    </div>
+
+    <div class="mb-6">
+        <h4 class="text-xl font-medium mb-2">8. Command Line Arguments</h4>
+        <p class="mb-2">Command-line arguments allow input to be passed when a program is executed.</p>
+        <div class="code-block">
+            <pre>
+            #include <stdio.h>
+
+            int main(int argc, char *argv[]) {
+                printf("Program Name: %s\n", argv[0]);
+                if (argc > 1) {
+                    printf("Argument passed: %s\n", argv[1]);
+                }
+                return 0;
+            }
+            </pre>
+        </div>
+    </div>
+                </section>
+
+  
+                <section class="cheatsheet-section mb-12">
+                  <h3 class="text-2xl font-semibold mb-4 text-blue-500">Expert Level</h3>
+                  
+                  <div class="mb-6">
+                      <h4 class="text-xl font-medium mb-2">1. Advanced Pointers and Pointer Arithmetic</h4>
+                      <p class="mb-2">Pointer arithmetic allows manipulation of pointers to traverse through arrays or memory blocks.</p>
+                      <div class="code-block">
+                          <pre>
+              #include &lt;stdio.h&gt;
+              
+              int main() {
+                  int arr[] = {10, 20, 30, 40, 50};
+                  int *ptr = arr;
+                  for (int i = 0; i < 5; i++) {
+                      printf("Value: %d, Address: %p\n", *(ptr + i), (ptr + i));
+                  }
+                  return 0;
+              }
+                          </pre>
+                      </div>
+                  </div>
+                  
+                  <div class="mb-6">
+                      <h4 class="text-xl font-medium mb-2">2. Function Pointers</h4>
+                      <p class="mb-2">Function pointers point to executable code within a function, enabling dynamic function calls.</p>
+                      <div class="code-block">
+                          <pre>
+              #include &lt;stdio.h&gt;
+              
+              void printMessage() {
+                  printf("Hello from a function pointer!\n");
+              }
+              
+              int main() {
+                  void (*funcPtr)() = printMessage;
+                  funcPtr();  // Calling function using pointer
+                  return 0;
+              }
+                          </pre>
+                      </div>
+                  </div>
+                  
+                  <div class="mb-6">
+                      <h4 class="text-xl font-medium mb-2">3. Double Pointers</h4>
+                      <p class="mb-2">Double pointers store the address of another pointer, allowing indirect memory access.</p>
+                      <div class="code-block">
+                          <pre>
+              #include &lt;stdio.h&gt;
+              
+              int main() {
+                  int a = 10;
+                  int *ptr = &amp;a;
+                  int **dPtr = &amp;ptr;
+              
+                  printf("Value of a: %d\n", a);
+                  printf("Value using single pointer: %d\n", *ptr);
+                  printf("Value using double pointer: %d\n", **dPtr);
+                  return 0;
+              }
+                          </pre>
+                      </div>
+                  </div>
+                  
+                  <div class="mb-6">
+                      <h4 class="text-xl font-medium mb-2">4. Structures with Pointers</h4>
+                      <p class="mb-2">Combining structures with pointers to dynamically allocate memory for struct members.</p>
+                      <div class="code-block">
+                          <pre>
+              #include &lt;stdio.h&gt;
+              #include &lt;stdlib.h&gt;
+              
+              struct Person {
+                  char *name;
+                  int age;
+              };
+              
+              int main() {
+                  struct Person *p = (struct Person *)malloc(sizeof(struct Person));
+                  p-&gt;name = (char *)malloc(50 * sizeof(char));
+                  printf("Enter name: ");
+                  scanf("%s", p-&gt;name);
+                  printf("Enter age: ");
+                  scanf("%d", &amp;p-&gt;age);
+              
+                  printf("Name: %s, Age: %d\n", p-&gt;name, p-&gt;age);
+              
+                  free(p-&gt;name);
+                  free(p);
+                  return 0;
+              }
+                          </pre>
+                      </div>
+                  </div>
+                  
+                  <div class="mb-6">
+                      <h4 class="text-xl font-medium mb-2">5. Linked List Implementation</h4>
+                      <p class="mb-2">A linked list is a dynamic data structure where each element points to the next one.</p>
+                      <div class="code-block">
+                          <pre>
+              #include &lt;stdio.h&gt;
+              #include &lt;stdlib.h&gt;
+              
+              struct Node {
+                  int data;
+                  struct Node* next;
+              };
+              
+              void printList(struct Node* node) {
+                  while (node != NULL) {
+                      printf("%d -&gt; ", node-&gt;data);
+                      node = node-&gt;next;
+                  }
+                  printf("NULL\n");
+              }
+              
+              int main() {
+                  struct Node* head = NULL;
+                  struct Node* second = NULL;
+                  struct Node* third = NULL;
+              
+                  head = (struct Node*)malloc(sizeof(struct Node));
+                  second = (struct Node*)malloc(sizeof(struct Node));
+                  third = (struct Node*)malloc(sizeof(struct Node));
+              
+                  head-&gt;data = 1; head-&gt;next = second;
+                  second-&gt;data = 2; second-&gt;next = third;
+                  third-&gt ;data = 3; third-&gt;next = NULL;
+              
+                  printList(head);
+              
+                  return 0;
+              }
+                          </pre>
+                      </div>
+                  </div>
+                  
+                  <div class="mb-6">
+                      <h4 class="text-xl font-medium mb-2">6. Dynamic 2D Arrays (Using Pointers)</h4>
+                      <p class="mb-2">Dynamically allocates memory for a 2D array using pointers and loops through its elements.</p>
+                      <div class="code-block">
+                          <pre>
+              #include &lt;stdio.h&gt;
+              #include &lt;stdlib.h&gt;
+              
+              int main() {
+                  int rows = 3, cols = 3;
+                  int **arr = (int **)malloc(rows * sizeof(int *));
+                  for (int i = 0; i &lt; rows; i++) {
+                      arr[i] = (int *)malloc(cols * sizeof(int));
+                  }
+              
+                  for (int i = 0; i &lt; rows; i++) {
+                      for (int j = 0; j &lt; cols; j++) {
+                          arr[i][j] = i + j;
+                      }
+                  }
+              
+                  for (int i = 0; i &lt; rows; i++) {
+                      for (int j = 0; j &lt; cols; j++) {
+                          printf("%d ", arr[i][j]);
+                      }
+                      printf("\n");
+                  }
+              
+                  for (int i = 0; i &lt; rows; i++) {
+                      free(arr[i]);
+                  }
+                  free(arr);
+              
+                  return 0;
+              }
+                          </pre>
+                      </div>
+                  </div>
+                  
+                  <div class="mb-6">
+                      <h4 class="text-xl font-medium mb-2">7. Bitwise Operators in C</h4>
+                      <p class="mb-2">Bitwise operators perform bit-level operations on data, often used in low-level programming.</p>
+                      <div class="code-block">
+                          <pre>
+              #include &lt;stdio.h&gt;
+              
+              int main() {
+                  int a = 5;  // 0101 in binary
+                  int b = 9;  // 1001 in binary
+                  
+                  printf("a &amp; b = %d\n", a &amp; b);  // AND operation
+                  printf("a | b = %d\n", a | b);  // OR operation
+                  printf("a ^ b = %d\n", a ^ b);  // XOR operation
+                  printf("~a = %d\n", ~a);        // NOT operation
+                  return 0;
+              }
+                          </pre>
+                      </div>
+                  </div>
+                  
+                  <div class="mb-6">
+                      <h4 class="text-xl font-medium mb-2">8. Multi-Threading in C (POSIX Threads)</h4>
+                      <p class="mb-2">Multi-threading enables the execution of multiple threads simultaneously.</p>
+                      <div class="code-block">
+                          <pre>
+              #include &lt;stdio.h&gt;
+              #include &lt;pthread.h&gt;
+              
+              void *printMessage(void *arg) {
+                  printf("Thread message: %s\n", (char *)arg);
+                  return NULL;
+              }
+              
+              int main() {
+                  pthread_t thread1, thread2;
+                  pthread_create(&amp;thread1, NULL, printMessage, "Hello from Thread 1");
+                  pthread_create(&amp;thread2, NULL, printMessage, "Hello from Thread 2");
+              
+                  pthread_join(thread1, NULL);
+                  pthread_join(thread2, NULL);
+              
+                  return 0;
+              }
+                          </pre>
+                      </div>
+                  </div>
+                  
+              </section>
+              </div>
+              <div id="cheatsheetpdfs" class="tab-content hidden">
+                <h3 class="text-2xl font-bold mb-8 text-blue-600">Cheat Sheet PDFs</h3>
+                <p class="mb-8">In this section, you'll find downloadable PDF versions of C language cheatsheets from different sources. Click on the links below to download the cheat sheets directly.</p>
+                <ul class="list-disc pl-5 space-y-4">
+                  <li>
+                    <a href="https://sites.ualberta.ca/~ygu/courses/geoph624/codes/C.CheatSheet.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                      1. C Cheat Sheet (PDF) - University of Alberta
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://courses.cs.washington.edu/courses/cse351/14sp/sections/1/Cheatsheet-c.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                      2. C Cheat Sheet (PDF) - University of Washington
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://dcjtech.info/wp-content/uploads/2017/09/C-Programming.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                      3. C Programming Cheat Sheet (PDF) - DCJTech.info
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://opensource.com/sites/default/files/gated-content/cheat_sheet_c.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                      4. C Cheat Sheet (PDF) - Opensource.com
+                    </a>
+                  </li>
+                  <li>
+                    <a href="http://alhassy.com/CCheatSheet/CheatSheet.pdf" target="_blank" class="text-blue-600 hover:underline" download>
+                      5. C Cheat Sheet (PDF) - AlHassy.com
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.slideshare.net/slideshow/434090527ccheatsheet-pdf-c-program/266936191" target="_blank" class="text-blue-600 hover:underline">
+                      6. C Cheat Sheet (PDF) - SlideShare
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div id="cheatsheetlibrary" class="tab-content hidden">
+                <h3 class="text-2xl font-bold mb-8 text-blue-600">Cheat Sheet Library</h3>
+                <p class="mb-8">In this section, you'll find various links to C language cheatsheets available on different websites. Click on the links below to explore the resources.</p>
+                <ul class="list-disc pl-5 space-y-4">
+                  <li>
+                    <a href="https://www.codewithharry.com/blogpost/c-cheatsheet/" target="_blank" class="text-blue-600 hover:underline">
+                      1. Code with Harry C Cheatsheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.geeksforgeeks.org/c-cheatsheet/" target="_blank" class="text-blue-600 hover:underline">
+                      2. GeeksforGeeks C Cheatsheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://quickref.me/c.html" target="_blank" class="text-blue-600 hover:underline">
+                      3. QuickRef C Cheatsheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.tutorialspoint.com/cprogramming/c_language_cheatsheet.htm" target="_blank" class="text-blue-600 hover:underline">
+                      4. TutorialsPoint C Language Cheatsheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.codecademy.com/resources/cheatsheets/language/c" target="_blank" class="text-blue-600 hover:underline">
+                      5. Codecademy C Cheatsheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://studyopedia.com/c/c-programming-cheat-sheet/" target="_blank" class="text-blue-600 hover:underline">
+                      6. Studyopedia C Programming Cheat Sheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://developerinsider.co/c-programming-language-cheat-sheet/" target="_blank" class="text-blue-600 hover:underline">
+                      7. Developer Insider C Programming Language Cheat Sheet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.codecademy.com/learn/learn-c/modules/conditionals-c/cheatsheet" target="_blank" class="text-blue-600 hover:underline">
+                      8. Code Academy C Cheatsheet
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div id="interviewsheet" class="tab-content hidden">
+                <h3 class="text-2xl font-bold mb-8 text-blue-600">Interview Sheet</h3>
+                
+                  <div id="interview-sheet-root"></div>
+              </div>
+              <div id="standardcodesnippets" class="tab-content hidden">
+                <h3 class="text-2xl font-bold mb-4 text-blue-600">Standard Code Snippets</h3>
+                
+                <section class="cheatsheet-section mb-12">
+                  <h4 class="text-2xl font-semibold mb-4 text-blue-500">Basic Level</h4>
+                  <div class="mb-6">
+                    <h5 class="text-xl font-medium mb-2">Hello World Program</h5>
+                    <p class="mb-2">Problem: Write a simple program to print "Hello, World!"</p>
+                    <div class="code-block">
+                      <pre>
+              #include &lt;stdio.h&gt;
+              
+              int main() {
+                  printf("Hello, World!\n");
+                  return 0;
+              }
+                      </pre>
+                    </div>
+                    
+                  </div>
+                  <div class="mb-6">
+                    <h5 class="text-xl font-medium mb-2">Swapping Two Numbers</h5>
+                    <p class="mb-2">Problem: Swap two numbers using a temporary variable.</p>
+                    <div class="code-block">
+                      <pre>
+              #include &lt;stdio.h&gt;
+              
+              int main() {
+                  int a = 5, b = 10, temp;
+                  temp = a;
+                  a = b;
+                  b = temp;
+                  printf("After swapping: a = %d, b = %d\n", a, b);
+                  return 0;
+              }
+                      </pre>
+                    </div>
+                    
+                    <h5 class="text-xl font-medium mb-2">Factorial of a Number</h5>
+                    <p class="mb-2">Problem: Calculate the factorial of a number using iteration.</p>
+                    <div class="code-block">
+                      <pre>
+              #include &lt;stdio.h&gt;
+              
+              int factorial(int n) {
+                  int result = 1;
+                  for (int i = 1; i <= n; i++)
+                      result *= i;
+                  return result;
+              }
+              
+              int main() {
+                  int num = 5;
+                  printf("Factorial of %d is %d\n", num, factorial(num));
+                  return 0;
+              }
+                      </pre>
+                    </div>
+                    
+                  </div>
+                  <div class="mb-6">
+                    <h5 class="text-xl font-medium mb-2">Check Even or Odd</h5>
+                    <p class="mb-2">Problem: Determine if a number is even or odd.</p>
+                    <div class="code-block">
+                      <pre>
+              #include &lt;stdio.h&gt;
+              
+              int main() {
+                  int num = 4;
+                  if (num % 2 == 0)
+                      printf("%d is even\n", num);
+                  else
+                      printf("%d is odd\n", num);
+                  return 0;
+              }
+                      </pre>
+                    </div>
+                    
+                  </div>
+                  <div class="mb-6">
+                    <h5 class="text-xl font-medium mb-2">Simple Calculator</h5>
+                    <p class="mb-2">Problem: Create a basic calculator that performs addition, subtraction, multiplication, and division.</p>
+                    <div class="code-block">
+                      <pre>
+              #include &lt;stdio.h&gt;
+              
+              int main() {
+                  char operator;
+                  double num1, num2;
+                  printf("Enter an operator (+, -, *, /): ");
+                  scanf("%c", &operator);
+                  printf("Enter two numbers: ");
+                  scanf("%lf %lf", &num1, &num2);
+                  
+                  switch (operator) {
+                      case '+': printf("%.2lf + %.2lf = %.2lf", num1, num2, num1 + num2); break;
+                      case '-': printf("%.2lf - %.2lf = %.2lf", num1, num2, num1 - num2); break;
+                      case '*': printf("%.2lf * %.2lf = %.2lf", num1, num2, num1 * num2); break;
+                      case '/': printf("%.2lf / %.2lf = %.2lf", num1, num2, num1 / num2); break;
+                      default: printf("Invalid operator");
+                  }
+                  return 0;
+              }
+                      </pre>
+                    </div>
+                    
+                  </div>
+                </section>
+              
+                <section class="cheatsheet-section mb-12">
+                  <h4 class="text-2xl font-semibold mb-4 text-blue-500">Intermediate Level</h4>
+                  <div class="mb-6">
+                    <h5 class="text-xl font-medium mb-2">Fibonacci Series</h5>
+                    <p class="mb-2">Problem: Generate Fibonacci series up to a certain limit.</p>
+                    <div class="code-block">
+                      <pre>
+              #include &lt;stdio.h&gt;
+              
+              void fibonacci(int n) {
+                  int a = 0, b = 1, next;
+                  for (int i = 1; i <= n; i++) {
+                      printf("%d ", a);
+                      next = a + b;
+                      a = b;
+                      b = next;
+                  }
+              }
+              
+              int main() {
+                  int limit = 10;
+                  printf("Fibonacci Series: ");
+                  fibonacci(limit);
+                  return 0;
+              }
+                      </pre>
+                    </div>
+                  
+                  <div class="mb-6">
+                    <h5 class="text-xl font-medium mb-2">Reverse a String</h5>
+                    <p class="mb-2">Problem: Reverse a string using pointers.</p>
+                    <div class="code-block">
+                      <pre>
+              #include &lt;stdio.h&gt;
+              #include &lt;string.h&gt;
+              
+              void reverseString(char *str) {
+                  int n = strlen(str);
+                  for (int i = 0; i < n / 2; i++) {
+                      char temp = str[i];
+                      str[i] = str[n - i - 1];
+                      str[n - i - 1] = temp;
+                  }
+              }
+              
+              int main() {
+                  char str[] = "Hello";
+                  reverseString(str);
+                  printf("Reversed String: %s\n", str);
+                  return 0;
+              }
+                      </pre>
+                    </div>
+                    
+                  </div>
+                  <div class="mb-6">
+                    <h5 class="text-xl font-medium mb-2">Check Prime Number</h5>
+                    <p class="mb-2">Problem: Check if a number is prime.</p>
+                    <div class="code-block">
+                      <pre>
+              #include &lt;stdio.h&gt;
+              
+              int isPrime(int n) {
+                  if (n <= 1) return 0;
+                  for (int i = 2; i * i <= n; i++) {
+                      if (n % i == 0) return 0;
+                  }
+                  return 1;
+              }
+              
+              int main() {
+                  int num = 29;
+                  if (isPrime(num))
+                      printf("%d is a prime number.\n", num);
+                  else
+                      printf("%d is not a prime number.\n", num);
+                  return 0;
+              }
+                      </pre>
+                    </div>
+                   
+                  </div>
+                </section>
+              
+                <section class="cheatsheet-section mb-12">
+                  <h4 class="text-2xl font-semibold mb-4 text-blue-500">Expert Level</h4>
+                  <div class="mb-6">
+                    <h5 class="text-xl font-medium mb-2">Check Armstrong Number</h5>
+                    <p class="mb-2">Problem: Check if a number is an Armstrong number.</p>
+                    <div class="code-block">
+                      <pre>
+              #include &lt;stdio.h&gt;
+              #include &lt;math.h&gt;
+              
+              int isArmstrong(int num) {
+                  int original = num, sum = 0, digits = 0;
+                  while (original != 0) {
+                      original /= 10;
+                      digits++;
+                  }
+                  original = num;
+                  while (original != 0) {
+                      sum += pow(original % 10, digits);
+                      original /= 10;
+                  }
+                  return sum == num;
+              }
+              
+              int main() {
+                  int num = 153;
+                  if (isArmstrong(num))
+                      printf("%d is an Armstrong number.\n", num);
+                  else
+                      printf("%d is not an Armstrong number.\n", num);
+                  return 0;
+              }
+                      </pre>
+                    </div>
+                   
+                  </div>
+                  <div class="mb-6">
+                    <h5 class="text-xl font-medium mb-2">Matrix Multiplication</h5>
+                    <p class="mb-2">Problem: Multiply two matrices.</p>
+                    <div class="code-block">
+                      <pre>
+              #include &lt;stdio.h&gt;
+              
+              void multiplyMatrices(int firstMatrix[][2], int secondMatrix[][2], int result[][2], int row1, int row2) {
+                  for (int i = 0; i < row1; i++) {
+                      for (int j = 0; j < row2; j++) {
+                          result[i][j] = 0;
+                          for (int k = 0; k < row2; k++) {
+                              result[i][j] += firstMatrix[i][k] * secondMatrix[k][j];
+                          }
+                      }
+                  }
+              }
+              
+              int main() {
+                  int firstMatrix[2][2] = {{1, 2}, {3, 4}};
+                  int secondMatrix[2][2] = {{1, 2}, {3, 4}};
+                  int result[2][2];
+              
+                  multiplyMatrices(firstMatrix, secondMatrix, result, 2, 2);
+              
+                  printf("Result matrix:\n");
+                  for (int i = 0; i < 2; i++) {
+                      for (int j = 0; j < 2; j++) {
+                          printf("%d ", result[i][j]);
+                      }
+                      printf("\n");
+                  }
+                  return 0;
+              }
+                      </pre>
+                    </div>
+                  
+                  </div>
+                  <div class="mb-6">
+                    <h5 class="text-xl font-medium mb-2">Finding GCD Using Recursion</h5>
+                    <p class="mb-2">Problem: Find the greatest common divisor (GCD) of two numbers using recursion.</p>
+                    <div class="code-block">
+                      <pre>
+              #include &lt;stdio.h&gt;
+              
+              int gcd(int a, int b) {
+                  if (b == 0) return a;
+                  return gcd(b, a % b);
+              }
+              
+              int main() {
+                  int num1 = 48, num2 = 18;
+                  printf("GCD of %d and %d is %d\n", num1, num2, gcd(num1, num2));
+                  return 0;
+              }
+                      </pre>
+                    </div>
+                  
+                  </div>
+                </section>
+              </div>
+              <div id="interviewlibrary" class="tab-content hidden">
+                <h3 class="text-2xl font-bold mb-8 text-blue-600">Interview Library</h3>
+                <p class="mb-8">In this section, you'll find links to interview question sheets for C language from various sources. Click the links below to access these resources and prepare for your interviews.</p>
+                <ul class="list-disc pl-5 space-y-4">
+                  <li>
+                    <a href="https://www.interviewbit.com/c-interview-questions/" target="_blank" class="text-blue-600 hover:underline">1. C Interview Questions - InterviewBit</a>
+                  </li>
+                  <li>
+                    <a href="https://www.geeksforgeeks.org/c-interview-questions/" target="_blank" class="text-blue-600 hover:underline">2. C Interview Questions - GeeksforGeeks</a>
+                  </li>
+                  <li>
+                    <a href="https://www.javatpoint.com/c-interview-questions" target="_blank" class="text-blue-600 hover:underline">3. C Interview Questions - JavaTpoint</a>
+                  </li>
+                  <li>
+                    <a href="https://www.scholarhat.com/tutorial/c/c-interview-questions-and-answers" target="_blank" class="text-blue-600 hover:underline">4. C Interview Questions - ScholarHat</a>
+                  </li>
+                  <li>
+                    <a href="https://www.naukri.com/code360/library/c-interview-questions" target="_blank" class="text-blue-600 hover:underline">5. C Interview Questions - Naukri</a>
+                  </li>
+                  <li>
+                    <a href="https://www.simplilearn.com/tutorials/c-tutorial/c-programming-interview-questions" target="_blank" class="text-blue-600 hover:underline">6. C Programming Interview Questions - Simplilearn</a>
+                  </li>
+                  <li>
+                    <a href="https://in.indeed.com/career-advice/interviewing/c-interview-quetions" target="_blank" class="text-blue-600 hover:underline">7. C Interview Questions - Indeed</a>
+                  </li>
+                  <li>
+                    <a href="https://www.sevenmentor.com/top-c-programming-interview-questions-and-answers-2024" target="_blank" class="text-blue-600 hover:underline">8. C Programming Interview Questions - SevenMentor</a>
+                  </li>
+                  <li>
+                    <a href="https://www.mygreatlearning.com/blog/c-interview-questions/" target="_blank" class="text-blue-600 hover:underline">9. C Interview Questions - My Great Learning</a>
+                  </li>
+                  <li>
+                    <a href="https://www.shiksha.com/online-courses/articles/c-programming-interview-questions-answers/" target="_blank" class="text-blue-600 hover:underline">10. C Programming Interview Questions - Shiksha</a>
+                  </li>
+                  <li>
+                    <a href="https://www.edureka.co/blog/interview-questions/c-programming-interview-questions/" target="_blank" class="text-blue-600 hover:underline">11. C Programming Interview Questions - Edureka</a>
+                  </li>
+                  <li>
+                    <a href="https://www.testgorilla.com/blog/c-interview-questions/" target="_blank" class="text-blue-600 hover:underline">12. C Interview Questions - TestGorilla</a>
+                  </li>
+                  <li>
+                    <a href="https://www.adaface.com/blog/embedded-c-interview-questions/" target="_blank" class="text-blue-600 hover:underline">13. Embedded C Interview Questions - Adaface</a>
+                  </li>
+                  <li>
+                    <a href="https://www.geeksforgeeks.org/commonly-asked-c-programming-interview-questions-set-1/" target="_blank" class="text-blue-600 hover:underline">14. Commonly Asked C Programming Interview Questions - GeeksforGeeks</a>
+                  </li>
+                  <li>
+                    <a href="https://www.indiabix.com/c-programming/questions-and-answers/" target="_blank" class="text-blue-600 hover:underline">15. C Programming Questions and Answers - IndiaBIX</a>
+                  </li>
+                  <li>
+                    <a href="https://www.prepbytes.com/blog/interview-questions/c-interview-questions/" target="_blank" class="text-blue-600 hover:underline">16. C Interview Questions - PrepBytes</a>
+                  </li>
+                </ul>
+              </div>
+          </div>
+      </main>
+  
+      <footer class="bg-gradient-to-r from-slate-800 to-slate-900 text-white py-16">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-24">
+                <div class="space-y-6 md:px-12">
+                    <h3 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-500">
+                        LastMinutePrep
+                    </h3>
+                    <p class="text-slate-300 leading-relaxed">
+                        Your go-to platform for last-minute coding interview preparation. Ace your interviews with confidence!
+                    </p>
+                    <a href="index.html" class="inline-block px-6 py-3 rounded-full bg-gradient-to-r from-sky-400 to-blue-500 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                        Get Started
+                    </a>
+                </div>
+                <div class="space-y-6 md:px-12">
+                    <h3 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-500">
+                        About Me
+                    </h3>
+                    <div class="space-y-4">
+                        <p class="text-2xl font-bold">Baba Sahil</p>
+                        <p class="text-slate-300">Aspirant Software Engineer</p>
+                        <p class="text-slate-300">
+                            <a href="mailto:babasahil2628@gmail.com" class="text-sky-400 hover:text-sky-300 transition-colors duration-300">
+                                babasahil2628@gmail.com
+                            </a>
+                        </p>
+                    </div>
+                </div>
+                <div class="space-y-6 md:px-12">
+                    <h3 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-500">
+                       Connect with Me
+                    </h3>
+                    <div class="space-y-4">
+                        <a href="https://www.linkedin.com/profile/in/baba-sahil-153721321/" target="_blank" class="flex items-center text-slate-300 hover:text-white transition-colors duration-300">
+                            <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                            LinkedIn Profile
+                        </a>
+                        <a href="https://github.com/babasahil29" target="_blank" class="flex items-center text-slate-300 hover:text-white transition-colors duration-300">
+                            <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
+                            </svg>
+                            GitHub
+                        </a>
+                        <a href="https://babasahil.my.canva.site/" target="_blank" class="flex items-center text-slate-300 hover:text-white transition-colors duration-300">
+                            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                            Portfolio
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 pt-8 border-t border-slate-700 text-center">
+                <p class="text-slate-400">&copy; 2024 <span class="text-sky-400 font-semibold">BabaSahil</span>. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+      
+    <script type="text/babel">
+      // InterviewSheet component
+      const InterviewSheet = () => {
+        const questions = [
+          {
+            level: "Basic",
+            items: [
+              {
+                question: "What is C language?",
+                answer: "A general-purpose, procedural programming language developed in 1972 by Dennis Ritchie."
+              },
+              {
+                question: "What are the key features of C?",
+                answer: "Simple, efficient, procedural, supports low-level operations, portable, and offers dynamic memory management."
+              },
+              {
+                question: "What is the difference between ++i and i++ in C?",
+                answer: "++i is a pre-increment operation, while i++ is a post-increment."
+              },
+              {
+                question: "What are variables and constants in C?",
+                answer: "Variables are named memory locations to store data, while constants are fixed values that can’t be changed during the program execution."
+              },
+              {
+                question: "What is a pointer in C?",
+                answer: "A pointer is a variable that stores the memory address of another variable."
+              },
+              {
+                question: "Explain the difference between scanf() and printf() functions in C.",
+                answer: "scanf() is used for input, while printf() is used for output."
+              },
+              {
+                question: "What is a syntax error in C?",
+                answer: "A syntax error occurs when the rules of the C language are violated."
+              },
+              {
+                question: "What is the use of the sizeof operator in C?",
+                answer: "The sizeof operator is used to determine the size (in bytes) of a variable or data type in C."
+              },
+              {
+                question: "What is recursion in C?",
+                answer: "Recursion is the process where a function calls itself directly or indirectly to solve a problem."
+              },
+              {
+                question: "What is the difference between break and continue?",
+                answer: "break exits the loop entirely, while continue skips the current iteration and moves to the next."
+              }
+            ]
+          },
+          {
+            level: "Intermediate",
+            items: [
+              {
+                question: "What is a function prototype in C?",
+                answer: "A function prototype is a declaration of a function that specifies the function’s name, return type, and parameters without the function body."
+              },
+              {
+                question: "What is the difference between call by value and call by reference?",
+                answer: "In call by value, a copy of the variable is passed to the function, while in call by reference, the address of the variable is passed."
+              },
+              {
+                question: "Explain the difference between arrays and pointers in C.",
+                answer: "Arrays store multiple elements of the same type in a contiguous memory block, while pointers are variables that store the address of another variable."
+              },
+              {
+                question: "What is a structure in C?",
+                answer: "A structure is a user-defined data type that allows combining data items of different types into a single unit."
+              },
+              {
+                question: "How is memory allocated dynamically in C?",
+                answer: "In C, dynamic memory allocation is done using functions like malloc(), calloc(), realloc(), and free()."
+              },
+              {
+                question: "What is the use of the typedef keyword in C?",
+                answer: "typedef is used to give a new name (alias) to existing data types for better readability and simplicity in code."
+              },
+              {
+                question: "Explain what a null pointer is in C.",
+                answer: "A null pointer is a pointer that does not point to any valid memory location."
+              },
+              {
+                question: "What is a static variable in C?",
+                answer: "A static variable retains its value between function calls and is initialized only once during the program's lifetime."
+              },
+              {
+                question: "What is the purpose of a volatile keyword in C?",
+                answer: "The volatile keyword is used to tell the compiler not to optimize a variable, ensuring it reads the variable from memory directly each time it’s accessed."
+              },
+              {
+                question: "What is the difference between a struct and a union in C?",
+                answer: "In struct, all members occupy separate memory locations, while in union, all members share the same memory location."
+              }
+            ]
+          },
+          {
+            level: "Expert",
+            items: [
+              {
+                question: "What is pointer arithmetic?",
+                answer: "Pointer arithmetic allows you to perform arithmetic operations on pointers to move to the next memory location."
+              },
+              {
+                question: "How does a function pointer work in C?",
+                answer: "A function pointer holds the address of a function, enabling the function to be invoked dynamically at runtime."
+              },
+              {
+                question: "What are bitwise operators in C?",
+                answer: "Bitwise operators perform operations on binary representations of integers."
+              },
+              {
+                question: "Explain the concept of malloc() and free() in C.",
+                answer: "malloc() dynamically allocates memory during runtime, while free() is used to deallocate memory to prevent memory leaks."
+              },
+              {
+                question: "What are macros in C, and how are they different from functions?",
+                answer: "Macros are preprocessor directives that define constant values or expressions, and are replaced by their value during preprocessing."
+              },
+              {
+                question: "What is segmentation fault in C?",
+                answer: "A segmentation fault occurs when a program tries to access memory that it’s not allowed to."
+              },
+              {
+                question: "What is dynamic memory allocation in C?",
+                answer: "Dynamic memory allocation refers to allocating memory at runtime using functions like malloc(), calloc(), and realloc()."
+              },
+              {
+                question: "What is a dangling pointer in C?",
+                answer: "A dangling pointer is a pointer that continues to point to a memory location after the memory it points to has been freed."
+              },
+              {
+                question: "What is the difference between memcpy() and memmove()?",
+                answer: "memcpy() copies data between memory locations but doesn’t handle overlapping memory blocks, whereas memmove() ensures safe copying even when the source and destination overlap."
+              },
+              {
+                question: "Explain the difference between fork() and exec() in C (for Unix/Linux).",
+                answer: "fork() creates a new process, while exec() replaces the current process with a new program."
+              }
+            ]
+          }
+        ];
+    
+        return (
+                <div className="space-y-8">
+                    {questions.map((level, index) => (
+                        <div key={index} >
+                          <h4 class="text-2xl font-semibold mb-4 text-blue-500">{level.level} Level Questions</h4>
+                            <ol className="list-decimal list-inside space-y-4">
+                                {level.items.map((item, itemIndex) => (
+                                    <li key={itemIndex}>
+                                        <p className="font-medium">{item.question}</p>
+                                        {item.answer && <p className="mt-1">{item.answer}</p>}
+                                        {item.code && (
+                                            <pre className="bg-gray-100 p-2 rounded mt-2 overflow-x-auto">
+                                                <code>{item.code.trim()}</code>
+                                            </pre>
+                                        )}
+                                    </li>
+                                ))}
+                            </ol>
+                        </div>
+                    ))}
+                </div>
+            );
+        };
+      // Render the InterviewSheet component
+      ReactDOM.render(<InterviewSheet />, document.getElementById("interview-sheet-root"));
+    </script>
+  
+      
+  <script>
+    const debounce = (func, delay) => {
+let inDebounce;
+return function() {
+    const context = this;
+    const args = arguments;
+    clearTimeout(inDebounce);
+    inDebounce = setTimeout(() => func.apply(context, args), delay);
+};
+};
+
+// Function to show tab
+function showTab(tabName) {
+const allTabs = document.querySelectorAll('.tab-content');
+const allButtons = document.querySelectorAll('.tab-btn');
+const selectedTab = document.getElementById(tabName);
+const clickedButton = document.querySelector(`.tab-btn[onclick*="${tabName}"]`);
+
+allTabs.forEach(tab => tab.classList.add('hidden'));
+allButtons.forEach(btn => {
+    btn.classList.remove('bg-blue-500', 'text-white');
+    btn.classList.add('bg-gray-200', 'text-gray-700');
+});
+
+if (selectedTab) selectedTab.classList.remove('hidden');
+if (clickedButton) {
+    clickedButton.classList.remove('bg-gray-200', 'text-gray-700');
+    clickedButton.classList.add('bg-blue-500', 'text-white');
+}
+
+const languageDropdown = document.getElementById('languageDropdown');
+if (languageDropdown && languageDropdown.classList.contains('show')) {
+    languageDropdown.classList.remove('show');
+}
+}
+
+// Function to download cheat sheet
+function downloadCheatSheet() {
+alert('Downloading Python Cheat Sheet...');
+}
+
+// Function to check if element is in viewport
+function isElementInViewport(el) {
+const rect = el.getBoundingClientRect();
+return (
+    rect.top >= 0 &&
+    rect.left >= 0 &&
+    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+);
+}
+
+// Function to handle scroll and reveal sections
+const handleScroll = debounce(() => {
+const sections = document.querySelectorAll('.cheatsheet-section');
+sections.forEach(section => {
+    if (isElementInViewport(section) && !section.classList.contains('visible')) {
+        section.classList.add('visible');
+    }
+});
+}, 100);
+
+// Event listeners
+document.addEventListener('DOMContentLoaded', () => {
+const dropdownBtn = document.getElementById('dropdownBtn');
+const languageDropdown = document.getElementById('languageDropdown');
+
+dropdownBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    languageDropdown.classList.toggle('show');
+});
+
+document.addEventListener('click', (e) => {
+    if (!dropdownBtn.contains(e.target) && !languageDropdown.contains(e.target)) {
+        languageDropdown.classList.remove('show');
+    }
+});
+
+const fadeElements = document.querySelectorAll('.fade-in');
+fadeElements.forEach(element => element.classList.add('visible'));
+
+const easySection = document.querySelector('.cheatsheet-section');
+if (easySection) easySection.classList.add('visible');
+
+handleScroll();
+});
+
+window.addEventListener('scroll', handleScroll);
+window.addEventListener('resize', handleScroll);
+  </script>
+  </body>
+  </html>
+      
